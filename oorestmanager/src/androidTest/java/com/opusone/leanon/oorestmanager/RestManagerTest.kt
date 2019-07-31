@@ -1,0 +1,192 @@
+package com.opusone.leanon.oorestmanager
+
+import com.opusone.leanon.restmanager.RetrofitManager.RestManager
+import com.opusone.leanon.restmanager.params.OoParamCreateUser
+import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
+import com.opusone.leanon.restmanager.params.OoParamSigninUser
+import com.opusone.oorestmanager.params.OoParamMMSE
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import java.util.concurrent.CountDownLatch
+
+class RestManagerTest {
+
+    @Before
+    fun setUp() {
+        RestManager.retrofitInit()
+
+        val signal = CountDownLatch(1)
+        RestManager.auth(OoParamPartnerAuth()) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.accessToken)
+            RestManager.setBearerToken(response?.accessToken)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun hello() {
+        val signal = CountDownLatch(1)
+        RestManager.hello {
+            Assert.assertNotEquals(null, it)
+            Assert.assertEquals(true, it?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun auth() {
+        val signal = CountDownLatch(1)
+        RestManager.auth(OoParamPartnerAuth()) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.accessToken)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun signinUser() {
+        val signal = CountDownLatch(1)
+        val auth = OoParamSigninUser("opusonetest01@gmail.com",  "opusone1002")
+        RestManager.signinUser(auth) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.userToken)
+            Assert.assertNotEquals(null, response?.userId)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun createUser() {
+        val signal = CountDownLatch(1)
+
+        val params = OoParamCreateUser()
+        params.password = "opusone1002"
+        params.age = "25"
+        params.gender = "femail"
+        params.deviceToken = "testToken"
+        params.deviceOS = "android"
+        params.deviceModel = "sm-s9"
+        params.deviceSerial = "1234"
+        params.isLauncher = "false"
+        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI4Y2M2MzEyZWVkYjI1MzIwMDQyMjI4MWE4MTQ4N2UyYTkzMjJhOTIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoi6rmA7Jik7Y287IqkIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tQUxWd1pKQlBXSDgvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvQUNIaTNyZW8xb3k5SWVUc1dQTURxNUt2T3J2emVIQkQyQS9zOTYtYy9waG90by5qcGciLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGVhbm9udGFiIiwiYXVkIjoibGVhbm9udGFiIiwiYXV0aF90aW1lIjoxNTY0MzkwMzI5LCJ1c2VyX2lkIjoiSEFwdEFieVhkZk1CRVYzMENZUWlkdXZMTnQ0MiIsInN1YiI6IkhBcHRBYnlYZGZNQkVWMzBDWVFpZHV2TE50NDIiLCJpYXQiOjE1NjQzOTAzMzAsImV4cCI6MTU2NDM5MzkzMCwiZW1haWwiOiJvcHVzb25ldGVzdDAxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE1NTI2OTA2MDY1OTI4MjA0MjA5Il0sImVtYWlsIjpbIm9wdXNvbmV0ZXN0MDFAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.R4P9ynVoN27OFUtouyXlktM3RtnbA3f57anSYTpbpUilDH6m1C6MkJwP-i7XcDln-oq4IULYT8lAV0WeQcoo-1AoqP2dAP0CofJClZsYfoc_cd8CWlbEiWVMkPgaidir0cZNvlkr_EbA1pEsmWrJXw8BRULDX-CUovX0CaJXzV5zdpe49ZjKK5DuiVe_g2RtA7hxWloO9tzI8LtdPOmE66Nd1xsvktbyqZGf-em1ZPA5aJ4qP3MCIkknESCwDHsVhhk5T4K102ZknpkHLc1lJdu0AIvZIZnQA-AdamAp6_sIVwvbn9oCiX_bx_apM5R7HLKRmVeahpqLKdPNzXqQdA"
+
+        RestManager.createUser(params) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.userToken)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun readUser() {
+        val signal = CountDownLatch(1)
+        RestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.user)
+            Assert.assertNotEquals(null, response?.user?.id)
+            Assert.assertNotEquals(null, response?.user?.name)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun readAndUpdateUser() {
+        val signal = CountDownLatch(1)
+
+        RestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.user)
+
+            response?.let {
+                val user = it.user
+                user?.mobile = "update completed"
+
+                RestManager.updateUser(user!!) { error, response ->
+                    Assert.assertEquals(null, error)
+
+                    response?.let {
+                        RestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+                            Assert.assertEquals(null, error)
+
+                            val user = response?.user
+                            Assert.assertEquals("update completed", user?.mobile)
+                            signal.countDown()
+                        }
+                    }
+                }
+            }
+        }
+        signal.await()
+    }
+
+    @Test
+    fun deleteUser() {
+        val signal = CountDownLatch(1)
+        RestManager.deleteUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+            Assert.assertEquals(null, error)
+
+            RestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+                Assert.assertEquals(null, error)
+                Assert.assertEquals(null, response?.user)
+                signal.countDown()
+            }
+            error?.let {
+                Assert.assertNotEquals(null, it)
+            }
+        }
+        signal.await()
+    }
+
+    @Test
+    fun fineDust() {
+        val signal = CountDownLatch(1)
+        RestManager.fineDust("서울", "도봉") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.fineDust?.sidoName)
+            Assert.assertNotEquals(null, response?.fineDust?.cityName)
+            Assert.assertNotEquals(null, response?.fineDust?.sidoName)
+            Assert.assertNotEquals(null, response?.fineDust?.pm25Value)
+            Assert.assertNotEquals(null, response?.fineDust?.pm10Value)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun weather() {
+        val signal = CountDownLatch(1)
+        RestManager.weather("경기", "성남") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.weather?.sidoName)
+            Assert.assertNotEquals(null, response?.weather?.cityName)
+            Assert.assertNotEquals(null, response?.weather?.temp)
+            Assert.assertNotEquals(null, response?.weather?.minTemp)
+            Assert.assertNotEquals(null, response?.weather?.maxTemp)
+            Assert.assertNotEquals(null, response?.weather?.sky)
+            Assert.assertNotEquals(null, response?.weather?.rain)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun mmse() {
+        val signal = CountDownLatch(1)
+        val param = OoParamMMSE("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJakJaWkdOVldtSmljVmh3WjBKaGRrUldXVlJISWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtObVk0TkdVNVltUTNNakF5WTJRMFpURm1PVFZtTnpKalpUaG1ZV05pWkdJNE5URmhaams1T1Rjek9UVTBNemM1T0RFeU56aGhaVGczTnpGbVpqVTJNRGRsWm1VME0yRmtObUUwTkdNNU5XRTNOalJrTURjd01URmxNVGd5TmpWalpqTXlZekV4WkdSaU9EbGhOVGs1TW1GaE5HTmpOV1ExTm1ReVpqUXpOaUlzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkltWmhiSE5sSWl3aWFXRjBJam94TlRZME5UVXhPVGd6ZlEuaEVYU3JHaUY4bEx4SkJvam95UGU5WkhxTl9CZHFJbFR5Rm1PdnczOXprRSIsInVzZXJJZCI6IjBZZGNVWmJicVhwZ0JhdkRWWVRHIiwiaWF0IjoxNTY0NTUxOTgzfQ.HsVA_FNEXSkHV3WN2NMF_PMD-8dxNzjUvA-9hAaielw",
+            "200")
+        RestManager.createMMSE(param) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+}
