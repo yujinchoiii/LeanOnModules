@@ -1,1 +1,1 @@
-include ':app', ':oorestmanager'
+include ':app', ':oorestmanager', ':oorealmmanager'
