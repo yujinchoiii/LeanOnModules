@@ -4,6 +4,8 @@ import com.opusone.leanon.restmanager.RetrofitManager.RestManager
 import com.opusone.leanon.restmanager.params.OoParamCreateUser
 import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.restmanager.params.OoParamSigninUser
+import com.opusone.oorestmanager.params.OoParamAppUse
+import com.opusone.oorestmanager.params.OoParamAppUseReport
 import com.opusone.oorestmanager.params.OoParamMMSE
 import org.junit.Assert
 import org.junit.Before
@@ -17,7 +19,7 @@ class RestManagerTest {
         RestManager.retrofitInit()
 
         val signal = CountDownLatch(1)
-        RestManager.auth(OoParamPartnerAuth()) { error, response ->
+        RestManager.auth(OoParamPartnerAuth("dev@theopusone.com", "opusone1004")) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.accessToken)
             RestManager.setBearerToken(response?.accessToken)
@@ -183,6 +185,20 @@ class RestManagerTest {
         val param = OoParamMMSE("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJakJaWkdOVldtSmljVmh3WjBKaGRrUldXVlJISWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtObVk0TkdVNVltUTNNakF5WTJRMFpURm1PVFZtTnpKalpUaG1ZV05pWkdJNE5URmhaams1T1Rjek9UVTBNemM1T0RFeU56aGhaVGczTnpGbVpqVTJNRGRsWm1VME0yRmtObUUwTkdNNU5XRTNOalJrTURjd01URmxNVGd5TmpWalpqTXlZekV4WkdSaU9EbGhOVGs1TW1GaE5HTmpOV1ExTm1ReVpqUXpOaUlzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkltWmhiSE5sSWl3aWFXRjBJam94TlRZME5UVXhPVGd6ZlEuaEVYU3JHaUY4bEx4SkJvam95UGU5WkhxTl9CZHFJbFR5Rm1PdnczOXprRSIsInVzZXJJZCI6IjBZZGNVWmJicVhwZ0JhdkRWWVRHIiwiaWF0IjoxNTY0NTUxOTgzfQ.HsVA_FNEXSkHV3WN2NMF_PMD-8dxNzjUvA-9hAaielw",
             "200")
         RestManager.createMMSE(param) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun appUseReport() {
+        val signal = CountDownLatch(1)
+        val au = OoParamAppUse("Music", "음악스",  "com.google.music", null, "1.0.0", "happyLife", "100")
+        val param = OoParamAppUseReport("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJa0YzTkU5NWRHOXFSR0ZCYVc4emRUWkpRM3B2SWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lablJEZW5Bek1FeHNZV002UVZCQk9URmlSVTV1Tm10aE1EaFpSWGxDU2t0UFlWSkhha3ROTTNKeWRrNUViM054VVdWU2VuUjBPRmRGYWpkVVQxZ3RXRXhRTTJKcVlsaFBjbHAwVlZCT2RYUlBNMnBCVEhWQ1FrdGZSWE41Y0RCSVQxWmhlUzFRWkZVd2JXZFFaVkJTWm5KMFptczNXRkF3V0ZOWE5GSm5UbTVxUlVSaGIwSTVRMlZJZVZJNFVtZENaWFJ4Vld4TlNrb2lMQ0pwYzB4aGRXNWphR1Z5SWpvaWRISjFaU0lzSW1saGRDSTZNVFUyTkRjME1UQTRPSDAuLXlfeWZWUG5hZjZKeU83bXZCcTdkbFZfRm90WlFLWTBhY1UxdEg4eFFLQSIsInVzZXJJZCI6IkF3NE95dG9qRGFBaW8zdTZJQ3pvIiwiaWF0IjoxNTY0NzQxMDg4fQ.sYq3Q0IgUwr6us2oBCGSs02vXOMRCFL-2hzCc6-LMEc",
+            arrayListOf(au))
+        RestManager.createAppUseReport(param) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()

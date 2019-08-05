@@ -9,6 +9,7 @@ import com.opusone.leanon.restmanager.response.OoDataResponse
 import com.opusone.leanon.restmanager.response.OoErrorResponse
 import com.opusone.leanon.restmanager.response.OoResponse
 import com.opusone.leanon.restmanager.response.data.*
+import com.opusone.oorestmanager.params.OoParamAppUseReport
 import com.opusone.oorestmanager.params.OoParamMMSE
 import okhttp3.ResponseBody
 import retrofit2.*
@@ -208,6 +209,24 @@ object RestManager {
     fun createMMSE(mmse: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         bearerToken?.let {
             restService.createMMSE(it, mmse).enqueue(object : Callback<OoResponse> {
+                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                    if (response.isSuccessful) {
+                        completion(null, response.body())
+                    } else {
+                        completion(parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                    Log.d(TAG, "fineDust Failed")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun createAppUseReport(appUserReport: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        bearerToken?.let {
+            restService.createAppUseReport(it, appUserReport).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         completion(null, response.body())

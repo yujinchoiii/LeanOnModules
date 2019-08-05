@@ -7,6 +7,7 @@ import com.opusone.leanon.restmanager.params.OoParamSigninUser
 import com.opusone.leanon.restmanager.response.OoDataResponse
 import com.opusone.leanon.restmanager.response.OoResponse
 import com.opusone.leanon.restmanager.response.data.*
+import com.opusone.oorestmanager.params.OoParamAppUseReport
 import com.opusone.oorestmanager.params.OoParamMMSE
 import retrofit2.Call
 import retrofit2.http.*
@@ -41,4 +42,7 @@ interface RestService {
 
     @POST("report/mmse")
     fun createMMSE(@Header("authorization") authorization : String, @Body mmse: OoParamMMSE): Call<OoResponse>
+
+    @POST("report/appuse")
+    fun createAppUseReport(@Header("authorization") authorization : String, @Body appUseRepot: OoParamAppUseReport): Call<OoResponse>
 }

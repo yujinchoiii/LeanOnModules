@@ -1,8 +1,9 @@
 package com.opusone.leanon.oorealmmanager
 
-import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-import com.opusone.leanon.realmprovider.OoDataManager.model.OoUser
+import com.opusone.leanon.realmprovider.OoDataManager.model.OoRmPartner
+import com.opusone.leanon.realmprovider.OoDataManager.model.OoRmUser
+import io.realm.RealmObject
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,33 +18,34 @@ class RealmManagerTest {
 
     @Test
     fun createUser() {
-        val user = OoUser()
-        user.id = "Rosi"
+        val user = OoRmUser()
+        user.id = "Rosi2"
         user.email = "Rosi@gmail.com"
         user.password = "1234"
 
-        OoRealmManager.createUser(user)
-        Assert.assertEquals(OoRealmManager.readUser("Rosi")?.id, user.id)
+        OoRealmManager.create(user)
+
+        val found = OoRealmManager.findOneById("Rosi2", OoRmUser())
+        Assert.assertEquals(found?.id, user.id)
     }
 
     @Test
     fun readUser() {
-        val user = OoRealmManager.readUser("Rosi")
-        Assert.assertEquals(user?.id, "Rosi")
-        Assert.assertEquals(user?.email, "Rosi@gmail.com")
+        val found = OoRealmManager.findOneById("Rosi2", OoRmUser())
+        Assert.assertEquals(found?.id, "Rosi2")
+        Assert.assertEquals(found?.email, "Rosi@gmail.com")
     }
 
     @Test
     fun updateUser() {
-        val updatedUser = OoRealmManager.readUser("Rosi")
-        updatedUser?.let {
-            val user = it.clone() as OoUser
-            Log.i("test", "id is ${user.id}, password is ${user.password}, email is ${user.email}")
-            user.email = "salazar@gmail.com"
-            OoRealmManager.updateUser("Rosi", user)
+        val found = OoRealmManager.findOneById("Rosi", OoRmUser())
+        found?.let {
+            OoRealmManager.update {
+                it.email = "salaza43344@gmail.com"
+            }
 
-            val test = OoRealmManager.readUser("Rosi")
-            Assert.assertEquals(test?.email, user.email)
+            val test = OoRealmManager.findOneById("Rosi", OoRmUser())
+            Assert.assertEquals(test?.email, it.email)
             Assert.assertEquals(test?.password, "1234")
             Assert.assertEquals(test?.id, "Rosi")
         }
@@ -51,8 +53,30 @@ class RealmManagerTest {
 
     @Test
     fun deleteUser() {
-        OoRealmManager.deleteUser("Rosi")
+        var user = OoRealmManager.findOneById("Rosi2", OoRmUser())
+        user?.let {
+            OoRealmManager.delete(user as RealmObject)
 
-        Assert.assertEquals(null, OoRealmManager.readUser("Rosi"))
+            user = OoRealmManager.findOneById("Rosi2", OoRmUser())
+            Assert.assertEquals(null, user)
+        }
+    }
+
+
+    @Test
+    fun createPartner() {
+        val partner = OoRmPartner()
+        partner.email = "dev@theopsone"
+        partner.password = ""
+        partner.token = "testToken"
+
+        val ret = OoRealmManager.create(partner)
+        Assert.assertEquals(true, ret)
+    }
+
+    @Test
+    fun readPartner() {
+        val found = OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner())
+        Assert.assertEquals(found?.email, "dev@theopsone")
     }
 }
