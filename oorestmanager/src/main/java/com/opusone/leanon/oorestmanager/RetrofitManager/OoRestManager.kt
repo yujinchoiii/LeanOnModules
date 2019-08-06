@@ -16,15 +16,15 @@ import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-object RestManager {
-    private val TAG = "RestManager"
+object OoRestManager {
+    private val TAG = "OoRestManager"
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
     private val BASE_URL = PRODCUT_BASE_URL
     private var bearerToken: String? = null
 
-    private lateinit var restService : RestService
+    private lateinit var ooRestService : OoRestService
     private lateinit var retrofit : Retrofit
     private lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
 
@@ -47,13 +47,13 @@ object RestManager {
 
     fun retrofitInit() {
         retrofit= Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-        restService = retrofit.create(RestService::class.java)
-        errorConverter = RestManager.retrofit
+        ooRestService = retrofit.create(OoRestService::class.java)
+        errorConverter = OoRestManager.retrofit
             .responseBodyConverter<OoErrorResponse?>(OoErrorResponse::class.java, arrayOfNulls<Annotation>(0))
     }
 
     fun hello(completion: (OoResponse?) -> Unit) {
-        restService.hello().enqueue(object : Callback<OoResponse> {
+        ooRestService.hello().enqueue(object : Callback<OoResponse> {
             override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                 completion(response.body())
             }
@@ -65,7 +65,7 @@ object RestManager {
     }
 
     fun auth(param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
-        restService.postAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
+        ooRestService.postAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
             override fun onResponse(call: Call<OoDataResponse<OoResponseAuth>>, response: Response<OoDataResponse<OoResponseAuth>>) {
                 if (response.isSuccessful) {
                     completion(null, response.body()?.data)
@@ -82,7 +82,7 @@ object RestManager {
 
     fun signinUser(param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
         bearerToken?.let {
-            restService.postUserSignIn(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
+            ooRestService.postUserSignIn(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseSigninUser>>, response: Response<OoDataResponse<OoResponseSigninUser>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -100,7 +100,7 @@ object RestManager {
 
     fun createUser(param : OoParamCreateUser, completion:(OoErrorResponse?, OoResponseCreateUser?) -> Unit) {
         bearerToken?.let {
-            restService.createUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseCreateUser>> {
+            ooRestService.createUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseCreateUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseCreateUser>>, response: Response<OoDataResponse<OoResponseCreateUser>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -118,7 +118,7 @@ object RestManager {
 
     fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
         bearerToken?.let {
-            restService.readUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+            ooRestService.readUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -136,7 +136,7 @@ object RestManager {
 
     fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
         bearerToken?.let {
-            restService.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+            ooRestService.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -154,7 +154,7 @@ object RestManager {
 
     fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
         bearerToken?.let {
-            restService.deleteUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+            ooRestService.deleteUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -172,7 +172,7 @@ object RestManager {
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
         bearerToken?.let {
-            restService.fineDust(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseFineDust>> {
+            ooRestService.fineDust(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseFineDust>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseFineDust>>, response: Response<OoDataResponse<OoResponseFineDust>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -190,7 +190,7 @@ object RestManager {
 
     fun weather(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
         bearerToken?.let {
-            restService.weather(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseWeather>> {
+            ooRestService.weather(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseWeather>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseWeather>>, response: Response<OoDataResponse<OoResponseWeather>>) {
                     if (response.isSuccessful) {
                         completion(null, response.body()?.data)
@@ -208,7 +208,7 @@ object RestManager {
 
     fun createMMSE(mmse: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         bearerToken?.let {
-            restService.createMMSE(it, mmse).enqueue(object : Callback<OoResponse> {
+            ooRestService.createMMSE(it, mmse).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         completion(null, response.body())
@@ -226,7 +226,7 @@ object RestManager {
 
     fun createAppUseReport(appUserReport: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         bearerToken?.let {
-            restService.createAppUseReport(it, appUserReport).enqueue(object : Callback<OoResponse> {
+            ooRestService.createAppUseReport(it, appUserReport).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         completion(null, response.body())

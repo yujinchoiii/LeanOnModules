@@ -12,7 +12,7 @@ import com.opusone.oorestmanager.params.OoParamMMSE
 import retrofit2.Call
 import retrofit2.http.*
 
-interface RestService {
+interface OoRestService {
     @GET("hello")
     fun hello(): Call<OoResponse>
 
