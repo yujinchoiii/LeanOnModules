@@ -1,5 +1,6 @@
 package com.opusone.leanon.restmanager.RetrofitManager
 
+import com.opusone.leanon.oorestmanager.params.OoParamMessage
 import com.opusone.leanon.restmanager.model.*
 import com.opusone.leanon.restmanager.params.OoParamCreateUser
 import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
@@ -20,16 +21,16 @@ interface OoRestService {
     fun postAuth(@Body authOoParam: OoParamPartnerAuth): Call<OoDataResponse<OoResponseAuth>>
 
     @POST("user/signin")
-    fun postUserSignIn(@Header("authorization") authorization : String, @Body auth: OoParamSigninUser): Call<OoDataResponse<OoResponseSigninUser>>
+    fun postUserSignIn(@Header("authorization") authorization : String, @Body param: OoParamSigninUser): Call<OoDataResponse<OoResponseSigninUser>>
 
     @POST("user/create")
-    fun createUser(@Header("authorization") authorization : String, @Body user: OoParamCreateUser): Call<OoDataResponse<OoResponseCreateUser>>
+    fun createUser(@Header("authorization") authorization : String, @Body param: OoParamCreateUser): Call<OoDataResponse<OoResponseCreateUser>>
 
     @GET("user/read/{id}")
     fun readUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
 
     @PUT("user/update")
-    fun updateUser(@Header("authorization") authorization : String, @Body user: OoUser): Call<OoDataResponse<OoResponseUser>>
+    fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseUser>>
 
     @DELETE("user/delete/{id}")
     fun deleteUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
@@ -41,8 +42,11 @@ interface OoRestService {
     fun weather(@Header("authorization") authorization : String, @Path("admin") admin: String, @Path("locality") locality: String): Call<OoDataResponse<OoResponseWeather>>
 
     @POST("report/mmse")
-    fun createMMSE(@Header("authorization") authorization : String, @Body mmse: OoParamMMSE): Call<OoResponse>
+    fun createMMSE(@Header("authorization") authorization : String, @Body param: OoParamMMSE): Call<OoResponse>
 
     @POST("report/appuse")
-    fun createAppUseReport(@Header("authorization") authorization : String, @Body appUseRepot: OoParamAppUseReport): Call<OoResponse>
+    fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
+
+    @POST("notification/message")
+    fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoResponse>
 }

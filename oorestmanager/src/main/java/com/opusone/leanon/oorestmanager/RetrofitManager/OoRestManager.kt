@@ -1,6 +1,7 @@
 package com.opusone.leanon.restmanager.RetrofitManager
 
 import android.util.Log
+import com.opusone.leanon.oorestmanager.params.OoParamMessage
 import com.opusone.leanon.restmanager.model.*
 import com.opusone.leanon.restmanager.params.OoParamCreateUser
 import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
@@ -206,9 +207,9 @@ object OoRestManager {
         }
     }
 
-    fun createMMSE(mmse: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun createMMSE(param: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         bearerToken?.let {
-            ooRestService.createMMSE(it, mmse).enqueue(object : Callback<OoResponse> {
+            ooRestService.createMMSE(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         completion(null, response.body())
@@ -224,9 +225,27 @@ object OoRestManager {
         }
     }
 
-    fun createAppUseReport(appUserReport: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         bearerToken?.let {
-            ooRestService.createAppUseReport(it, appUserReport).enqueue(object : Callback<OoResponse> {
+            ooRestService.createAppUseReport(it, param).enqueue(object : Callback<OoResponse> {
+                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                    if (response.isSuccessful) {
+                        completion(null, response.body())
+                    } else {
+                        completion(parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                    Log.d(TAG, "fineDust Failed")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        bearerToken?.let {
+            ooRestService.message(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         completion(null, response.body())
