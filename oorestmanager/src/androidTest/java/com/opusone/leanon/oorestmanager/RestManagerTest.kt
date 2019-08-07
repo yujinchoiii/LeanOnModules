@@ -11,6 +11,7 @@ import com.opusone.oorestmanager.params.OoParamMMSE
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.util.*
 import java.util.concurrent.CountDownLatch
 
 class RestManagerTest {
@@ -213,7 +214,8 @@ class RestManagerTest {
         val signal = CountDownLatch(1)
         val param = OoParamMessage("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFJJV1VaaGJ6UmFkamxuZDJGTVVWSjZORk52SWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXpRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxzb0pYc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lZM1ZDWXpJNWNuZHhka1U2UVZCQk9URmlSbVZsTWxSM1JrdGphMUZoTW00dGRYVkRlRUZDYmpkcmFFUmpVWGd5YkhGVGRYSk9ja1JxVFRGVWRXUlFObFZLWmtocWNERnVTSEpXTFZSb09YaFRjemRrY1VaRWIwSTFUVmxEWDJ3M1oxQk5lVkl0VTBGQmRrVXdORGRqYTFwRVltRnlObGxhYTBkUlUzcHZkbk5uY3pKcE4wZEdhMjkxVFZkbVlsTk5iRzltVVZCVFVGQWlMQ0pwYzB4aGRXNWphR1Z5SWpvaWRISjFaU0lzSW1saGRDSTZNVFUyTlRBM01EWTRNMzAuV1Q1U2haMmdLMFk4bWpuYXZxVGRmdWdIYjhWUEVFSlg5VDgxSnFPS0xRcyIsInVzZXJJZCI6IlRIWUZhbzRadjlnd2FMUVJ6NFNvIiwiaWF0IjoxNTY1MDcwNjgzfQ.2v20eveTU5nd6tfLEn1PXxwYzx6ADF0NGfpAte79-fQ",
             "THYFao4Zv9gwaLQRz4So",
-            "Hello!")
+            "Hello!",
+            Calendar.getInstance().timeInMillis.toString())
         OoRestManager.sendMessage(param) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
