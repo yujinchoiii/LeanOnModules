@@ -44,7 +44,7 @@ class RestManagerTest {
     @Test
     fun auth() {
         val signal = CountDownLatch(1)
-        OoRestManager.auth(OoParamPartnerAuth()) { error, response ->
+        OoRestManager.auth(OoParamPartnerAuth("dev@theopusone.com", "opusone1004")) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.accessToken)
             signal.countDown()
@@ -55,7 +55,7 @@ class RestManagerTest {
     @Test
     fun signinUser() {
         val signal = CountDownLatch(1)
-        val auth = OoParamSigninUser("opusonetest01@gmail.com",  "opusone1002")
+        val auth = OoParamSigninUser("opusonetest01@gmail.com",  "opusone1004")
         OoRestManager.signinUser(auth) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.userToken)
@@ -91,7 +91,7 @@ class RestManagerTest {
     @Test
     fun readUser() {
         val signal = CountDownLatch(1)
-        OoRestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+        OoRestManager.readUser("0IV1HVrp1wWasxWcm0O9") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.user)
             Assert.assertNotEquals(null, response?.user?.id)
@@ -220,6 +220,51 @@ class RestManagerTest {
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun createVoipChannel() {
+        val signal = CountDownLatch(1)
+        OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.channel?.id)
+            Assert.assertNotEquals(null, response?.channel?.roomId)
+            Assert.assertNotEquals(0, response?.channel?.iceServers?.size)
+            Assert.assertNotEquals(null, response?.channel?.turnRestUrl)
+            Assert.assertNotEquals(null, response?.channel?.signal)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun deleteChannel() {
+        val signal = CountDownLatch(1)
+        OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { _, channelResponse ->
+            OoRestManager.deleteChannel(channelResponse ?.channel?.roomId ?: "") { error, response ->
+                Assert.assertEquals(null, error)
+                Assert.assertEquals(true, response?.isSuccess())
+                signal.countDown()
+            }
+        }
+        signal.await()
+    }
+
+    @Test
+    fun turnUrl() {
+        val signal = CountDownLatch(1)
+        OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { _, cahnnel ->
+
+            OoRestManager.turnUrl(cahnnel?.channel?.roomId ?: "") { error, response ->
+                Assert.assertEquals(null, error)
+                Assert.assertNotEquals(0, response?.iceServer?.urls?.size)
+
+                OoRestManager.deleteChannel(cahnnel?.channel?.roomId ?: "") { _, _->
+                    signal.countDown()
+                }
+            }
         }
         signal.await()
     }

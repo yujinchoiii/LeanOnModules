@@ -1,0 +1,119 @@
+package com.opusone.leanon.oorestmanager.RetrofitManager.apis
+
+import com.opusone.leanon.restmanager.RetrofitManager.OoRestManager
+import com.opusone.leanon.restmanager.RetrofitManager.OoRestService
+import com.opusone.leanon.restmanager.model.OoUser
+import com.opusone.leanon.restmanager.params.OoParamCreateUser
+import com.opusone.leanon.restmanager.params.OoParamSigninUser
+import com.opusone.leanon.restmanager.response.OoDataResponse
+import com.opusone.leanon.restmanager.response.OoErrorResponse
+import com.opusone.leanon.restmanager.response.data.OoResponseCreateUser
+import com.opusone.leanon.restmanager.response.data.OoResponseSigninUser
+import com.opusone.leanon.restmanager.response.data.OoResponseUser
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+object ApiUser {
+
+    fun signin(service: OoRestService,  param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.postUserSignIn(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseSigninUser>>, response: Response<OoDataResponse<OoResponseSigninUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseSigninUser>>, t: Throwable) {
+                    OoRestManager.printError("UserSignIn Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun create(service: OoRestService, param : OoParamCreateUser, completion:(OoErrorResponse?, OoResponseCreateUser?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.createUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseCreateUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseCreateUser>>, response: Response<OoDataResponse<OoResponseCreateUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseCreateUser>>, t: Throwable) {
+                    OoRestManager.printError("Create Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun read(service: OoRestService, id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        OoRestManager.bearerToken?.let {
+            service.readUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
+                    OoRestManager.printError("ReadUser Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun update(service: OoRestService, param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
+                    OoRestManager.printError("UpdateUserFailed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun delete(service: OoRestService, id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.deleteUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
+                    OoRestManager.printError("DeleteUser Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+}
+

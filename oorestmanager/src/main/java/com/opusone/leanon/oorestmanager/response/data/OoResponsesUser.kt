@@ -3,9 +3,9 @@ package com.opusone.leanon.restmanager.response.data
 import com.opusone.leanon.restmanager.model.OoUser
 import java.io.Serializable
 
-class OoResponseCreateUser(val userToken: String?, val userId: String?) : Serializable {
+class OoResponseCreateUser(val userToken: String?, val userId: String?, val webrtcToken: String?) : Serializable {
     override fun toString(): String {
-        return "OoUserCreatedData(userToken=$userToken, userId=$userId)"
+        return "OoUserCreatedData(userToken=$userToken, userId=$userId, webrtcToken=$webrtcToken)"
     }
 }
 
@@ -15,8 +15,8 @@ class OoResponseUser(val user: OoUser?) : Serializable {
     }
 }
 
-class OoResponseSigninUser(val userToken: String?, val userId: String?) : Serializable{
+class OoResponseSigninUser(val userToken: String?, val userId: String?, val webrtcToken: String?) : Serializable{
     override fun toString(): String {
-        return "OoUserSignInData(userToken=$userToken, userId=$userId)"
+        return "OoUserSignInData(userToken=$userToken, userId=$userId, webrtcToken=$webrtcToken)"
     }
 }

@@ -1,6 +1,8 @@
 package com.opusone.leanon.restmanager.RetrofitManager
 
 import com.opusone.leanon.oorestmanager.params.OoParamMessage
+import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
+import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
 import com.opusone.leanon.restmanager.model.*
 import com.opusone.leanon.restmanager.params.OoParamCreateUser
 import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
@@ -49,4 +51,15 @@ interface OoRestService {
 
     @POST("notification/message")
     fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoResponse>
+
+    @FormUrlEncoded
+    @POST("voip/create")
+    fun createChannel(@Header("authorization") authorization : String, @Field("toUserId") toUserId: String): Call<OoDataResponse<OoResponseCreateChannel>>
+
+    @DELETE("voip/delete/{roomId}")
+    fun deleteChannel(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoResponse>
+
+    @GET("voip/turnurl/{roomId}")
+    fun turnUrl(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoDataResponse<OoResponseTurnUrl>>
+
 }

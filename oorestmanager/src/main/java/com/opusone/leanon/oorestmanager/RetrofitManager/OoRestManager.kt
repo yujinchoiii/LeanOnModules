@@ -1,12 +1,14 @@
 package com.opusone.leanon.restmanager.RetrofitManager
 
 import android.util.Log
+import com.opusone.leanon.oorestmanager.RetrofitManager.apis.*
 import com.opusone.leanon.oorestmanager.params.OoParamMessage
+import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
+import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
 import com.opusone.leanon.restmanager.model.*
 import com.opusone.leanon.restmanager.params.OoParamCreateUser
 import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.restmanager.params.OoParamSigninUser
-import com.opusone.leanon.restmanager.response.OoDataResponse
 import com.opusone.leanon.restmanager.response.OoErrorResponse
 import com.opusone.leanon.restmanager.response.OoResponse
 import com.opusone.leanon.restmanager.response.data.*
@@ -18,19 +20,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 object OoRestManager {
-    private val TAG = "OoRestManager"
+    internal val TAG = "OoRestManager"
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
     private val BASE_URL = PRODCUT_BASE_URL
-    private var bearerToken: String? = null
+    internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
-    private lateinit var retrofit : Retrofit
-    private lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
+    private  lateinit var retrofit : Retrofit
+    internal lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
 
+    var enableLog = true
 
-    private fun parseError(response: ResponseBody?): OoErrorResponse? {
+    internal fun parseError(response: ResponseBody?): OoErrorResponse? {
         var error: OoErrorResponse? = null
         response?.let {
             try {
@@ -42,8 +45,25 @@ object OoRestManager {
         return error
     }
 
+    internal fun printError(message: String?) {
+        if (enableLog) {
+            message?.let {
+                Log.e(TAG, message)
+            }
+        }
+    }
+
+    internal fun printLog(message: String?) {
+        if (enableLog) {
+            message?.let {
+                Log.d(TAG, message)
+            }
+        }
+    }
+
     fun setBearerToken(token: String?) {
         bearerToken = "Bearer ${token ?: ""}"
+        printLog(bearerToken)
     }
 
     fun retrofitInit() {
@@ -56,209 +76,69 @@ object OoRestManager {
     fun hello(completion: (OoResponse?) -> Unit) {
         ooRestService.hello().enqueue(object : Callback<OoResponse> {
             override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                printLog(response.body().toString())
                 completion(response.body())
             }
             override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                Log.d(TAG, "PartnerSignIn Failed")
+                printError("PartnerSignIn Failed. ${t.message}")
                 completion(null)
             }
         })
     }
 
     fun auth(param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
-        ooRestService.postAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
-            override fun onResponse(call: Call<OoDataResponse<OoResponseAuth>>, response: Response<OoDataResponse<OoResponseAuth>>) {
-                if (response.isSuccessful) {
-                    completion(null, response.body()?.data)
-                } else {
-                    completion(parseError(response.errorBody()), null)
-                }
-            }
-            override fun onFailure(call: Call<OoDataResponse<OoResponseAuth>>, t: Throwable) {
-                Log.d(TAG, "PartnerSignIn Failed")
-                completion(null, null)
-            }
-        })
+        ApiAuth.auth(ooRestService, param, completion)
     }
 
     fun signinUser(param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.postUserSignIn(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseSigninUser>>, response: Response<OoDataResponse<OoResponseSigninUser>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseSigninUser>>, t: Throwable) {
-                    Log.i(TAG, "UserSignIn Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiUser.signin(ooRestService, param, completion)
     }
 
     fun createUser(param : OoParamCreateUser, completion:(OoErrorResponse?, OoResponseCreateUser?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.createUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseCreateUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseCreateUser>>, response: Response<OoDataResponse<OoResponseCreateUser>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseCreateUser>>, t: Throwable) {
-                    Log.d(TAG, "Create Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiUser.create(ooRestService, param, completion)
     }
 
     fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        bearerToken?.let {
-            ooRestService.readUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
-                    Log.d(TAG, "ReadUser Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiUser.read(ooRestService, id, completion)
     }
-
     fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
-                    completion(null, null)
-                    Log.d(TAG, "ReadUser Failed")
-                }
-            })
-        }
+        ApiUser.update(ooRestService, param, completion)
     }
 
     fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.deleteUser(it, id).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
-                    completion(null, null)
-                    Log.d(TAG, "ReadUser Failed")
-                }
-            })
-        }
+        ApiUser.delete(ooRestService, id, completion)
     }
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.fineDust(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseFineDust>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseFineDust>>, response: Response<OoDataResponse<OoResponseFineDust>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseFineDust>>, t: Throwable) {
-                    Log.d(TAG, "fineDust Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiWeahter.fineDust(ooRestService, admin, locality, completion)
     }
 
     fun weather(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.weather(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseWeather>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseWeather>>, response: Response<OoDataResponse<OoResponseWeather>>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body()?.data)
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseWeather>>, t: Throwable) {
-                    Log.d(TAG, "fineDust Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiWeahter.weather(ooRestService, admin, locality, completion)
     }
 
     fun createMMSE(param: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.createMMSE(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body())
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    Log.d(TAG, "fineDust Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiReport.mmse(ooRestService, param, completion)
     }
 
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.createAppUseReport(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body())
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    Log.d(TAG, "fineDust Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiReport.appUse(ooRestService, param, completion)
     }
 
     fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        bearerToken?.let {
-            ooRestService.message(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        completion(null, response.body())
-                    } else {
-                        completion(parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    Log.d(TAG, "fineDust Failed")
-                    completion(null, null)
-                }
-            })
-        }
+        ApiNotification.sendMessage(ooRestService, param, completion)
+    }
+
+    fun createChannel(toUserId: String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+        ApiVoip.create(ooRestService, toUserId, completion)
+    }
+
+    fun deleteChannel(roomId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiVoip.delete(ooRestService, roomId, completion)
+    }
+
+    fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
+        ApiVoip.turnUrl(ooRestService, roomId, completion)
     }
 }
 

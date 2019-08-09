@@ -34,7 +34,7 @@ open class OoRmUser : RealmObject() {
                 "mobile='$mobile', height='$height', weight='$weight', deviceToken='$deviceToken', " +
                 "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', partner='$partner', " +
                 "picture='$picture', seniors=$seniors, guardians=$guardians, " +
-                "requestGuardians=$requestGuardians, isLauncher=$isLauncher)"
+                "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
     }
 
 }
