@@ -51,7 +51,10 @@ object OoRealmManager {
                 result = true
             } catch (e : Throwable) {
                 e.printStackTrace()
+            } finally {
+                it.close()
             }
+
         }
         return result
     }
@@ -68,6 +71,8 @@ object OoRealmManager {
                 result = true
             } catch (e : Throwable) {
                 e.printStackTrace()
+            } finally {
+                it.close()
             }
         }
         return result
@@ -76,6 +81,7 @@ object OoRealmManager {
     fun update(f: () -> Unit) {
         Realm.getDefaultInstance().executeTransaction {
             f()
+            it.close()
         }
     }
 
@@ -83,7 +89,9 @@ object OoRealmManager {
     fun <T: RealmObject> findOneById(id : String, type: T) : T? {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            return it.where(type::class.java).equalTo("id", id).findFirst()
+            val ret = it.where(type::class.java).equalTo("id", id).findFirst()
+            it.close()
+            return ret
         }
         return null
     }
@@ -91,7 +99,9 @@ object OoRealmManager {
     fun <T: RealmObject> findOneByEmail(email : String, type: T) : T? {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            return it.where(type::class.java).equalTo("email", email).findFirst()
+            val ret =  it.where(type::class.java).equalTo("email", email).findFirst()
+            it.close()
+            return ret
         }
         return null
     }
