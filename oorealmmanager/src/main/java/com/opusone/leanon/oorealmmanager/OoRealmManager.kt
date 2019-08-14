@@ -1,9 +1,10 @@
 package com.opusone.leanon.oorealmmanager
 
 import android.content.Context
-import com.opusone.leanon.realmprovider.OoDataManager.model.OoRealmModule
+import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
+import java.lang.reflect.Type
 
 object OoRealmManager {
     private val TAG = "OoRealmManager"
@@ -86,20 +87,20 @@ object OoRealmManager {
     }
 
 
-    fun <T: RealmObject> findOneById(id : String, type: T) : T? {
+    fun <T: RealmObject> findOneById(id : String, type: Class<T>) : T? {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            val ret = it.where(type::class.java).equalTo("id", id).findFirst()
+            val ret = it.where(type).equalTo("id", id).findFirst()
             it.close()
             return ret
         }
         return null
     }
 
-    fun <T: RealmObject> findOneByEmail(email : String, type: T) : T? {
+    fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>) : T? {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            val ret =  it.where(type::class.java).equalTo("email", email).findFirst()
+            val ret =  it.where(type).equalTo("email", email).findFirst()
             it.close()
             return ret
         }

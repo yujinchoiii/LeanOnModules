@@ -7,8 +7,8 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import com.opusone.leanon.oorealmmanager.OoRealmManager
-import com.opusone.leanon.realmprovider.OoDataManager.model.OoRmPartner
-import com.opusone.leanon.realmprovider.OoDataManager.model.OoRmUser
+import com.opusone.leanon.oorealmmanager.model.OoRmPartner
+import com.opusone.leanon.oorealmmanager.model.OoRmUser
 
 class OoRealmProvider : ContentProvider() {
     private val AUTHORITY = "com.opusone.leanon.realmprovider"
@@ -63,16 +63,16 @@ class OoRealmProvider : ContentProvider() {
         when (uriMatcher.match(uri)) {
             USER -> {
                 userCursor = MatrixCursor(arrayOf(USER_ID, USER_EMAIL, USER_NAME, USER_TOKEN, USER_DEVICETOKEN))
-                val result = OoRealmManager.findOneById("Rosi", OoRmUser())
+                val result = OoRealmManager.findOneById("Rosi", OoRmUser::class.java)
                 result?.apply {
-                        userCursor.addRow(arrayOf(this.id, this.email, this.name, this.userToken, this.deviceToken))
+                    userCursor.addRow(arrayOf(this.id, this.email, this.name, this.userToken, this.deviceToken))
                 }
             }
             PARTNER -> {
                 userCursor = MatrixCursor(arrayOf(PARTNER_EMAIL, PARTNER_TOKEN))
                 val result = OoRealmManager.findOneByEmail("dev@theoopusone.com", OoRmPartner())
                 result?.apply {
-                        userCursor.addRow(arrayOf(this.email, this.token))
+                    userCursor.addRow(arrayOf(this.email, this.token))
 
                 }
             }
