@@ -109,6 +109,14 @@ object OoRealmManager {
         return null
     }
 
+    fun findMessageByIndex(index : Long, completion: (OoRmMessage?) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            completion(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst())
+            it.close()
+        }
+    }
+
     fun getMessageCount() : Long {
         val realm = Realm.getDefaultInstance()
         var count : Long = 0

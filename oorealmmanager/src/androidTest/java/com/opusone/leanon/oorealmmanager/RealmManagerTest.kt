@@ -1,5 +1,7 @@
 package com.opusone.leanon.oorealmmanager
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.opusone.leanon.oorealmmanager.model.OoRmPartner
 import com.opusone.leanon.oorealmmanager.model.OoRmScaleDevice
@@ -82,5 +84,19 @@ class RealmManagerTest {
     fun readPartner() {
         val found = OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner::class.java)
         Assert.assertEquals(found?.email, "dev@theopsone")
+    }
+
+    @Test
+    fun updateMessage() {
+        OoRealmManager.findMessageByIndex(1) {
+            it?.let {
+                OoRealmManager.update {
+                    it.message = "update completed"
+                }
+                OoRealmManager.findMessageByIndex(1) {
+                    Assert.assertEquals("update completed", it?.message)
+                }
+            }
+        }
     }
 }
