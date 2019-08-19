@@ -89,24 +89,20 @@ object OoRealmManager {
     }
 
 
-    fun <T: RealmObject> findOneById(id : String, type: Class<T>) : T? {
+    fun <T: RealmObject> findOneById(id : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            val ret = it.where(type).equalTo("id", id).findFirst()
+            completion(it.where(type).equalTo("id", id).findFirst())
             it.close()
-            return ret
         }
-        return null
     }
 
-    fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>) : T? {
+    fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            val ret =  it.where(type).equalTo("email", email).findFirst()
+            completion(it.where(type).equalTo("email", email).findFirst())
             it.close()
-            return ret
         }
-        return null
     }
 
     fun findMessageByIndex(index : Long, completion: (OoRmMessage?) -> Unit) {

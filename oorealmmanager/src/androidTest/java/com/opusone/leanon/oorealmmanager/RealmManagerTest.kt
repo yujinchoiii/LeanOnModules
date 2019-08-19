@@ -25,40 +25,44 @@ class RealmManagerTest {
 
         OoRealmManager.create(user)
 
-        val found = OoRealmManager.findOneById("Rosi3", OoRmUser::class.java)
-        Assert.assertEquals(found?.id, user.id)
+        OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) {found ->
+            Assert.assertEquals(found?.id, user.id)
+        }
     }
 
     @Test
     fun readUser() {
-        val found = OoRealmManager.findOneById("Rosi3", OoRmUser::class.java)
-        Assert.assertEquals(found?.id, "Rosi3")
-        Assert.assertEquals(found?.email, "Rosi@gmail.com")
+        OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { found ->   Assert.assertEquals(found?.id, "Rosi3")
+            Assert.assertEquals(found?.email, "Rosi@gmail.com")
+        }
     }
 
     @Test
     fun updateUser() {
-        val found = OoRealmManager.findOneById("Rosi", OoRmUser::class.java)
-        found?.let {
-            OoRealmManager.update {
-                it.email = "salaza43344@gmail.com"
+        OoRealmManager.findOneById("Rosi", OoRmUser::class.java) { found ->
+            found?.let {
+                OoRealmManager.update {
+                    it.email = "salaza43344@gmail.com"
+                }
             }
-
-            val test = OoRealmManager.findOneById("Rosi", OoRmUser::class.java)
-            Assert.assertEquals(test?.email, it.email)
-            Assert.assertEquals(test?.password, "1234")
-            Assert.assertEquals(test?.id, "Rosi")
+            OoRealmManager.findOneById("Rosi", OoRmUser::class.java) { test ->
+                Assert.assertEquals(test?.email, "salaza43344@gmail.com")
+                Assert.assertEquals(test?.password, "1234")
+                Assert.assertEquals(test?.id, "Rosi")
+            }
         }
     }
 
     @Test
     fun deleteUser() {
-        var user = OoRealmManager.findOneById("Rosi2", OoRmUser::class.java)
-        user?.let {
-            OoRealmManager.delete(user as RealmObject)
+        OoRealmManager.findOneById("Rosi2", OoRmUser::class.java) { found ->
+            found?.let {
+                OoRealmManager.delete(it as RealmObject)
 
-            user = OoRealmManager.findOneById("Rosi2", OoRmUser::class.java)
-            Assert.assertEquals(null, user)
+                OoRealmManager.findOneById("Rosi2", OoRmUser::class.java) { user ->
+                    Assert.assertEquals(null, user)
+                }
+            }
         }
     }
 
@@ -68,8 +72,9 @@ class RealmManagerTest {
 
         OoRealmManager.create(scaleDevice)
 
-        val found = OoRealmManager.findOneById("01", OoRmScaleDevice::class.java)
-        Assert.assertEquals(found?.id, scaleDevice.id)
+        OoRealmManager.findOneById("01", OoRmScaleDevice::class.java) {
+            Assert.assertEquals(it?.id, scaleDevice.id)
+        }
     }
 
     @Test
@@ -82,8 +87,9 @@ class RealmManagerTest {
 
     @Test
     fun readPartner() {
-        val found = OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner::class.java)
-        Assert.assertEquals(found?.email, "dev@theopsone")
+        OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner::class.java) { found ->
+            Assert.assertEquals(found?.email, "dev@theopsone")
+        }
     }
 
     @Test
