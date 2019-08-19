@@ -1,7 +1,9 @@
 package com.opusone.leanon.oorealmmanager
 
 import android.content.Context
+import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
+import com.opusone.leanon.oorealmmanager.model.OoRmMessage
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
 import java.lang.reflect.Type
@@ -105,5 +107,27 @@ object OoRealmManager {
             return ret
         }
         return null
+    }
+
+    fun getMessageCount() : Long {
+        val realm = Realm.getDefaultInstance()
+        var count : Long = 0
+        realm?.let {
+            count = it.where(OoRmMessage::class.java).count()
+            it.close()
+        }
+        return count
+    }
+
+    fun findMessageList(index : Long, completion: (RealmResults<OoRmMessage>?) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            if(index > 99) {
+                completion(it.where(OoRmMessage::class.java).between("index", index - 99, index).findAll())
+            } else {
+                completion(it.where(OoRmMessage::class.java).between("index", 0, index).findAll())
+            }
+            it.close()
+        }
     }
 }
