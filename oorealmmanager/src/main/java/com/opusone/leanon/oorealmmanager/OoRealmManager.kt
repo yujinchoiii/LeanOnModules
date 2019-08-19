@@ -92,7 +92,7 @@ object OoRealmManager {
     fun <T: RealmObject> findOneById(id : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.where(type).equalTo("id", id).findFirst())
+            completion(it.copyFromRealm(it.where(type).equalTo("id", id).findFirst()))
             it.close()
         }
     }
@@ -100,7 +100,7 @@ object OoRealmManager {
     fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.where(type).equalTo("email", email).findFirst())
+            completion(it.copyFromRealm(it.where(type).equalTo("email", email).findFirst()))
             it.close()
         }
     }
@@ -108,7 +108,7 @@ object OoRealmManager {
     fun findMessageByIndex(index : Long, completion: (OoRmMessage?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst())
+            completion(it.copyFromRealm(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst()))
             it.close()
         }
     }
@@ -123,13 +123,13 @@ object OoRealmManager {
         return count
     }
 
-    fun findMessageList(index : Long, completion: (RealmResults<OoRmMessage>?) -> Unit) {
+    fun findMessageList(index : Long, completion: (List<OoRmMessage>?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
             if(index > 99) {
-                completion(it.where(OoRmMessage::class.java).between("index", index - 99, index).findAll())
+                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 99, index).findAll()))
             } else {
-                completion(it.where(OoRmMessage::class.java).between("index", 0, index).findAll())
+                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).findAll()))
             }
             it.close()
         }
