@@ -1,4 +1,4 @@
-package com.opusone.leanon.restmanager.response.data
+package com.opusone.leanon.oorestmanager.response.data
 
 import java.io.Serializable
 

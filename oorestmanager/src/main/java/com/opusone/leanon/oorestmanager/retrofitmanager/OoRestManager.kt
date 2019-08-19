@@ -1,19 +1,12 @@
-package com.opusone.leanon.restmanager.RetrofitManager
+package com.opusone.leanon.oorestmanager.retrofitmanager
 
 import android.util.Log
-import com.opusone.leanon.oorestmanager.RetrofitManager.apis.*
-import com.opusone.leanon.oorestmanager.params.OoParamMessage
-import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
-import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
-import com.opusone.leanon.restmanager.model.*
-import com.opusone.leanon.restmanager.params.OoParamCreateUser
-import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
-import com.opusone.leanon.restmanager.params.OoParamSigninUser
-import com.opusone.leanon.restmanager.response.OoErrorResponse
-import com.opusone.leanon.restmanager.response.OoResponse
-import com.opusone.leanon.restmanager.response.data.*
-import com.opusone.oorestmanager.params.OoParamAppUseReport
-import com.opusone.oorestmanager.params.OoParamMMSE
+import com.opusone.leanon.oorestmanager.model.OoUser
+import com.opusone.leanon.oorestmanager.params.*
+import com.opusone.leanon.oorestmanager.retrofitmanager.apis.*
+import com.opusone.leanon.oorestmanager.response.OoErrorResponse
+import com.opusone.leanon.oorestmanager.response.OoResponse
+import com.opusone.leanon.oorestmanager.response.data.*
 import okhttp3.ResponseBody
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -139,6 +132,10 @@ object OoRestManager {
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
         ApiVoip.turnUrl(ooRestService, roomId, completion)
+    }
+
+    fun scaleReport(param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.scale(ooRestService, param, completion)
     }
 }
 

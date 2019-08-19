@@ -1,4 +1,4 @@
-package com.opusone.leanon.restmanager.model
+package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 

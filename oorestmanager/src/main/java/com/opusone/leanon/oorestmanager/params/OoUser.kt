@@ -1,4 +1,4 @@
-package com.opusone.leanon.restmanager.params
+package com.opusone.leanon.oorestmanager.params
 
 import java.io.Serializable
 

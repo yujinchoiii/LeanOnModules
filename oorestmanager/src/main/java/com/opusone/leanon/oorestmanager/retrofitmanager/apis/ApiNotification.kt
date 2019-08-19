@@ -1,10 +1,10 @@
-package com.opusone.leanon.oorestmanager.RetrofitManager.apis
+package com.opusone.leanon.oorestmanager.retrofitmanager.apis
 
 import com.opusone.leanon.oorestmanager.params.OoParamMessage
-import com.opusone.leanon.restmanager.RetrofitManager.OoRestManager
-import com.opusone.leanon.restmanager.RetrofitManager.OoRestService
-import com.opusone.leanon.restmanager.response.OoErrorResponse
-import com.opusone.leanon.restmanager.response.OoResponse
+import com.opusone.leanon.oorestmanager.response.OoErrorResponse
+import com.opusone.leanon.oorestmanager.response.OoResponse
+import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

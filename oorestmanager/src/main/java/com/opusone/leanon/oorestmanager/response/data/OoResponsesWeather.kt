@@ -1,7 +1,7 @@
-package com.opusone.leanon.restmanager.response.data
+package com.opusone.leanon.oorestmanager.response.data
 
-import com.opusone.leanon.restmanager.model.OoFineDust
-import com.opusone.leanon.restmanager.model.OoWeather
+import com.opusone.leanon.oorestmanager.model.OoFineDust
+import com.opusone.leanon.oorestmanager.model.OoWeather
 import java.io.Serializable
 
 class OoResponseFineDust(val fineDust: OoFineDust?) : Serializable {

@@ -1,22 +1,22 @@
-package com.opusone.leanon.oorestmanager.RetrofitManager.apis
+package com.opusone.leanon.oorestmanager.retrofitmanager.apis
 
-import com.opusone.leanon.restmanager.RetrofitManager.OoRestManager
-import com.opusone.leanon.restmanager.RetrofitManager.OoRestService
-import com.opusone.leanon.restmanager.model.OoUser
-import com.opusone.leanon.restmanager.params.OoParamCreateUser
-import com.opusone.leanon.restmanager.params.OoParamSigninUser
-import com.opusone.leanon.restmanager.response.OoDataResponse
-import com.opusone.leanon.restmanager.response.OoErrorResponse
-import com.opusone.leanon.restmanager.response.data.OoResponseCreateUser
-import com.opusone.leanon.restmanager.response.data.OoResponseSigninUser
-import com.opusone.leanon.restmanager.response.data.OoResponseUser
+import com.opusone.leanon.oorestmanager.model.OoUser
+import com.opusone.leanon.oorestmanager.params.OoParamCreateUser
+import com.opusone.leanon.oorestmanager.params.OoParamSigninUser
+import com.opusone.leanon.oorestmanager.response.OoDataResponse
+import com.opusone.leanon.oorestmanager.response.OoErrorResponse
+import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateUser
+import com.opusone.leanon.oorestmanager.response.data.OoResponseSigninUser
+import com.opusone.leanon.oorestmanager.response.data.OoResponseUser
+import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiUser {
 
-    fun signin(service: OoRestService,  param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
+    fun signin(service: OoRestService, param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.postUserSignIn(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseSigninUser>>, response: Response<OoDataResponse<OoResponseSigninUser>>) {

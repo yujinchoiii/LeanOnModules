@@ -70,7 +70,7 @@ class OoRealmProvider : ContentProvider() {
             }
             PARTNER -> {
                 userCursor = MatrixCursor(arrayOf(PARTNER_EMAIL, PARTNER_TOKEN))
-                val result = OoRealmManager.findOneByEmail("dev@theoopusone.com", OoRmPartner())
+                val result = OoRealmManager.findOneByEmail("dev@theoopusone.com", OoRmPartner::class.java)
                 result?.apply {
                     userCursor.addRow(arrayOf(this.email, this.token))
 

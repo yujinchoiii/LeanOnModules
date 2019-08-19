@@ -1,17 +1,10 @@
-package com.opusone.leanon.restmanager.RetrofitManager
+package com.opusone.leanon.oorestmanager.retrofitmanager
 
-import com.opusone.leanon.oorestmanager.params.OoParamMessage
-import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
-import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
-import com.opusone.leanon.restmanager.model.*
-import com.opusone.leanon.restmanager.params.OoParamCreateUser
-import com.opusone.leanon.restmanager.params.OoParamPartnerAuth
-import com.opusone.leanon.restmanager.params.OoParamSigninUser
-import com.opusone.leanon.restmanager.response.OoDataResponse
-import com.opusone.leanon.restmanager.response.OoResponse
-import com.opusone.leanon.restmanager.response.data.*
-import com.opusone.oorestmanager.params.OoParamAppUseReport
-import com.opusone.oorestmanager.params.OoParamMMSE
+import com.opusone.leanon.oorestmanager.model.OoUser
+import com.opusone.leanon.oorestmanager.params.*
+import com.opusone.leanon.oorestmanager.response.OoDataResponse
+import com.opusone.leanon.oorestmanager.response.OoResponse
+import com.opusone.leanon.oorestmanager.response.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -61,5 +54,8 @@ interface OoRestService {
 
     @GET("voip/turnurl/{roomId}")
     fun turnUrl(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoDataResponse<OoResponseTurnUrl>>
+
+    @POST("report/scale")
+    fun scaleReport(@Header("authorization") authorization : String, @Body param: OoParamScale): Call<OoResponse>
 
 }

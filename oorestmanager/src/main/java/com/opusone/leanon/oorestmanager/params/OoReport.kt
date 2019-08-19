@@ -1,4 +1,4 @@
-package com.opusone.oorestmanager.params
+package com.opusone.leanon.oorestmanager.params
 
 import java.io.Serializable
 
@@ -26,5 +26,25 @@ class OoParamAppUse(
 class OoParamAppUseReport(var userToken: String? = null, var report: List<OoParamAppUse>) {
     override fun toString(): String {
         return "OoAppUseReport(userToken='$userToken', report='$report')"
+    }
+}
+
+class OoParamScale(
+    var userToken : String? = null,
+    var weight: String? = null,
+    var bmi: String? = null,
+    var bodyFatRate: String? = null,
+    var subcutaneousFat: String? = null,
+    var visceralFat: String? = null,
+    var bodyWaterRate: String? = null,
+    var muscleRate: String? = null,
+    var boneMass: String? = null,
+    var bmr: String? = null,
+    var heartRate: String? = null
+) : Serializable {
+    override fun toString(): String {
+        return "OoAppUse(userToken='$userToken', weight='$weight', bmi='$bmi', bodyFatRate='$bodyFatRate'" +
+                ", subcutaneousFat='$subcutaneousFat', visceralFat='$visceralFat', bodyWaterRate='$bodyWaterRate'" +
+                ", muscleRate='$muscleRate', boneMass='$boneMass', bmr='$bmr', heartRate='$heartRate')"
     }
 }

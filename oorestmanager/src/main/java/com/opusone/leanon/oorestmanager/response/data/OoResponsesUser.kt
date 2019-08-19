@@ -1,6 +1,6 @@
-package com.opusone.leanon.restmanager.response.data
+package com.opusone.leanon.oorestmanager.response.data
 
-import com.opusone.leanon.restmanager.model.OoUser
+import com.opusone.leanon.oorestmanager.model.OoUser
 import java.io.Serializable
 
 class OoResponseCreateUser(val userToken: String?, val userId: String?, val webrtcToken: String?) : Serializable {
