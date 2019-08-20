@@ -42,11 +42,11 @@ class RealmManagerTest {
     @Test
     fun updateUser() {
         OoRealmManager.updateById("Rosi3", OoRmUser::class.java) {
-            it.email = "salaza433445@gmail.com"
+            it.email = "salaza4334456@gmail.com"
         }
 
         OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { test ->
-            Assert.assertEquals(test?.email, "salaza433445@gmail.com")
+            Assert.assertEquals(test?.email, "salaza4334456@gmail.com")
             Assert.assertEquals(test?.password, "1234")
         }
     }

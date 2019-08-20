@@ -117,11 +117,30 @@ object OoRealmManager {
         }
     }
 
+    fun <T: RealmObject> updateByEmail(email : String, type : Class<T>, f: (T) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(type).equalTo("email", email).findFirst()
+            result?.let {t ->
+                realm.executeTransaction {
+                    f(t)
+                    it.close()
+                }
+            }
+            realm.close()
+        }
+    }
+
 
     fun <T: RealmObject> findOneById(id : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.copyFromRealm(it.where(type).equalTo("id", id).findFirst()))
+            val one = it.where(type).equalTo("id", id).findFirst()
+            if (one != null) {
+                completion(it.copyFromRealm(one))
+            } else {
+                completion(null)
+            }
             it.close()
         }
     }
@@ -129,7 +148,12 @@ object OoRealmManager {
     fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.copyFromRealm(it.where(type).equalTo("email", email).findFirst()))
+            val one = it.where(type).equalTo("email", email).findFirst()
+            if (one != null) {
+                completion(it.copyFromRealm(one))
+            } else {
+                completion(null)
+            }
             it.close()
         }
     }
