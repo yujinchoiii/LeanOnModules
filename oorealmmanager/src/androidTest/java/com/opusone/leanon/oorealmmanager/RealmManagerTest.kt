@@ -3,9 +3,11 @@ package com.opusone.leanon.oorealmmanager
 import android.content.ContentValues
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
+import com.opusone.leanon.oorealmmanager.model.OoRmMessage
 import com.opusone.leanon.oorealmmanager.model.OoRmPartner
 import com.opusone.leanon.oorealmmanager.model.OoRmScaleDevice
 import com.opusone.leanon.oorealmmanager.model.OoRmUser
+import io.realm.RealmList
 import io.realm.RealmObject
 import org.junit.Assert
 import org.junit.Before
@@ -89,6 +91,19 @@ class RealmManagerTest {
     fun readPartner() {
         OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner::class.java) { found ->
             Assert.assertEquals(found?.email, "dev@theopsone")
+        }
+    }
+
+    @Test
+    fun createMessage() {
+        val message = OoRmMessage()
+        message.dataType = 1
+        message.message = "hello world"
+        message.messageAnswer = RealmList("yes", "no")
+        OoRealmManager.create(message)
+
+        OoRealmManager.findMessageByIndex(1) {
+            Assert.assertEquals("hello world", it?.message)
         }
     }
 
