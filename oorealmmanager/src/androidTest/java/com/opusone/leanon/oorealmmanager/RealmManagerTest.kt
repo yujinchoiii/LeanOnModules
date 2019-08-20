@@ -41,17 +41,13 @@ class RealmManagerTest {
 
     @Test
     fun updateUser() {
-        OoRealmManager.findOneById("Rosi", OoRmUser::class.java) { found ->
-            found?.let {
-                OoRealmManager.update {
-                    it.email = "salaza43344@gmail.com"
-                }
-            }
-            OoRealmManager.findOneById("Rosi", OoRmUser::class.java) { test ->
-                Assert.assertEquals(test?.email, "salaza43344@gmail.com")
-                Assert.assertEquals(test?.password, "1234")
-                Assert.assertEquals(test?.id, "Rosi")
-            }
+        OoRealmManager.updateById("Rosi3", OoRmUser::class.java) {
+            it.email = "salaza433445@gmail.com"
+        }
+
+        OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { test ->
+            Assert.assertEquals(test?.email, "salaza433445@gmail.com")
+            Assert.assertEquals(test?.password, "1234")
         }
     }
 
@@ -109,15 +105,11 @@ class RealmManagerTest {
 
     @Test
     fun updateMessage() {
+        OoRealmManager.updateByIndex(1) {
+            it.message = "update completed"
+        }
         OoRealmManager.findMessageByIndex(1) {
-            it?.let {
-                OoRealmManager.update {
-                    it.message = "update completed"
-                }
-                OoRealmManager.findMessageByIndex(1) {
-                    Assert.assertEquals("update completed", it?.message)
-                }
-            }
+            Assert.assertEquals("update completed", it?.message)
         }
     }
 }

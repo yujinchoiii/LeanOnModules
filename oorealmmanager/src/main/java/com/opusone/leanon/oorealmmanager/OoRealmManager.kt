@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
+import com.opusone.leanon.oorealmmanager.model.OoRmUser
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
 import java.lang.reflect.Type
@@ -85,6 +86,34 @@ object OoRealmManager {
         Realm.getDefaultInstance().executeTransaction {
             f()
             it.close()
+        }
+    }
+
+    fun updateByIndex(index : Long, f: (OoRmMessage) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(OoRmMessage::class.java).equalTo("index", index).findFirst()
+            result?.let {message ->
+                realm.executeTransaction {
+                    f(message)
+                    it.close()
+                }
+            }
+            realm.close()
+        }
+    }
+
+    fun <T: RealmObject> updateById(id : String, type : Class<T>, f: (T) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(type).equalTo("id", id).findFirst()
+            result?.let {t ->
+                realm.executeTransaction {
+                    f(t)
+                    it.close()
+                }
+            }
+            realm.close()
         }
     }
 
