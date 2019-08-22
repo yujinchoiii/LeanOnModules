@@ -49,7 +49,7 @@ class RestManagerTest {
     @Test
     fun signinUser() {
         val signal = CountDownLatch(1)
-        val auth = OoParamSigninUser("opusonetest01@gmail.com",  "opusone1004")
+        val auth = OoParamSigninUser("opusonetest03@gmail.com",  "opusone1004")
         OoRestManager.signinUser(auth) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.userToken)
@@ -64,15 +64,15 @@ class RestManagerTest {
         val signal = CountDownLatch(1)
 
         val params = OoParamCreateUser()
-        params.password = "opusone1002"
-        params.age = "25"
+        params.password = "opusone1004"
+        params.birthdate = "400804"
         params.gender = "femail"
         params.deviceToken = "testToken"
         params.deviceOS = "android"
         params.deviceModel = "sm-s9"
         params.deviceSerial = "1234"
         params.isLauncher = "false"
-        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI4Y2M2MzEyZWVkYjI1MzIwMDQyMjI4MWE4MTQ4N2UyYTkzMjJhOTIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoi6rmA7Jik7Y287IqkIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tQUxWd1pKQlBXSDgvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvQUNIaTNyZW8xb3k5SWVUc1dQTURxNUt2T3J2emVIQkQyQS9zOTYtYy9waG90by5qcGciLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGVhbm9udGFiIiwiYXVkIjoibGVhbm9udGFiIiwiYXV0aF90aW1lIjoxNTY0MzkwMzI5LCJ1c2VyX2lkIjoiSEFwdEFieVhkZk1CRVYzMENZUWlkdXZMTnQ0MiIsInN1YiI6IkhBcHRBYnlYZGZNQkVWMzBDWVFpZHV2TE50NDIiLCJpYXQiOjE1NjQzOTAzMzAsImV4cCI6MTU2NDM5MzkzMCwiZW1haWwiOiJvcHVzb25ldGVzdDAxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTE1NTI2OTA2MDY1OTI4MjA0MjA5Il0sImVtYWlsIjpbIm9wdXNvbmV0ZXN0MDFAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.R4P9ynVoN27OFUtouyXlktM3RtnbA3f57anSYTpbpUilDH6m1C6MkJwP-i7XcDln-oq4IULYT8lAV0WeQcoo-1AoqP2dAP0CofJClZsYfoc_cd8CWlbEiWVMkPgaidir0cZNvlkr_EbA1pEsmWrJXw8BRULDX-CUovX0CaJXzV5zdpe49ZjKK5DuiVe_g2RtA7hxWloO9tzI8LtdPOmE66Nd1xsvktbyqZGf-em1ZPA5aJ4qP3MCIkknESCwDHsVhhk5T4K102ZknpkHLc1lJdu0AIvZIZnQA-AdamAp6_sIVwvbn9oCiX_bx_apM5R7HLKRmVeahpqLKdPNzXqQdA"
+        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2OGNhNTBjZTY0YjQxYWIzNGZhMDM1NzIwMmQ5ZTk0ZTcyYmQ2ZWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoi7KCV7Jik7Y287IqkIiwicGljdHVyZSI6Imh0dHBzOi8vbGg0Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tQWk2ZC1TeTRXN3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvQUNIaTNyZG1YU0tRMzZpdllCWUZmbXREMDcwSXJjckpody9zOTYtYy9waG90by5qcGciLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGVhbm9udGFiIiwiYXVkIjoibGVhbm9udGFiIiwiYXV0aF90aW1lIjoxNTY2NDQ3MDgzLCJ1c2VyX2lkIjoiMEU3eDFJOENOQVlFcVAzWVZMdlZYb2JQb1I0MyIsInN1YiI6IjBFN3gxSThDTkFZRXFQM1lWTHZWWG9iUG9SNDMiLCJpYXQiOjE1NjY0NDcwODQsImV4cCI6MTU2NjQ1MDY4NCwiZW1haWwiOiJvcHVzb25ldGVzdDAzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTA2ODEzMTY0MTY5NzY5Mjg2OTQ5Il0sImVtYWlsIjpbIm9wdXNvbmV0ZXN0MDNAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.Y_DtJkTH4dhZBLCq4TwR4CWFOM0OmQ61HkkCy3xUjSE88b4PrKk2Eptwp3l0eVGxOHfkO_IgpcbpW7o3GAZRlegmjG3MJGArSr0hLsbFbGQkKMyQ3kk-Z_1MUd-Abiy1QBLAwUQNIN_S3Tml3yWXzFKNKrlCSP2zCOWxa3jwMLxFNARV74Ik2FxdNRrzMd5LnDera6QDaTclvEu2ccuNUyvJFTL9V2aPUpmHWCpBc0pqi_keQLh3RA6ftgPBmDzjZXvbk9M22bIDkE61xL3a82jOdkbGEQkuu0Kg8pxwSkTKuvh0-q4gYEWmaLMq_GzLYdtvKiI42NJP1d303OAqvA"
 
         OoRestManager.createUser(params) { error, response ->
             Assert.assertEquals(null, error)
@@ -85,7 +85,7 @@ class RestManagerTest {
     @Test
     fun readUser() {
         val signal = CountDownLatch(1)
-        OoRestManager.readUser("0IV1HVrp1wWasxWcm0O9") { error, response ->
+        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.user)
             Assert.assertNotEquals(null, response?.user?.id)
@@ -99,7 +99,7 @@ class RestManagerTest {
     fun readAndUpdateUser() {
         val signal = CountDownLatch(1)
 
-        OoRestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.user)
 
@@ -111,7 +111,7 @@ class RestManagerTest {
                     Assert.assertEquals(null, error)
 
                     response?.let {
-                        OoRestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+                        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
                             Assert.assertEquals(null, error)
 
                             val user = response?.user
@@ -128,10 +128,10 @@ class RestManagerTest {
     @Test
     fun deleteUser() {
         val signal = CountDownLatch(1)
-        OoRestManager.deleteUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+        OoRestManager.deleteUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
             Assert.assertEquals(null, error)
 
-            OoRestManager.readUser("OLlsl1jOPwhJxZ01UKxX") { error, response ->
+            OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
                 Assert.assertEquals(null, error)
                 Assert.assertEquals(null, response?.user)
                 signal.countDown()
@@ -203,20 +203,20 @@ class RestManagerTest {
     }
 
 
-    @Test
-    fun sendMessage() {
-        val signal = CountDownLatch(1)
-        val param = OoParamMessage("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFJJV1VaaGJ6UmFkamxuZDJGTVVWSjZORk52SWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXpRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxzb0pYc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lZM1ZDWXpJNWNuZHhka1U2UVZCQk9URmlSbVZsTWxSM1JrdGphMUZoTW00dGRYVkRlRUZDYmpkcmFFUmpVWGd5YkhGVGRYSk9ja1JxVFRGVWRXUlFObFZLWmtocWNERnVTSEpXTFZSb09YaFRjemRrY1VaRWIwSTFUVmxEWDJ3M1oxQk5lVkl0VTBGQmRrVXdORGRqYTFwRVltRnlObGxhYTBkUlUzcHZkbk5uY3pKcE4wZEdhMjkxVFZkbVlsTk5iRzltVVZCVFVGQWlMQ0pwYzB4aGRXNWphR1Z5SWpvaWRISjFaU0lzSW1saGRDSTZNVFUyTlRBM01EWTRNMzAuV1Q1U2haMmdLMFk4bWpuYXZxVGRmdWdIYjhWUEVFSlg5VDgxSnFPS0xRcyIsInVzZXJJZCI6IlRIWUZhbzRadjlnd2FMUVJ6NFNvIiwiaWF0IjoxNTY1MDcwNjgzfQ.2v20eveTU5nd6tfLEn1PXxwYzx6ADF0NGfpAte79-fQ",
-            "THYFao4Zv9gwaLQRz4So",
-            "Hello!",
-            Calendar.getInstance().timeInMillis.toString())
-        OoRestManager.sendMessage(param) { error, response ->
-            Assert.assertEquals(null, error)
-            Assert.assertEquals(true, response?.isSuccess())
-            signal.countDown()
-        }
-        signal.await()
-    }
+//    @Test
+//    fun sendMessage() {
+//        val signal = CountDownLatch(1)
+//        val param = OoParamMessage("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFJJV1VaaGJ6UmFkamxuZDJGTVVWSjZORk52SWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXpRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxzb0pYc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lZM1ZDWXpJNWNuZHhka1U2UVZCQk9URmlSbVZsTWxSM1JrdGphMUZoTW00dGRYVkRlRUZDYmpkcmFFUmpVWGd5YkhGVGRYSk9ja1JxVFRGVWRXUlFObFZLWmtocWNERnVTSEpXTFZSb09YaFRjemRrY1VaRWIwSTFUVmxEWDJ3M1oxQk5lVkl0VTBGQmRrVXdORGRqYTFwRVltRnlObGxhYTBkUlUzcHZkbk5uY3pKcE4wZEdhMjkxVFZkbVlsTk5iRzltVVZCVFVGQWlMQ0pwYzB4aGRXNWphR1Z5SWpvaWRISjFaU0lzSW1saGRDSTZNVFUyTlRBM01EWTRNMzAuV1Q1U2haMmdLMFk4bWpuYXZxVGRmdWdIYjhWUEVFSlg5VDgxSnFPS0xRcyIsInVzZXJJZCI6IlRIWUZhbzRadjlnd2FMUVJ6NFNvIiwiaWF0IjoxNTY1MDcwNjgzfQ.2v20eveTU5nd6tfLEn1PXxwYzx6ADF0NGfpAte79-fQ",
+//            "THYFao4Zv9gwaLQRz4So",
+//            "Hello!",
+//            Calendar.getInstance().timeInMillis.toString())
+//        OoRestManager.sendMessage(param) { error, response ->
+//            Assert.assertEquals(null, error)
+//            Assert.assertEquals(true, response?.isSuccess())
+//            signal.countDown()
+//        }
+//        signal.await()
+//    }
 
     @Test
     fun createVoipChannel() {

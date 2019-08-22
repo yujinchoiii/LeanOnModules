@@ -9,7 +9,7 @@ open class OoRmUser(
     var email: String = "",
     var password : String = "",
     var name : String = "",
-    var age : String = "",
+    var birthdate : String = "",
     var gender : String = "",
     var address1 : String = "",
     var address2 : String = "",
@@ -31,7 +31,7 @@ open class OoRmUser(
 
     override fun toString(): String {
         return "OoRmUser(id='$id', userToken='$userToken', email='$email', password='$password', name='$name', " +
-                "age='$age', gender='$gender', address1='$address1', address2='$address2', tel='$tel', " +
+                "birthdate='$birthdate', gender='$gender', address1='$address1', address2='$address2', tel='$tel', " +
                 "mobile='$mobile', height='$height', weight='$weight', deviceToken='$deviceToken', " +
                 "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', partner='$partner', " +
                 "picture='$picture', seniors=$seniors, guardians=$guardians, " +

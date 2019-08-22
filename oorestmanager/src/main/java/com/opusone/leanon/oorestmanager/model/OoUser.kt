@@ -14,7 +14,7 @@ class OoUser(var gender: String?= null,
              var height: String?= null,
              var partner: String?= null,
              var address1: String?= null,
-             var age: String?= null,
+             var birthdate: String?= null,
              var picture: String?= null,
              var deviceModel: String?= null,
              var deviceToken: String?= null,
@@ -25,7 +25,7 @@ class OoUser(var gender: String?= null,
              var id: String?= null) : Serializable {
 
     override fun toString(): String {
-        return "OoUser(gender=$gender, isLauncher=$isLauncher, deviceOS=$deviceOS, address2=$address2, email=$email, name=$name, guardians=$guardians, tel=$tel, mobile=$mobile, height=$height, partner=$partner, address1=$address1, age=$age, picture=$picture, deviceModel=$deviceModel, deviceToken=$deviceToken, deviceSerial=$deviceSerial, weight=$weight, requestGuardians=$requestGuardians, medicineAlarms=$medicineAlarms, id=$id)"
+        return "OoUser(gender=$gender, isLauncher=$isLauncher, deviceOS=$deviceOS, address2=$address2, email=$email, name=$name, guardians=$guardians, tel=$tel, mobile=$mobile, height=$height, partner=$partner, address1=$address1, birthdate=$birthdate, picture=$picture, deviceModel=$deviceModel, deviceToken=$deviceToken, deviceSerial=$deviceSerial, weight=$weight, requestGuardians=$requestGuardians, medicineAlarms=$medicineAlarms, id=$id)"
     }
 }
 
