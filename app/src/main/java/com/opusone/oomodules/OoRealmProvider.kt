@@ -63,17 +63,14 @@ class OoRealmProvider : ContentProvider() {
         when (uriMatcher.match(uri)) {
             USER -> {
                 userCursor = MatrixCursor(arrayOf(USER_ID, USER_EMAIL, USER_NAME, USER_TOKEN, USER_DEVICETOKEN))
-                val result = OoRealmManager.findOneById("Rosi", OoRmUser::class.java)
-                result?.apply {
-                    userCursor.addRow(arrayOf(this.id, this.email, this.name, this.userToken, this.deviceToken))
+                OoRealmManager.findOneById("Rosi", OoRmUser::class.java) {
+                    //return userCursor.addRow(arrayOf(this.id, this.email, this.name, this.userToken, this.deviceToken))
                 }
             }
             PARTNER -> {
                 userCursor = MatrixCursor(arrayOf(PARTNER_EMAIL, PARTNER_TOKEN))
-                val result = OoRealmManager.findOneByEmail("dev@theoopusone.com", OoRmPartner::class.java)
-                result?.apply {
-                    userCursor.addRow(arrayOf(this.email, this.token))
-
+                OoRealmManager.findOneByEmail("dev@theoopusone.com", OoRmPartner::class.java) {
+                    //return userCursor.addRow(arrayOf(this.email, this.token))
                 }
             }
         }
