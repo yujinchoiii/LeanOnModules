@@ -2,36 +2,42 @@ package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 
-class OoUser(var gender: String?= null,
-             var isLauncher: Boolean?,
-             var deviceOS: String?= null,
-             var address2: String?= null,
+class OoUser(var id: String?= null,
              var email: String?= null,
              var name: String?= null,
-             var guardians: List<OoGuardian>?= null,
+             var birthdate: String?= null,
+             var gender: String?= null,
+             var weight: String?= null,
+             var height: String?= null,
+             var picture: String?= null,
+             var isLauncher: Boolean?,
+             var address1: String?= null,
+             var address2: String?= null,
              var tel: String?= null,
              var mobile: String?= null,
-             var height: String?= null,
              var partner: String?= null,
-             var address1: String?= null,
-             var birthdate: String?= null,
-             var picture: String?= null,
-             var deviceModel: String?= null,
              var deviceToken: String?= null,
+             var deviceOS: String?= null,
+             var deviceModel: String?= null,
              var deviceSerial: String?= null,
-             var weight: String?= null,
-             var requestGuardians: List<Any>?= null,
-             var medicineAlarms: List<OoMedicineAlarm>?= null,
-             var id: String?= null) : Serializable {
+             var guardians: List<OoGuardian>?= null,
+             var requestGuardians: List<String>?= null,
+             var seniors: List<String>?= null,
+             var requestSeniors: List<String>?= null,
+             var medicineAlarms: List<OoMedicineAlarm>?= null) : Serializable {
 
     override fun toString(): String {
-        return "OoUser(gender=$gender, isLauncher=$isLauncher, deviceOS=$deviceOS, address2=$address2, email=$email, name=$name, guardians=$guardians, tel=$tel, mobile=$mobile, height=$height, partner=$partner, address1=$address1, birthdate=$birthdate, picture=$picture, deviceModel=$deviceModel, deviceToken=$deviceToken, deviceSerial=$deviceSerial, weight=$weight, requestGuardians=$requestGuardians, medicineAlarms=$medicineAlarms, id=$id)"
+        return "OoUser(id='$id', email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
+                "weigh='$weight', height='$height', picture='$picture', isLauncher='$isLauncher', " +
+                "address1='$address1', address2='$address2', tel='$tel', mobile='$mobile', partner='$partner', deviceToke='$deviceToken', " +
+                "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', guardians='$guardians', " +
+                "requestGuardians='$requestGuardians', seniors='$seniors', requestSeniors='$requestSeniors', medicineAlarms='$medicineAlarms')"
     }
 }
 
-class OoGuardian(var deviceToken: String?= null, var id: String?= null) : Serializable{
+class OoGuardian(var id: String?= null, var deviceToken: String?= null) : Serializable {
     override fun toString(): String {
-        return "OoGuardian(deviceToken='$deviceToken', id='$id')"
+        return "OoGuardian(id='$id', deviceToken='$deviceToken')"
     }
 }
 
