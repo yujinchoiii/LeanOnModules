@@ -217,6 +217,34 @@ class RestManagerTest {
     }
 
     @Test
+    fun sendGroupMessageFromSenior() {
+        val signal = CountDownLatch(1)
+        val param = OoParamMessage("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJa0YzTkU5NWRHOXFSR0ZCYVc4emRUWkpRM3B2SWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2laSFZDWkZwc2FVbFhiRkU2UVZCQk9URmlSVGswY0dWTFdrbEVUbTluVDI4eVRXeEdYMk5zVDAweFpuSXRUazFUU25SWFMzZGhXa05uUjNVeGVrNTBVVmhmWmtocmFsSXlkbTFyVEZwSFJGRkhPUzFwUXpaSk9VNXBXRzlPUTBwSk1tdGFjelJIVG1sbGRqUmFhM1F3V1dOVE4wSjBWa05wZFVGWVJraDZRazF6YUVSNlNHODJPSFJPU0VsWU5VMVlUMmRHTm1FMkxVY2lMQ0pwYzB4aGRXNWphR1Z5SWpvaWRISjFaU0lzSW5CcGNtTjBkWEpsSWpvaWFIUjBjSE02THk5c2FEWXVaMjl2WjJ4bGRYTmxjbU52Ym5SbGJuUXVZMjl0THkxQlRGWjNXa3BDVUZkSU9DOUJRVUZCUVVGQlFVRkJTUzlCUVVGQlFVRkJRVUZCUVM5QlEwaHBNM0psYnpGdmVUbEpaVlJ6VjFCTlJIRTFTM1pQY25aNlpVaENSREpCTDNNNU5pMWpMM0JvYjNSdkxtcHdaeUlzSW1saGRDSTZNVFUyTmpVek16YzBNbjAuUFhpMGRtbTkxbWdIYWVnRHR5YVNwNUtCWTdZb3N2WXBObzFUbHdtdnZlWSIsInVzZXJJZCI6IkF3NE95dG9qRGFBaW8zdTZJQ3pvIiwiaWF0IjoxNTY2NTMzNzQyfQ.q0FPSPQgZlLbKNuDhrQrTZLHH_imynam_zDmCehsA5Y",
+            null,
+            "0", "0","Hello, I'm senior", mutableListOf(""),Calendar.getInstance().timeInMillis.toString())
+        OoRestManager.sendGroupMessage(param) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun sendGroupMessageFromGuardian() {
+        val signal = CountDownLatch(1)
+        val param = OoParamMessage("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbWg2YkV3MWNVVk1TRnBsTVRWek0yVXpha2gySWl3aVpXMWhhV3dpT2lKdmNIVnphMnR0UUdkdFlXbHNMbU52YlNJc0ltNWhiV1VpT2lMcXNKWHNtS1R0amJ6c2lxUXhJaXdpYzJoaFpHOTNJam9pWkRabU9EUmxPV0prTnpJd01tTmtOR1V4WmprMVpqY3lZMlU0Wm1GalltUmlPRFV4WVdZNU9UazNNemsxTkRNM09UZ3hNamM0WVdVNE56Y3habVkxTmpBM1pXWmxORE5oWkRaaE5EUmpPVFZoTnpZMFpEQTNNREV4WlRFNE1qWTFZMll6TW1NeE1XUmtZamc1WVRVNU9USmhZVFJqWXpWa05UWmtNbVkwTXpZaUxDSmtaWFpwWTJWVWIydGxiaUk2SW1OVlNGRmZjMk5XVTA1ek9rRlFRVGt4WWtodWVVa3lVRWR4T0VwQmF6UmplVlkzUVhGRVZuVlJXRGRrUkhGNmR5MWtaSGN3Y2xaRGVWbFlkamgxWjBGVGJESk5WbXRRZEdGeE1TMUdNMFpCU1dSMVNtTm9SbTB5U0ZCeWRVRkhjRm94TUhsRlUydzJSbkEzV1VrMmVWSjJaVWhKV0VWR056TlZPSFZUWlhWbExXdFBkRGRNU2xaaFRrRmZVVTVpWTNocGVsaDNkVVJTSWl3aWFYTk1ZWFZ1WTJobGNpSTZJbVpoYkhObElpd2ljR2x5WTNSMWNtVWlPaUpvZEhSd09pOHZkM2QzSWl3aWFXRjBJam94TlRZMk5UTXpOakkxZlEuSGJiRl94T3QwWnRfbmF4SHprQ0VVN0c0WmdHSjctbGNGUkxVMGM4TUl6QSIsInVzZXJJZCI6Imh6bEw1cUVMSFplMTVzM2Uzakh2IiwiaWF0IjoxNTY2NTMzNjI1fQ.f5AFlOEILL22pGzaQOEtksYD4A2fzRMamCFfJ41o_A0",
+            "Aw4OytojDaAio3u6ICzo",
+            "0", "0","Hello, I'm guardian", mutableListOf(""),Calendar.getInstance().timeInMillis.toString())
+        OoRestManager.sendGroupMessage(param) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
     fun createVoipChannel() {
         val signal = CountDownLatch(1)
         OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { error, response ->

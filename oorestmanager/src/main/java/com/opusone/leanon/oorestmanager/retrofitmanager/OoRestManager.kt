@@ -122,6 +122,10 @@ object OoRestManager {
         ApiNotification.sendMessage(ooRestService, param, completion)
     }
 
+    fun sendGroupMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiNotification.sendGroupMessage(ooRestService, param, completion)
+    }
+
     fun createChannel(toUserId: String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
         ApiVoip.create(ooRestService, toUserId, completion)
     }
