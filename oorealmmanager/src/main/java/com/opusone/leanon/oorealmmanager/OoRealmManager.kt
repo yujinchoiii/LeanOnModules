@@ -93,11 +93,18 @@ object OoRealmManager {
     fun updateMessageState (state : Boolean) {
         val realm = Realm.getDefaultInstance()
         realm?.let {realm ->
-            val result = realm.where(OoMessageState::class.java).findFirst()
-            result?.let {message ->
-                realm.executeTransaction {
-                    message.state = state
-                    it.close()
+            if(realm.where(OoMessageState::class.java).count().toInt().equals(0)) {
+                val data = OoMessageState()
+                data.state = state
+                realm.executeTransaction{
+                    it.copyToRealm(data)
+                }
+            } else {
+                val result = realm.where(OoMessageState::class.java).findFirst()
+                result?.let {message ->
+                    realm.executeTransaction {
+                        message.state = state
+                    }
                 }
             }
             realm.close()
@@ -179,16 +186,6 @@ object OoRealmManager {
             completion(it.copyFromRealm(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst()))
             it.close()
         }
-    }
-
-    fun hasMessageState() : Boolean {
-        val realm = Realm.getDefaultInstance()
-        var has : Boolean = false
-        realm?.let {
-            has = !it.where(OoRmMessage::class.java).count().equals(0)
-            it.close()
-        }
-        return has
     }
 
     fun getMessageCount() : Long {
