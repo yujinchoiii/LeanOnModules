@@ -2,6 +2,7 @@ package com.opusone.leanon.oorealmmanager
 
 import android.content.Context
 import android.util.Log
+import com.opusone.leanon.oorealmmanager.model.OoMessageState
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
 import com.opusone.leanon.oorealmmanager.model.OoRmUser
@@ -89,6 +90,20 @@ object OoRealmManager {
         }
     }
 
+    fun updateMessageState (state : Boolean) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(OoMessageState::class.java).findFirst()
+            result?.let {message ->
+                realm.executeTransaction {
+                    message.state = state
+                    it.close()
+                }
+            }
+            realm.close()
+        }
+    }
+
     fun updateByIndex(index : Long, f: (OoRmMessage) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {realm ->
@@ -164,6 +179,16 @@ object OoRealmManager {
             completion(it.copyFromRealm(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst()))
             it.close()
         }
+    }
+
+    fun hasMessageState() : Boolean {
+        val realm = Realm.getDefaultInstance()
+        var has : Boolean = false
+        realm?.let {
+            has = !it.where(OoRmMessage::class.java).count().equals(0)
+            it.close()
+        }
+        return has
     }
 
     fun getMessageCount() : Long {

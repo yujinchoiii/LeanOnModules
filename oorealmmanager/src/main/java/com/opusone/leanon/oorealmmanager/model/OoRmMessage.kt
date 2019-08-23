@@ -21,3 +21,7 @@ open class OoRmMessage : RealmObject() {
         return "OoRmMessage(index=$index, dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp)"
     }
 }
+
+open class OoMessageState : RealmObject() {
+    var state : Boolean = false
+}
