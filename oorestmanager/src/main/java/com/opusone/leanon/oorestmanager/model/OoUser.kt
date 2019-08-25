@@ -22,7 +22,7 @@ class OoUser(var id: String?= null,
              var deviceSerial: String?= null,
              var guardians: List<OoGuardian>?= null,
              var requestGuardians: List<String>?= null,
-             var seniors: List<String>?= null,
+             var seniors: List<OoSeniors>?= null,
              var requestSeniors: List<String>?= null,
              var medicineAlarms: List<OoMedicineAlarm>?= null) : Serializable {
 
@@ -38,6 +38,12 @@ class OoUser(var id: String?= null,
 class OoGuardian(var id: String?= null, var deviceToken: String?= null) : Serializable {
     override fun toString(): String {
         return "OoGuardian(id='$id', deviceToken='$deviceToken')"
+    }
+}
+
+class OoSeniors(var id: String?= null) : Serializable {
+    override fun toString(): String {
+        return "OoSeniors(id='$id')"
     }
 }
 
