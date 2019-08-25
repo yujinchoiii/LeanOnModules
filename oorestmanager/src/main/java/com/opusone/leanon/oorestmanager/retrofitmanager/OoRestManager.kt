@@ -94,6 +94,11 @@ object OoRestManager {
     fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
         ApiUser.read(ooRestService, id, completion)
     }
+
+    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        ApiUser.find(ooRestService, email, completion)
+    }
+
     fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
         ApiUser.update(ooRestService, param, completion)
     }

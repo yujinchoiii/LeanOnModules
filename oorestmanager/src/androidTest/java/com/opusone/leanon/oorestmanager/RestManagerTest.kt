@@ -96,6 +96,19 @@ class RestManagerTest {
     }
 
     @Test
+    fun findUser() {
+        val signal = CountDownLatch(1)
+        OoRestManager.findUser("opusonetest03@gmail.com") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.user)
+            Assert.assertNotEquals(null, response?.user?.id)
+            Assert.assertNotEquals(null, response?.user?.name)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
     fun readAndUpdateUser() {
         val signal = CountDownLatch(1)
 

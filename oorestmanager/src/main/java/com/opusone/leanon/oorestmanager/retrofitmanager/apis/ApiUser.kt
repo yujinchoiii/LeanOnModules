@@ -76,6 +76,26 @@ object ApiUser {
         }
     }
 
+    fun find(service: OoRestService, email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        OoRestManager.bearerToken?.let {
+            service.findUser(it, email).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
+                    OoRestManager.printError("ReadUser Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
     fun update(service: OoRestService, param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {

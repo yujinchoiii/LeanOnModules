@@ -24,6 +24,9 @@ interface OoRestService {
     @GET("user/read/{id}")
     fun readUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
 
+    @GET("user/findUser/{email}")
+    fun findUser(@Header("authorization") authorization : String, @Path("email") email: String): Call<OoDataResponse<OoResponseUser>>
+
     @PUT("user/update")
     fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseUser>>
 
