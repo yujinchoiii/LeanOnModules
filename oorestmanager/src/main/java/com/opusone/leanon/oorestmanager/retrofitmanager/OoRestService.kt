@@ -51,6 +51,12 @@ interface OoRestService {
     @POST("notification/groupMessage")
     fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoResponse>
 
+    @POST("notification/requestGuardian")
+    fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
+
+    @POST("notification/acceptGuardian")
+    fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
+
     @FormUrlEncoded
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Field("toUserId") toUserId: String): Call<OoDataResponse<OoResponseCreateChannel>>

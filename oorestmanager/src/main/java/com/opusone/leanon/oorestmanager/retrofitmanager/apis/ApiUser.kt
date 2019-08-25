@@ -2,6 +2,7 @@ package com.opusone.leanon.oorestmanager.retrofitmanager.apis
 
 import com.opusone.leanon.oorestmanager.model.OoUser
 import com.opusone.leanon.oorestmanager.params.OoParamCreateUser
+import com.opusone.leanon.oorestmanager.params.OoParamRequestGuardian
 import com.opusone.leanon.oorestmanager.params.OoParamSigninUser
 import com.opusone.leanon.oorestmanager.response.OoDataResponse
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
@@ -89,7 +90,7 @@ object ApiUser {
                     }
                 }
                 override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
-                    OoRestManager.printError("ReadUser Failed. ${t.message}")
+                    OoRestManager.printError("FindUser Failed. ${t.message}")
                     completion(null, null)
                 }
             })

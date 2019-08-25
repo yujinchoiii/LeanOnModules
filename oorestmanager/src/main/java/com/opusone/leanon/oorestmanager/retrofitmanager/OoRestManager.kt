@@ -131,6 +131,14 @@ object OoRestManager {
         ApiNotification.sendGroupMessage(ooRestService, param, completion)
     }
 
+    fun requestGuardian(param : OoParamRequestGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiNotification.requestGuardian(ooRestService, param, completion)
+    }
+
+    fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiNotification.acceptGuardian(ooRestService, param, completion)
+    }
+
     fun createChannel(toUserId: String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
         ApiVoip.create(ooRestService, toUserId, completion)
     }

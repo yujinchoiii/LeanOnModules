@@ -26,7 +26,6 @@ class OoParamCreateUser( var password: String?= null,
     }
 }
 
-
 class OoParamSigninUser(val email : String?, val password : String?) : Serializable{
     override fun toString(): String {
         return "OoUserSignInModel(email=$email, password=$password)"
