@@ -77,7 +77,7 @@ class RealmManagerTest {
 
     @Test
     fun createPartner() {
-        val partner = OoRmPartner("dev@theopsone", "", "testToken")
+        val partner = OoRmPartner("test1@theopsone", "", "testToken")
 
         val ret = OoRealmManager.create(partner)
         Assert.assertEquals(true, ret)
@@ -85,7 +85,7 @@ class RealmManagerTest {
 
     @Test
     fun readPartner() {
-        OoRealmManager.findOneByEmail("dev@theopsone", OoRmPartner::class.java) { found ->
+        OoRealmManager.findOneByEmail("test1@theopsone", OoRmPartner::class.java) { found ->
             Assert.assertEquals(found?.email, "dev@theopsone")
         }
     }
