@@ -10,8 +10,8 @@ class OoResponseCreateChannel(var channel: OoVoipChannel? = null) : Serializable
     }
 }
 
-class OoResponseTurnUrl(var iceServer: OoVoipIceServer? = null) : Serializable {
+class OoResponseTurnUrl(var iceServers: List<OoVoipIceServer>? = null) : Serializable {
     override fun toString(): String {
-        return "OoResponseTurnUrl (iceServer=$iceServer)"
+        return "OoResponseTurnUrl (iceServers=$iceServers)"
     }
 }

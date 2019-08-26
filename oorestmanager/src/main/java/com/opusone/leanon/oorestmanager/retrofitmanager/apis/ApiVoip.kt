@@ -56,8 +56,7 @@ object ApiVoip {
 
     fun turnUrl(service: OoRestService, roomId: String, completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
         OoRestManager.bearerToken?.let {
-            service.turnUrl(it, roomId).enqueue(object :
-                Callback<OoDataResponse<OoResponseTurnUrl>> {
+            service.turnUrl(it, roomId).enqueue(object : Callback<OoDataResponse<OoResponseTurnUrl>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseTurnUrl>>, response: Response<OoDataResponse<OoResponseTurnUrl>>) {
                     if (response.isSuccessful) {
                         OoRestManager.printLog(response.body()?.data.toString())

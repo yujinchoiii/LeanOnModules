@@ -310,7 +310,7 @@ class RestManagerTest1 {
     @Test
     fun deleteChannel() {
         val signal = CountDownLatch(1)
-        OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { _, channelResponse ->
+        OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { _, channelResponse ->
             OoRestManager.deleteChannel(channelResponse ?.channel?.roomId ?: "") { error, response ->
                 Assert.assertEquals(null, error)
                 Assert.assertEquals(true, response?.isSuccess())
@@ -323,11 +323,11 @@ class RestManagerTest1 {
     @Test
     fun turnUrl() {
         val signal = CountDownLatch(1)
-        OoRestManager.createChannel("hzlL5qELHZe15s3e3jHv") { _, cahnnel ->
+        OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { _, cahnnel ->
 
             OoRestManager.turnUrl(cahnnel?.channel?.roomId ?: "") { error, response ->
                 Assert.assertEquals(null, error)
-                Assert.assertNotEquals(0, response?.iceServer?.urls?.size)
+                Assert.assertNotEquals(null, response?.iceServers)
 
                 OoRestManager.deleteChannel(cahnnel?.channel?.roomId ?: "") { _, _->
                     signal.countDown()
