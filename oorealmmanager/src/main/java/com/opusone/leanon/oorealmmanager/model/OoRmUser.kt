@@ -24,6 +24,7 @@ open class OoRmUser(
     var partner : String = "",
     var picture : String = "",
     var seniors : RealmList<String> = RealmList(),
+    var requestSeniors : RealmList<String> = RealmList(),
     var guardians : RealmList<String> = RealmList(),
     var requestGuardians : RealmList<String> = RealmList(),
     var isLauncher : Boolean = false
@@ -34,7 +35,7 @@ open class OoRmUser(
                 "birthdate='$birthdate', gender='$gender', address1='$address1', address2='$address2', tel='$tel', " +
                 "mobile='$mobile', height='$height', weight='$weight', deviceToken='$deviceToken', " +
                 "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', partner='$partner', " +
-                "picture='$picture', seniors=$seniors, guardians=$guardians, " +
+                "picture='$picture', seniors=$seniors, requestSeniors=$requestSeniors, guardians=$guardians, " +
                 "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
     }
 
