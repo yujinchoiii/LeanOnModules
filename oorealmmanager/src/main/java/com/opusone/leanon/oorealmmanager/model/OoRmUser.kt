@@ -23,9 +23,9 @@ open class OoRmUser(
     var deviceSerial : String = "",
     var partner : String = "",
     var picture : String = "",
-    var seniors : RealmList<String> = RealmList(),
+    var seniors : RealmList<OoSenior> = RealmList(),
     var requestSeniors : RealmList<String> = RealmList(),
-    var guardians : RealmList<String> = RealmList(),
+    var guardians : RealmList<OoGuardian> = RealmList(),
     var requestGuardians : RealmList<String> = RealmList(),
     var isLauncher : Boolean = false
 ) : RealmObject() {
@@ -39,4 +39,16 @@ open class OoRmUser(
                 "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
     }
 
+}
+
+open class OoGuardian(var id: String?= null, var deviceToken: String?= null) : RealmObject() {
+    override fun toString(): String {
+        return "OoGuardian(id='$id', deviceToken='$deviceToken')"
+    }
+}
+
+open class OoSenior(var id: String?= null) : RealmObject() {
+    override fun toString(): String {
+        return "OoSenior(id='$id')"
+    }
 }
