@@ -3,10 +3,7 @@ package com.opusone.leanon.oorealmmanager
 import android.content.ContentValues
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-import com.opusone.leanon.oorealmmanager.model.OoRmMessage
-import com.opusone.leanon.oorealmmanager.model.OoRmPartner
-import com.opusone.leanon.oorealmmanager.model.OoRmScaleDevice
-import com.opusone.leanon.oorealmmanager.model.OoRmUser
+import com.opusone.leanon.oorealmmanager.model.*
 import io.realm.RealmList
 import io.realm.RealmObject
 import org.junit.Assert
@@ -23,7 +20,11 @@ class RealmManagerTest {
 
     @Test
     fun createUser() {
-        val user = OoRmUser("Rosi3","", "Rosi@gmail.com","1234")
+
+        val g = OoGuardian("test1", "testtoken")
+
+        val user = OoRmUser("Rosi3",
+            "", "Rosi@gmail.com","1234", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", RealmList(), RealmList(), RealmList(g))
 
         OoRealmManager.create(user)
 

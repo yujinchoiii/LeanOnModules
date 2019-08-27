@@ -25,10 +25,9 @@ open class OoRmUser(
     var picture : String = "",
     var seniors : RealmList<String> = RealmList(),
     var requestSeniors : RealmList<String> = RealmList(),
-    var guardians : RealmList<String> = RealmList(),
+    var guardians : RealmList<OoGuardian> = RealmList(),
     var requestGuardians : RealmList<String> = RealmList(),
-    var isLauncher : Boolean = false
-) : RealmObject() {
+    var isLauncher : Boolean = false) : RealmObject() {
 
     override fun toString(): String {
         return "OoRmUser(id='$id', userToken='$userToken', email='$email', password='$password', name='$name', " +
@@ -38,5 +37,7 @@ open class OoRmUser(
                 "picture='$picture', seniors=$seniors, requestSeniors=$requestSeniors, guardians=$guardians, " +
                 "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
     }
-
 }
+
+
+class OoGuardian(var id : String = "", var deviceToken: String = ""): RealmObject()
