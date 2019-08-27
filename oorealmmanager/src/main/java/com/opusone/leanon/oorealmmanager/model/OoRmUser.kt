@@ -27,7 +27,7 @@ open class OoRmUser(
     var requestSeniors : RealmList<String> = RealmList(),
     var guardians : RealmList<OoGuardian> = RealmList(),
     var requestGuardians : RealmList<String> = RealmList(),
-    var isLauncher : Boolean = false) : RealmObject() {
+    var isLauncher : String = "false") : RealmObject() {
 
     override fun toString(): String {
         return "OoRmUser(id='$id', userToken='$userToken', email='$email', password='$password', name='$name', " +
@@ -36,6 +36,10 @@ open class OoRmUser(
                 "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', partner='$partner', " +
                 "picture='$picture', seniors=$seniors, requestSeniors=$requestSeniors, guardians=$guardians, " +
                 "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
+    }
+
+    fun getIsLauncher(): Boolean {
+        return isLauncher != "false"
     }
 }
 
