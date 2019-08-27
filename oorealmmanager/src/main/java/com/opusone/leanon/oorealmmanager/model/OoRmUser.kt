@@ -40,4 +40,4 @@ open class OoRmUser(
 }
 
 
-class OoGuardian(var id : String = "", var deviceToken: String = ""): RealmObject()
+open class OoGuardian(var id : String = "", var deviceToken: String = ""): RealmObject()

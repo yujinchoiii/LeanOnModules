@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.opusone.leanon.oorealmmanager.model.*
+import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
 import org.junit.Assert
@@ -23,12 +24,12 @@ class RealmManagerTest {
 
         val g = OoGuardian("test1", "testtoken")
 
-        val user = OoRmUser("Rosi3",
+        val user = OoRmUser("Rosi4",
             "", "Rosi@gmail.com","1234", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", RealmList(), RealmList(), RealmList(g))
 
         OoRealmManager.create(user)
 
-        OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) {found ->
+        OoRealmManager.findOneById("Rosi4", OoRmUser::class.java) {found ->
             Assert.assertEquals(found?.id, user.id)
         }
     }
@@ -42,6 +43,11 @@ class RealmManagerTest {
 
     @Test
     fun updateUser() {
+
+        OoRealmManager.updateById("Rosi3", OoRmUser::class.java) {
+            it.email = "salaza433445@gmail.com"
+        }
+
         OoRealmManager.updateById("Rosi3", OoRmUser::class.java) {
             it.email = "salaza4334456@gmail.com"
         }

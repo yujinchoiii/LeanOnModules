@@ -118,7 +118,6 @@ object OoRealmManager {
             result?.let {message ->
                 realm.executeTransaction {
                     f(message)
-                    it.close()
                 }
             }
             realm.close()
@@ -132,7 +131,6 @@ object OoRealmManager {
             result?.let {t ->
                 realm.executeTransaction {
                     f(t)
-                    it.close()
                 }
             }
             realm.close()
@@ -146,7 +144,6 @@ object OoRealmManager {
             result?.let {t ->
                 realm.executeTransaction {
                     f(t)
-                    it.close()
                 }
             }
             realm.close()
@@ -163,8 +160,8 @@ object OoRealmManager {
             } else {
                 completion(null)
             }
-            it.close()
         }
+        realm.close()
     }
 
     fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>, completion: (T?) -> Unit) {
@@ -176,16 +173,16 @@ object OoRealmManager {
             } else {
                 completion(null)
             }
-            it.close()
         }
+        realm.close()
     }
 
     fun findMessageByIndex(index : Long, completion: (OoRmMessage?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
             completion(it.copyFromRealm(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst()))
-            it.close()
         }
+        realm.close()
     }
 
     fun getMessageCount() : Long {
@@ -193,8 +190,8 @@ object OoRealmManager {
         var count : Long = 0
         realm?.let {
             count = it.where(OoRmMessage::class.java).count()
-            it.close()
         }
+        realm.close()
         return count
     }
 
@@ -206,7 +203,7 @@ object OoRealmManager {
             } else {
                 completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).findAll()))
             }
-            it.close()
         }
+        realm.close()
     }
 }
