@@ -7,6 +7,7 @@ class OoVoipChannel(var id: String? = null,
                     var roomId: String? = null,
                     var turnRestUrl: String? = null,
                     var signal: OoSignal? = null,
+                    var toUserId: String? = null,
                     var iceServers: List<OoVoipIceServer> = arrayListOf()): Serializable {
 
     override fun toString(): String {
