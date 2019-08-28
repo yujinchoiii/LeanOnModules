@@ -2,6 +2,7 @@ package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 
+
 class OoVoipChannel(var id: String? = null,
                     var roomId: String? = null,
                     var turnRestUrl: String? = null,
