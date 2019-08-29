@@ -1,6 +1,7 @@
 package com.opusone.leanon.oorestmanager
 
 import android.util.Log
+import androidx.test.runner.AndroidJUnit4
 import com.opusone.leanon.oorestmanager.params.*
 import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
 import org.junit.Assert
@@ -11,7 +12,8 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 
 
-class RestManagerTest1 {
+@RunWith(AndroidJUnit4::class)
+class RestManagerTest {
 
     @Before
     fun setUp() {
@@ -148,23 +150,24 @@ class RestManagerTest1 {
     fun readAndUpdateUser() {
         val signal = CountDownLatch(1)
 
-        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
+        OoRestManager.readUser("QVXx3RNSN9DRQWp8opJs") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.user)
 
             response?.let {
                 val user = it.user
-                user?.mobile = "update completed"
+                user?.address1 = "update completed"
 
                 OoRestManager.updateUser(user!!) { error, response ->
                     Assert.assertEquals(null, error)
+                    Assert.assertNotNull(response?.userToken)
 
                     response?.let {
-                        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
+                        OoRestManager.readUser("QVXx3RNSN9DRQWp8opJs") { error, response ->
                             Assert.assertEquals(null, error)
 
                             val user = response?.user
-                            Assert.assertEquals("update completed", user?.mobile)
+                            Assert.assertEquals("update completed", user?.address1)
                             signal.countDown()
                         }
                     }
@@ -307,11 +310,12 @@ class RestManagerTest1 {
         }
         signal.await()
     }
+
     @Test
     fun deleteChannel() {
         val signal = CountDownLatch(1)
         OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { _, channelResponse ->
-            OoRestManager.deleteChannel(channelResponse ?.channel?.roomId ?: "") { error, response ->
+            OoRestManager.deleteChannel(channelResponse ?.channel?.id?: "") { error, response ->
                 Assert.assertEquals(null, error)
                 Assert.assertEquals(true, response?.isSuccess())
                 signal.countDown()
@@ -319,6 +323,18 @@ class RestManagerTest1 {
         }
         signal.await()
     }
+
+    @Test
+    fun voipBusy() {
+        val signal = CountDownLatch(1)
+        OoRestManager.voipBusy("5xR9uf8lFG5jmYoXAI1U") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
 
     @Test
     fun turnUrl() {

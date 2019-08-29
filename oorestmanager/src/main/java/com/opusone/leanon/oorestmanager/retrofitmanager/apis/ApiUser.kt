@@ -97,10 +97,10 @@ object ApiUser {
         }
     }
 
-    fun update(service: OoRestService, param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
+    fun update(service: OoRestService, param: OoUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
         OoRestManager.bearerToken?.let {
-            service.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseUser>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseUser>>, response: Response<OoDataResponse<OoResponseUser>>) {
+            service.updateUser(it, param).enqueue(object : Callback<OoDataResponse<OoResponseSigninUser>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseSigninUser>>, response: Response<OoDataResponse<OoResponseSigninUser>>) {
                     if (response.isSuccessful) {
                         OoRestManager.printLog(response.body()?.data.toString())
                         completion(null, response.body()?.data)
@@ -109,7 +109,7 @@ object ApiUser {
                         completion(OoRestManager.parseError(response.errorBody()), null)
                     }
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseUser>>, t: Throwable) {
+                override fun onFailure(call: Call<OoDataResponse<OoResponseSigninUser>>, t: Throwable) {
                     OoRestManager.printError("UpdateUserFailed. ${t.message}")
                     completion(null, null)
                 }

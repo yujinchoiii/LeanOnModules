@@ -99,7 +99,7 @@ object OoRestManager {
         ApiUser.find(ooRestService, email, completion)
     }
 
-    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
+    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
         ApiUser.update(ooRestService, param, completion)
     }
 
@@ -143,8 +143,12 @@ object OoRestManager {
         ApiVoip.create(ooRestService, toUserId, completion)
     }
 
-    fun deleteChannel(roomId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.delete(ooRestService, roomId, completion)
+    fun deleteChannel(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiVoip.delete(ooRestService, channelId, completion)
+    }
+
+    fun voipBusy(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiVoip.bosy(ooRestService, channelId, completion)
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {

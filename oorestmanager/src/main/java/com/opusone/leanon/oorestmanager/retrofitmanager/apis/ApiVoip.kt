@@ -47,7 +47,27 @@ object ApiVoip {
                     }
                 }
                 override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("DeleteUser Failed. ${t.message}")
+                    OoRestManager.printError("DeleteChannel Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun bosy(service: OoRestService, channelId: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.voipBusy(it, channelId).enqueue(object : Callback<OoResponse> {
+                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.toString())
+                        completion(null, response.body())
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                    OoRestManager.printError("VoipBusy Failed. ${t.message}")
                     completion(null, null)
                 }
             })

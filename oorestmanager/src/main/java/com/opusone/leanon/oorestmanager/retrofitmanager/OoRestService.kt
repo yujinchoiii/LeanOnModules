@@ -28,7 +28,7 @@ interface OoRestService {
     fun findUser(@Header("authorization") authorization : String, @Path("email") email: String): Call<OoDataResponse<OoResponseUser>>
 
     @PUT("user/update")
-    fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseUser>>
+    fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseSigninUser>>
 
     @DELETE("user/delete/{id}")
     fun deleteUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
@@ -61,8 +61,11 @@ interface OoRestService {
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Field("toUserId") toUserId: String): Call<OoDataResponse<OoResponseCreateChannel>>
 
-    @DELETE("voip/delete/{roomId}")
-    fun deleteChannel(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoResponse>
+    @DELETE("voip/delete/{channelId}")
+    fun deleteChannel(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>
+
+    @DELETE("voip/busy/{channelId}")
+    fun voipBusy(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>
 
     @GET("voip/turnurl/{roomId}")
     fun turnUrl(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoDataResponse<OoResponseTurnUrl>>
