@@ -11,8 +11,6 @@ import org.junit.runner.RunWith
 import java.util.*
 import java.util.concurrent.CountDownLatch
 
-
-@RunWith(AndroidJUnit4::class)
 class RestManagerTest {
 
     @Before
@@ -328,6 +326,17 @@ class RestManagerTest {
     fun voipBusy() {
         val signal = CountDownLatch(1)
         OoRestManager.voipBusy("5xR9uf8lFG5jmYoXAI1U") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun voipReject() {
+        val signal = CountDownLatch(1)
+        OoRestManager.voipReject("MlwcI9Y8Lvm43NhiLMlQ") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()

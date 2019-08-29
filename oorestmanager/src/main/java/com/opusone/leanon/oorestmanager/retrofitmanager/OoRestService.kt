@@ -67,6 +67,9 @@ interface OoRestService {
     @DELETE("voip/busy/{channelId}")
     fun voipBusy(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>
 
+    @DELETE("voip/reject/{channelId}")
+    fun voipReject(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>
+
     @GET("voip/turnurl/{roomId}")
     fun turnUrl(@Header("authorization") authorization : String, @Path("roomId") roomId: String): Call<OoDataResponse<OoResponseTurnUrl>>
 

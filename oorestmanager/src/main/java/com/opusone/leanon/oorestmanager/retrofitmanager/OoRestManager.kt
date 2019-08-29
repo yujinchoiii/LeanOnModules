@@ -148,7 +148,11 @@ object OoRestManager {
     }
 
     fun voipBusy(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.bosy(ooRestService, channelId, completion)
+        ApiVoip.busy(ooRestService, channelId, completion)
+    }
+
+    fun voipReject(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiVoip.reject(ooRestService, channelId, completion)
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
