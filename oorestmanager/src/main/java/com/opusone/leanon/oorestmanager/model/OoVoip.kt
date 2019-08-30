@@ -7,11 +7,12 @@ class OoVoipChannel(var id: String? = null,
                     var roomId: String? = null,
                     var turnRestUrl: String? = null,
                     var signal: OoSignal? = null,
-                    var toUserId: String? = null,
+                    var caller: String? = null,
+                    var callee: String? = null,
                     var iceServers: List<OoVoipIceServer> = arrayListOf()): Serializable {
 
     override fun toString(): String {
-        return "OoVoipChannel (id='$id', 'roomId='$roomId', 'turnRestUrl=$turnRestUrl', 'signal=$signal', 'iceServers=$iceServers')"
+        return "OoVoipChannel (id='$id', 'roomId='$roomId', 'caller='$caller', 'callee='$callee', 'turnRestUrl=$turnRestUrl', 'signal=$signal', 'iceServers=$iceServers')"
     }
 }
 

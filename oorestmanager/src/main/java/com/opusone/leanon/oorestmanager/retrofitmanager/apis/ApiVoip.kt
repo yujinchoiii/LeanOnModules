@@ -7,14 +7,15 @@ import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
 import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
 import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
 import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestService
+import com.opusone.leanon.oorestmanager.params.OoParamCreateChannel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiVoip {
-    fun create(service: OoRestService, toUserId: String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+    fun create(service: OoRestService, param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
         OoRestManager.bearerToken?.let {
-            service.createChannel(it, toUserId).enqueue(object :
+            service.createChannel(it, param).enqueue(object :
                 Callback<OoDataResponse<OoResponseCreateChannel>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseCreateChannel>>, response: Response<OoDataResponse<OoResponseCreateChannel>>) {
                     if (response.isSuccessful) {
@@ -34,9 +35,9 @@ object ApiVoip {
         }
     }
 
-    fun delete(service: OoRestService, roomId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+    fun delete(service: OoRestService, channelId: String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
-            service.deleteChannel(it, roomId).enqueue(object : Callback<OoResponse> {
+            service.deleteChannel(it, channelId, caller).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                     if (response.isSuccessful) {
                         OoRestManager.printLog(response.body()?.toString())

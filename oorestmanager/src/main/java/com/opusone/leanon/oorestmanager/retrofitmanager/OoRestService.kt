@@ -57,12 +57,11 @@ interface OoRestService {
     @POST("notification/acceptGuardian")
     fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
 
-    @FormUrlEncoded
     @POST("voip/create")
-    fun createChannel(@Header("authorization") authorization : String, @Field("toUserId") toUserId: String): Call<OoDataResponse<OoResponseCreateChannel>>
+    fun createChannel(@Header("authorization") authorization : String, @Body param: OoParamCreateChannel): Call<OoDataResponse<OoResponseCreateChannel>>
 
-    @DELETE("voip/delete/{channelId}")
-    fun deleteChannel(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>
+    @DELETE("voip/delete/{channelId}/{caller}")
+    fun deleteChannel(@Header("authorization") authorization : String, @Path("channelId") channelId: String, @Path("caller") caller: String): Call<OoResponse>
 
     @DELETE("voip/busy/{channelId}")
     fun voipBusy(@Header("authorization") authorization : String, @Path("channelId") channelId: String): Call<OoResponse>

@@ -17,7 +17,7 @@ object OoRestManager {
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = PRODCUT_BASE_URL
+    private val BASE_URL = DEV_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
@@ -139,12 +139,12 @@ object OoRestManager {
         ApiNotification.acceptGuardian(ooRestService, param, completion)
     }
 
-    fun createChannel(toUserId: String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
-        ApiVoip.create(ooRestService, toUserId, completion)
+    fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+        ApiVoip.create(ooRestService, param, completion)
     }
 
-    fun deleteChannel(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.delete(ooRestService, channelId, completion)
+    fun deleteChannel(channelId : String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiVoip.delete(ooRestService, channelId, caller, completion)
     }
 
     fun voipBusy(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {

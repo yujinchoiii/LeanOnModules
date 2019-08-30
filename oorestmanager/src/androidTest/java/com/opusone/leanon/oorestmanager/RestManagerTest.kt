@@ -297,7 +297,12 @@ class RestManagerTest {
     @Test
     fun createVoipChannel() {
         val signal = CountDownLatch(1)
-        OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { error, response ->
+        val param = OoParamCreateChannel(
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbEZXV0hnelVrNVRUamxFVWxGWGNEaHZjRXB6SWl3aVpXMWhhV3dpT2lKellXNWhhV2g1Wlc5dVFHZHRZV2xzTG1OdmJTSXNJbTVoYldVaU9pSlpaVzl1WnlCSWVXVnZiaUJEU0U5Sklpd2ljMmhoWkc5M0lqb2laRFptT0RSbE9XSmtOekl3TW1Oa05HVXhaamsxWmpjeVkyVTRabUZqWW1SaU9EVXhZV1k1T1RrM016azFORE0zT1RneE1qYzRZV1U0TnpjeFptWTFOakEzWldabE5ETmhaRFpoTkRSak9UVmhOelkwWkRBM01ERXhaVEU0TWpZMVkyWXpNbU14TVdSa1lqZzVZVFU1T1RKaFlUUmpZelZrTlRaa01tWTBNellpTENKa1pYWnBZMlZVYjJ0bGJpSTZJbTVsZHlCMGIydGxiaklpTENKcGMweGhkVzVqYUdWeUlqb2labUZzYzJVaUxDSndhWEpqZEhWeVpTSTZJbWgwZEhBNkx5OTNkM2NpTENKcFlYUWlPakUxTmpZNU1EUTJPVEo5LmdXTk0xbHVXTFRPSlNDTTFqUF9tXzVxd2tXSTlTTUx2NTk2azRDVDhOZFEiLCJ1c2VySWQiOiJRVlh4M1JOU045RFJRV3A4b3BKcyIsImlhdCI6MTU2NjkwNDY5Mn0.l3id2rGYu5kmP37efZS8yvnF5dACEn_5QvsVWYWKKEs",
+            "hzlL5qELHZe15s3e"
+        )
+
+        OoRestManager.createChannel(param) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.channel?.id)
             Assert.assertNotEquals(null, response?.channel?.roomId)
@@ -312,20 +317,20 @@ class RestManagerTest {
     @Test
     fun deleteChannel() {
         val signal = CountDownLatch(1)
-        OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { _, channelResponse ->
-            OoRestManager.deleteChannel(channelResponse ?.channel?.id?: "") { error, response ->
-                Assert.assertEquals(null, error)
-                Assert.assertEquals(true, response?.isSuccess())
-                signal.countDown()
-            }
+
+        OoRestManager.deleteChannel("oF870wxeF847aNGyn9wh", "QVXx3RNSN9DRQWp8opJs") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
         }
+
         signal.await()
     }
 
     @Test
     fun voipBusy() {
         val signal = CountDownLatch(1)
-        OoRestManager.voipBusy("5xR9uf8lFG5jmYoXAI1U") { error, response ->
+        OoRestManager.voipBusy("ao4HTpvr6dysvb3Imzse") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()
@@ -336,7 +341,7 @@ class RestManagerTest {
     @Test
     fun voipReject() {
         val signal = CountDownLatch(1)
-        OoRestManager.voipReject("MlwcI9Y8Lvm43NhiLMlQ") { error, response ->
+        OoRestManager.voipReject("ao4HTpvr6dysvb3Imzse") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()
@@ -348,17 +353,12 @@ class RestManagerTest {
     @Test
     fun turnUrl() {
         val signal = CountDownLatch(1)
-        OoRestManager.createChannel("QVXx3RNSN9DRQWp8opJs") { _, cahnnel ->
 
-            OoRestManager.turnUrl(cahnnel?.channel?.roomId ?: "") { error, response ->
-                Assert.assertEquals(null, error)
-                Assert.assertNotEquals(null, response?.iceServers)
-
-                OoRestManager.deleteChannel(cahnnel?.channel?.roomId ?: "") { _, _->
-                    signal.countDown()
-                }
-            }
+        OoRestManager.turnUrl("JrALu2kwI3K4U7cmLQwc") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotEquals(null, response?.iceServers)
         }
+
         signal.await()
     }
 
