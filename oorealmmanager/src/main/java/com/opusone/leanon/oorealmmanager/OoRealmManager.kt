@@ -198,8 +198,8 @@ object OoRealmManager {
     fun findMessageList(index : Long, completion: (List<OoRmMessage>?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            if(index > 99) {
-                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 99, index).findAll()))
+            if(index > 20) {
+                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 20, index).sort("index", Sort.ASCENDING).findAll()))
             } else {
                 completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).findAll()))
             }
