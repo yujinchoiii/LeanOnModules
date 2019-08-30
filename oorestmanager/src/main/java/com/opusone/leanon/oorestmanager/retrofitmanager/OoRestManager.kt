@@ -17,7 +17,7 @@ object OoRestManager {
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = DEV_BASE_URL
+    private val BASE_URL = PRODCUT_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
