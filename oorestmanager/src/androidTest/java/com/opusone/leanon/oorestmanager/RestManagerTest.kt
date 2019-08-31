@@ -315,6 +315,19 @@ class RestManagerTest {
     }
 
     @Test
+    fun readChannel() {
+        val signal = CountDownLatch(1)
+
+        OoRestManager.readChannel("TZugOgil7Tb8W5UR2F4c") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotNull(response?.channel)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+
+    @Test
     fun deleteChannel() {
         val signal = CountDownLatch(1)
 

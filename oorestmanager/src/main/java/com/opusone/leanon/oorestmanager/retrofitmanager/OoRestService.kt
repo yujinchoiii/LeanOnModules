@@ -60,6 +60,9 @@ interface OoRestService {
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Body param: OoParamCreateChannel): Call<OoDataResponse<OoResponseCreateChannel>>
 
+    @GET("voip/read/{id}")
+    fun readChannel(@Header("authorization") authorization : String, @Path("id") channelId: String): Call<OoDataResponse<OoResponseCreateChannel>>
+
     @DELETE("voip/delete/{channelId}/{caller}")
     fun deleteChannel(@Header("authorization") authorization : String, @Path("channelId") channelId: String, @Path("caller") caller: String): Call<OoResponse>
 

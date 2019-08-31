@@ -143,6 +143,10 @@ object OoRestManager {
         ApiVoip.create(ooRestService, param, completion)
     }
 
+    fun readChannel(channelId : String, completion:(OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+        ApiVoip.read(ooRestService, channelId, completion)
+    }
+
     fun deleteChannel(channelId : String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         ApiVoip.delete(ooRestService, channelId, caller, completion)
     }

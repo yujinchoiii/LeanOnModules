@@ -35,6 +35,26 @@ object ApiVoip {
         }
     }
 
+    fun read(service: OoRestService, channelId : String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit){
+        OoRestManager.bearerToken?.let {
+            service.readChannel(it, channelId).enqueue(object : Callback<OoDataResponse<OoResponseCreateChannel>> {
+                override fun onResponse(call: Call<OoDataResponse<OoResponseCreateChannel>>, response: Response<OoDataResponse<OoResponseCreateChannel>>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.data.toString())
+                        completion(null, response.body()?.data)
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoDataResponse<OoResponseCreateChannel>>, t: Throwable) {
+                    OoRestManager.printError("ReadChannel Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
     fun delete(service: OoRestService, channelId: String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.deleteChannel(it, channelId, caller).enqueue(object : Callback<OoResponse> {
