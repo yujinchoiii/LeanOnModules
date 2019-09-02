@@ -46,10 +46,10 @@ interface OoRestService {
     fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
 
     @POST("notification/message")
-    fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoResponse>
+    fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
 
     @POST("notification/groupMessage")
-    fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoResponse>
+    fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
 
     @POST("notification/requestGuardian")
     fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
