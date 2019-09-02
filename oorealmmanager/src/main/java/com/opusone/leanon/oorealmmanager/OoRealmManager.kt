@@ -201,7 +201,7 @@ object OoRealmManager {
             if(index > 20) {
                 completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 20, index).sort("index", Sort.ASCENDING).findAll()))
             } else {
-                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).findAll()))
+                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).sort("index", Sort.ASCENDING).findAll()))
             }
         }
         realm.close()
