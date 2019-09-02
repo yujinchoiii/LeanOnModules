@@ -2,7 +2,6 @@ package com.opusone.leanon.oorealmmanager
 
 import android.content.Context
 import android.util.Log
-import com.opusone.leanon.oorealmmanager.model.OoMessageState
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
 import com.opusone.leanon.oorealmmanager.model.OoRmUser
@@ -87,27 +86,6 @@ object OoRealmManager {
         Realm.getDefaultInstance().executeTransaction {
             f()
             it.close()
-        }
-    }
-
-    fun updateMessageState (state : Boolean) {
-        val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
-            if(realm.where(OoMessageState::class.java).count().toInt().equals(0)) {
-                val data = OoMessageState()
-                data.state = state
-                realm.executeTransaction{
-                    it.copyToRealm(data)
-                }
-            } else {
-                val result = realm.where(OoMessageState::class.java).findFirst()
-                result?.let {message ->
-                    realm.executeTransaction {
-                        message.state = state
-                    }
-                }
-            }
-            realm.close()
         }
     }
 

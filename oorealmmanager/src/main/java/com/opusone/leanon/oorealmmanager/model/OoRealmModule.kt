@@ -8,7 +8,6 @@ import io.realm.annotations.RealmModule
         OoRmPartner::class,
         OoRmScaleDevice::class,
         OoRmMessage::class,
-        OoMessageState::class,
         OoGuardian::class,
         OoSenior::class
     )
