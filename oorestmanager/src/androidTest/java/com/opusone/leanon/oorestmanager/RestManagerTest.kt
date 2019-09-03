@@ -298,8 +298,8 @@ class RestManagerTest {
     fun createVoipChannel() {
         val signal = CountDownLatch(1)
         val param = OoParamCreateChannel(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbEZXV0hnelVrNVRUamxFVWxGWGNEaHZjRXB6SWl3aVpXMWhhV3dpT2lKellXNWhhV2g1Wlc5dVFHZHRZV2xzTG1OdmJTSXNJbTVoYldVaU9pSlpaVzl1WnlCSWVXVnZiaUJEU0U5Sklpd2ljMmhoWkc5M0lqb2laRFptT0RSbE9XSmtOekl3TW1Oa05HVXhaamsxWmpjeVkyVTRabUZqWW1SaU9EVXhZV1k1T1RrM016azFORE0zT1RneE1qYzRZV1U0TnpjeFptWTFOakEzWldabE5ETmhaRFpoTkRSak9UVmhOelkwWkRBM01ERXhaVEU0TWpZMVkyWXpNbU14TVdSa1lqZzVZVFU1T1RKaFlUUmpZelZrTlRaa01tWTBNellpTENKa1pYWnBZMlZVYjJ0bGJpSTZJbTVsZHlCMGIydGxiaklpTENKcGMweGhkVzVqYUdWeUlqb2labUZzYzJVaUxDSndhWEpqZEhWeVpTSTZJbWgwZEhBNkx5OTNkM2NpTENKcFlYUWlPakUxTmpZNU1EUTJPVEo5LmdXTk0xbHVXTFRPSlNDTTFqUF9tXzVxd2tXSTlTTUx2NTk2azRDVDhOZFEiLCJ1c2VySWQiOiJRVlh4M1JOU045RFJRV3A4b3BKcyIsImlhdCI6MTU2NjkwNDY5Mn0.l3id2rGYu5kmP37efZS8yvnF5dACEn_5QvsVWYWKKEs",
-            "hzlL5qELHZe15s3e"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbEZXV0hnelVrNVRUamxFVWxGWGNEaHZjRXB6SWl3aVpXMWhhV3dpT2lKellXNWhhV2g1Wlc5dVFHZHRZV2xzTG1OdmJTSXNJbTVoYldVaU9pSlpaVzl1WnlCSWVXVnZiaUJEU0U5Sklpd2ljMmhoWkc5M0lqb2laRFptT0RSbE9XSmtOekl3TW1Oa05HVXhaamsxWmpjeVkyVTRabUZqWW1SaU9EVXhZV1k1T1RrM016azFORE0zT1RneE1qYzRZV1U0TnpjeFptWTFOakEzWldabE5ETmhaRFpoTkRSak9UVmhOelkwWkRBM01ERXhaVEU0TWpZMVkyWXpNbU14TVdSa1lqZzVZVFU1T1RKaFlUUmpZelZrTlRaa01tWTBNellpTENKa1pYWnBZMlZVYjJ0bGJpSTZJbTVsZHlCMGIydGxiaklpTENKcGMweGhkVzVqYUdWeUlqb2labUZzYzJVaUxDSndhWEpqZEhWeVpTSTZJbWgwZEhBNkx5OTNkM2NpTENKcFlYUWlPakUxTmpjME56Z3lPREI5LlEtYVJHbmRreFdQNHAxLUV4U3NPTjJwVjRDTXgxUk1YTTVFR29fZ3d4dzQiLCJ1c2VySWQiOiJRVlh4M1JOU045RFJRV3A4b3BKcyIsImlhdCI6MTU2NzQ3ODI4MH0.FCDayior7LTy6qB8LZlInwEYqD9hkp8mAGPUJSLiF5M",
+            "UFWvQ1OV2gpuBaSj4Wnd"
         )
 
         OoRestManager.createChannel(param) { error, response ->
@@ -309,6 +309,8 @@ class RestManagerTest {
             Assert.assertNotEquals(0, response?.channel?.iceServers?.size)
             Assert.assertNotEquals(null, response?.channel?.turnRestUrl)
             Assert.assertNotEquals(null, response?.channel?.signal)
+            Assert.assertNotEquals(null, response?.channel?.caller)
+            Assert.assertNotEquals(null, response?.channel?.callee)
             signal.countDown()
         }
         signal.await()

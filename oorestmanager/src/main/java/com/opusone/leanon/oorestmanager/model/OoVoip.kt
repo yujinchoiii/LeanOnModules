@@ -7,8 +7,8 @@ class OoVoipChannel(var id: String? = null,
                     var roomId: String? = null,
                     var turnRestUrl: String? = null,
                     var signal: OoSignal? = null,
-                    var caller: String? = null,
-                    var callee: String? = null,
+                    var caller: CompactUser? = null,
+                    var callee: CompactUser? = null,
                     var iceServers: List<OoVoipIceServer> = arrayListOf()): Serializable {
 
     override fun toString(): String {
@@ -30,5 +30,11 @@ class OoSignal (var wshpp: String? = null,
 
     override fun toString(): String {
         return "OoSignal (wshpp='$wshpp', 'wstls='$wstls')"
+    }
+}
+
+class CompactUser (var id: String? = null, var name: String? = null, var picture: String? = null): Serializable {
+    override fun toString(): String {
+        return "OoSignal (id='$id', 'name='$name', 'picture='$picture')"
     }
 }
