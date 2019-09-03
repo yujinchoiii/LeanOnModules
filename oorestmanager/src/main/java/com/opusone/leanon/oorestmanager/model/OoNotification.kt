@@ -9,10 +9,10 @@ class OoMessage (var id: String? = null,
                  var dataType: String? = null,
                  var message: String? = null,
                  var timestamp: String? = null,
-                 var messageAswer: List<String>?= null): Serializable {
+                 var messageAnswer: List<String>?= null): Serializable {
 
     override fun toString(): String {
         return "OoMessage (id='$id', 'name='$name', 'picture=$picture', 'index=$index'," +
-                " 'dataType=$dataType', 'message=$message', 'timestamp=$timestamp', 'messageAswer=$messageAswer')"
+                " 'dataType=$dataType', 'message=$message', 'timestamp=$timestamp', 'messageAnswer=$messageAnswer')"
     }
 }
