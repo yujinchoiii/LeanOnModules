@@ -33,20 +33,14 @@ class OoSignal (var wshpp: String? = null,
     }
 }
 
-class OoCompactUser (var id: String? = null, var name: String? = null, var picture: String? = null): Serializable {
+class OoPushVoipCommon(var id: String? = null, var roomId: String? = null, var user: OoCompactUser? = null): Serializable {
     override fun toString(): String {
-        return "OoSignal (id='$id', 'name='$name', 'picture='$picture')"
+        return "OoPushVoipCommon (id='$id', 'roomId='$roomId', 'user='$user')"
     }
 }
 
-class OoVoipPushCommon(var id: String? = null, var roomId: String? = null, var user: OoCompactUser? = null): Serializable {
+class OoPushVoipData(var voip: OoPushVoipCommon? = null) : Serializable {
     override fun toString(): String {
-        return "OoVoipPushCommon (id='$id', 'roomId='$roomId', 'user='$user')"
-    }
-}
-
-class OoVoipPushData(var voip: OoVoipPushCommon? = null) : Serializable {
-    override fun toString(): String {
-        return "OoVoipPushData (voip='$voip')"
+        return "OoPushVoipData (voip='$voip')"
     }
 }

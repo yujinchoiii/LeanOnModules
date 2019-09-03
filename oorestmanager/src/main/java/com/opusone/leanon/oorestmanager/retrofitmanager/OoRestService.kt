@@ -57,6 +57,9 @@ interface OoRestService {
     @POST("notification/acceptGuardian")
     fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
 
+    @DELETE("notification/rejectGuardian/{senior}/{guardian}")
+    fun rejectGuardian(@Header("authorization") authorization : String, @Path("senior") senior: String, @Path("guardian") guardian: String): Call<OoResponse>
+
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Body param: OoParamCreateChannel): Call<OoDataResponse<OoResponseCreateChannel>>
 

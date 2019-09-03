@@ -2,9 +2,8 @@ package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 
-class OoMessage (var id: String? = null,
-                 var name: String? = null,
-                 var picture: String? = null,
+
+class OoMessage (var user: OoCompactUser? = null,
                  var index: String? = null,
                  var dataType: String? = null,
                  var message: String? = null,
@@ -12,7 +11,25 @@ class OoMessage (var id: String? = null,
                  var messageAnswer: List<String>?= null): Serializable {
 
     override fun toString(): String {
-        return "OoMessage (id='$id', 'name='$name', 'picture=$picture', 'index=$index'," +
+        return "OoMessage (user='$user', 'index=$index'," +
                 " 'dataType=$dataType', 'message=$message', 'timestamp=$timestamp', 'messageAnswer=$messageAnswer')"
+    }
+}
+
+open class OoPushRequestGuardian(var user: OoCompactUser? = null) : Serializable {
+    override fun toString(): String {
+        return "OoPushRequestGuardian (user='$user')"
+    }
+}
+
+class OoPushAcceptGuardian(user: OoCompactUser? = null): OoPushRequestGuardian(user) {
+    override fun toString(): String {
+        return "OoPushAcceptGuardian (user='$user')"
+    }
+}
+
+class OoPushRejectGuardian(user: OoCompactUser? = null): OoPushRequestGuardian(user) {
+    override fun toString(): String {
+        return "OoPushRejectGuardian (user='$user')"
     }
 }

@@ -58,3 +58,10 @@ class OoMedicineAlarm(var weekdaysInfo: String?= null,
         return "OoMedicineAlarm(weekdaysInfo='$weekdaysInfo', hour='$hour', min='$min', picture='$picture', guardian='$guardian', name='$name', alarmId='$alarmId')"
     }
 }
+
+
+class OoCompactUser (var id: String? = null, var name: String? = null, var picture: String? = null): Serializable {
+    override fun toString(): String {
+        return "OoSignal (id='$id', 'name='$name', 'picture='$picture')"
+    }
+}

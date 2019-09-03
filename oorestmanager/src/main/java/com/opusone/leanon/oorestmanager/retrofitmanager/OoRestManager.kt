@@ -139,6 +139,10 @@ object OoRestManager {
         ApiNotification.acceptGuardian(ooRestService, param, completion)
     }
 
+    fun rejectGuardian(seniorId: String, guardian: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiNotification.rejectGuardian(ooRestService, seniorId, guardian, completion)
+    }
+
     fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
         ApiVoip.create(ooRestService, param, completion)
     }

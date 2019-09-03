@@ -119,6 +119,18 @@ class RestManagerTest {
     }
 
     @Test
+    fun rejectGuardian() {
+        val signal = CountDownLatch(1)
+
+        OoRestManager.rejectGuardian("UFWvQ1OV2gpuBaSj4Wnd", "QVXx3RNSN9DRQWp8opJs") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
     fun readUser() {
         val signal = CountDownLatch(1)
         OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
