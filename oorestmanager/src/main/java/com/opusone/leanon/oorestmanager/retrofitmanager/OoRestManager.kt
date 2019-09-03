@@ -123,11 +123,11 @@ object OoRestManager {
         ApiReport.appUse(ooRestService, param, completion)
     }
 
-    fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
         ApiNotification.sendMessage(ooRestService, param, completion)
     }
 
-    fun sendGroupMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun sendGroupMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
         ApiNotification.sendGroupMessage(ooRestService, param, completion)
     }
 
