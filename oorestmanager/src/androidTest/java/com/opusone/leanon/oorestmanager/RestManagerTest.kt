@@ -412,4 +412,36 @@ class RestManagerTest {
         }
         signal.await()
     }
+
+    @Test
+    fun locationReport() {
+        val signal = CountDownLatch(1)
+        val params = OoParamLocation()
+        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFZHVjNaUk1VOVdNbWR3ZFVKaFUybzBWMjVrSWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkltWmhiSE5sSWl3aWNHbHlZM1IxY21VaU9pSm9kSFJ3T2k4dmQzZDNJaXdpYVdGMElqb3hOVFkzTkRnNE56VTJmUS5QZE5Wb2lJWDY4dkp4Qll4Ql9jREdCbTNMZ1pWeDN5NG11Q3hzRV9sWU53IiwidXNlcklkIjoiVUZXdlExT1YyZ3B1QmFTajRXbmQiLCJpYXQiOjE1Njc0ODg3NTZ9.-rLfj8jIy6mqpnWC2fKmf7opCsut1DJVh6xv6nr26gY"
+        params.geoCoding = "서울 턱별시"
+        params.latitude = "23.3633"
+        params.longitude= "34.33"
+
+        OoRestManager.locationReport(params) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun getLocationReport() {
+        val signal = CountDownLatch(1)
+        OoRestManager.getLocationReport("UFWvQ1OV2gpuBaSj4Wnd") { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotNull(response?.location?.userId)
+            Assert.assertNotNull(response?.location?.geoCoding)
+            Assert.assertNotNull(response?.location?.latitude)
+            Assert.assertNotNull(response?.location?.longitude)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
 }

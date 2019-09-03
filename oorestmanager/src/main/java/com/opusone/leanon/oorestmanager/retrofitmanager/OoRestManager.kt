@@ -170,5 +170,13 @@ object OoRestManager {
     fun scaleReport(param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiReport.scale(ooRestService, param, completion)
     }
+
+    fun locationReport(param: OoParamLocation, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.location(ooRestService, param, completion)
+    }
+
+    fun getLocationReport(userId: String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit) {
+        ApiReport.getLocation(ooRestService, userId, completion)
+    }
 }
 

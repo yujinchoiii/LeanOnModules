@@ -81,4 +81,10 @@ interface OoRestService {
     @POST("report/scale")
     fun scaleReport(@Header("authorization") authorization : String, @Body param: OoParamScale): Call<OoResponse>
 
+    @POST("report/location")
+    fun locationReport(@Header("authorization") authorization : String, @Body param: OoParamLocation): Call<OoResponse>
+
+    @GET("report/location/{userId}")
+    fun getLocation(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseLocation>>
+
 }

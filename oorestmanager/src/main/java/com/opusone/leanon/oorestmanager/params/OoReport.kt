@@ -48,3 +48,12 @@ class OoParamScale(
                 ", muscleRate='$muscleRate', boneMass='$boneMass', bmr='$bmr', heartRate='$heartRate')"
     }
 }
+
+
+class OoParamLocation(var userToken: String? = null, var geoCoding: String? = null,
+                      var latitude: String? = null, var longitude: String? = null) : Serializable {
+    override fun toString(): String {
+        return "OoParamLocation(userToken='$userToken', geoCoding='$geoCoding', latitude='$latitude', longitude='$longitude'"
+    }
+
+}

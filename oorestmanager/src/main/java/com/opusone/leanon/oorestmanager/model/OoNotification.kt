@@ -16,6 +16,15 @@ class OoMessage (var user: OoCompactUser? = null,
     }
 }
 
+class OoLocation(var userId: String? = null, var geoCoding: String? = null,
+                 var latitude: String? = null, var longitude: String? = null,
+                 var timestamp: String? = null): Serializable {
+    override fun toString(): String {
+        return "OoLocation (userId='$userId', geoCoding='$geoCoding', 'latitude=$latitude'," +
+                " 'longitude=$longitude', 'timestamp=$timestamp')"
+    }
+}
+
 open class OoPushRequestGuardian(var user: OoCompactUser? = null) : Serializable {
     override fun toString(): String {
         return "OoPushRequestGuardian (user='$user')"
