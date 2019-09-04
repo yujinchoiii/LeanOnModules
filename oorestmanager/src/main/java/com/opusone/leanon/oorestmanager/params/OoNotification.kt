@@ -7,9 +7,10 @@ class OoParamMessage(var userToken: String? = null,
                      var index: String?,
                      var dataType : String?,
                      var message: String? = null,
-                     var messageAnswer: MutableList<String?>) {
+                     var messageAnswer: MutableList<String?>,
+                     var tag : String? = null) {
     override fun toString(): String {
-        return "OoParamMessage(userToken=$userToken, to=$to, index=$index, dataType=$dataType, message=$message, messageAnswer=$messageAnswer)"
+        return "OoParamMessage(userToken=$userToken, to=$to, index=$index, dataType=$dataType, message=$message, messageAnswer=$messageAnswer, tag=$tag)"
     }
 }
 
