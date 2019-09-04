@@ -102,6 +102,19 @@ object OoRealmManager {
         }
     }
 
+    fun updateByTag(tag : String, f: (OoRmMessage) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(OoRmMessage::class.java).equalTo("tag", tag).findFirst()
+            result?.let {message ->
+                realm.executeTransaction {
+                    f(message)
+                }
+            }
+            realm.close()
+        }
+    }
+
     fun <T: RealmObject> updateById(id : String, type : Class<T>, f: (T) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {realm ->

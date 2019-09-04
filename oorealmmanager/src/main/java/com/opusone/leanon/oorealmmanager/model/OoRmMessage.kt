@@ -16,8 +16,9 @@ open class OoRmMessage : RealmObject() {
     var message: String? = ""
     var messageAnswer : RealmList<String?>? = RealmList()
     var timestamp: Long? = -1
+    var tag: String? = ""
 
     override fun toString(): String {
-        return "OoRmMessage(index=$index, dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp)"
+        return "OoRmMessage(index=$index, dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp, tag=$tag)"
     }
 }
