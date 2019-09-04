@@ -14,7 +14,7 @@ open class OoRmMessage : RealmObject() {
     var id : String? = ""
     var name : String? = ""
     var message: String? = ""
-    var messageAnswer : RealmList<String?>? = RealmList("")
+    var messageAnswer : RealmList<String?>? = RealmList()
     var timestamp: Long? = -1
 
     override fun toString(): String {
