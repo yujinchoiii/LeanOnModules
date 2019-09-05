@@ -17,7 +17,7 @@ object OoRestManager {
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = PRODCUT_BASE_URL
+    private val BASE_URL = DEV_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
@@ -124,23 +124,23 @@ object OoRestManager {
     }
 
     fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
-        ApiNotification.sendMessage(ooRestService, param, completion)
+        ApiChat.sendMessage(ooRestService, param, completion)
     }
 
     fun sendGroupMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
-        ApiNotification.sendGroupMessage(ooRestService, param, completion)
+        ApiChat.sendGroupMessage(ooRestService, param, completion)
     }
 
     fun requestGuardian(param : OoParamRequestGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiNotification.requestGuardian(ooRestService, param, completion)
+        ApiRelation.requestGuardian(ooRestService, param, completion)
     }
 
     fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiNotification.acceptGuardian(ooRestService, param, completion)
+        ApiRelation.acceptGuardian(ooRestService, param, completion)
     }
 
     fun rejectGuardian(seniorId: String, guardian: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiNotification.rejectGuardian(ooRestService, seniorId, guardian, completion)
+        ApiRelation.rejectGuardian(ooRestService, seniorId, guardian, completion)
     }
 
     fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
@@ -177,6 +177,22 @@ object OoRestManager {
 
     fun getLocationReport(userId: String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit) {
         ApiReport.getLocation(ooRestService, userId, completion)
+    }
+
+    fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiMedication.registerMedication(ooRestService, param, completion)
+    }
+
+    fun resultMedication(param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiMedication.resultMedication(ooRestService, param, completion)
+    }
+
+    fun getMedications(seniorId: String, completion: (OoErrorResponse?, OoResponseMedications?) -> Unit) {
+        ApiMedication.getMedicationList(ooRestService, seniorId, completion)
+    }
+
+    fun deleteMedications(seniorId: String, medicationId: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiMedication.deleteMedication(ooRestService, seniorId,  medicationId, completion)
     }
 }
 

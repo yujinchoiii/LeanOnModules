@@ -45,19 +45,19 @@ interface OoRestService {
     @POST("report/appuse")
     fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
 
-    @POST("notification/message")
+    @POST("chat/message")
     fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
 
-    @POST("notification/groupMessage")
+    @POST("chat/groupMessage")
     fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
 
-    @POST("notification/requestGuardian")
+    @POST("relation/request")
     fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
 
-    @POST("notification/acceptGuardian")
+    @POST("relation/accept")
     fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
 
-    @DELETE("notification/rejectGuardian/{senior}/{guardian}")
+    @DELETE("relation/reject/{senior}/{guardian}")
     fun rejectGuardian(@Header("authorization") authorization : String, @Path("senior") senior: String, @Path("guardian") guardian: String): Call<OoResponse>
 
     @POST("voip/create")
@@ -81,10 +81,24 @@ interface OoRestService {
     @POST("report/scale")
     fun scaleReport(@Header("authorization") authorization : String, @Body param: OoParamScale): Call<OoResponse>
 
+    @GET("report/scale/{userId}")
+    fun getScaleReport(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseTurnUrl>>
+
     @POST("report/location")
     fun locationReport(@Header("authorization") authorization : String, @Body param: OoParamLocation): Call<OoResponse>
 
     @GET("report/location/{userId}")
     fun getLocation(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseLocation>>
 
+    @POST("medication/reminder/register")
+    fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>
+
+    @POST("medication/reminder/result")
+    fun resultMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamResultMedication): Call<OoResponse>
+
+    @GET("medication/reminder/list/{seniorId}")
+    fun getMedications(@Header("authorization") authorization : String, @Path("seniorId") seniorId: String): Call<OoDataResponse<OoResponseMedications>>
+
+    @DELETE("medication/reminder/delete/{seniorId}/{medicationId}")
+    fun deleteMedication(@Header("authorization") authorization : String, @Path("seniorId") seniorId: String, @Path("medicationId") medicationId: String): Call<OoResponse>
 }
