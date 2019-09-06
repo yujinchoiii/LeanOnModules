@@ -104,8 +104,10 @@ object OoRealmManager {
 
     fun updateByTag(tag : String, f: (OoRmMessage) -> Unit) {
         val realm = Realm.getDefaultInstance()
+        val selected = 4
         realm?.let {realm ->
-            val result = realm.where(OoRmMessage::class.java).equalTo("tag", tag).findFirst()
+            val result = realm.where(OoRmMessage::class.java).notEqualTo("dataType", selected).equalTo("tag", tag).findFirst()
+            Log.i(TAG, "found $result")
             result?.let {message ->
                 realm.executeTransaction {
                     f(message)
