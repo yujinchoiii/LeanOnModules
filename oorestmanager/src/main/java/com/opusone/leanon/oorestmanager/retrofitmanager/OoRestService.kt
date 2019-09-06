@@ -58,7 +58,7 @@ interface OoRestService {
     fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
 
     @POST("relation/accept")
-    fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
+    fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoDataResponse<OoResponseDailyReport>>
 
     @DELETE("relation/reject/{senior}/{guardian}")
     fun rejectGuardian(@Header("authorization") authorization : String, @Path("senior") senior: String, @Path("guardian") guardian: String): Call<OoResponse>

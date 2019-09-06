@@ -139,7 +139,7 @@ object OoRestManager {
         ApiRelation.requestGuardian(ooRestService, param, completion)
     }
 
-    fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+    fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
         ApiRelation.acceptGuardian(ooRestService, param, completion)
     }
 
