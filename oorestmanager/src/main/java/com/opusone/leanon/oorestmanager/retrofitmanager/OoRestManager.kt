@@ -119,6 +119,10 @@ object OoRestManager {
         ApiReport.mmse(ooRestService, param, completion)
     }
 
+    fun getMMSE(userId: String, completion: (OoErrorResponse?, OoResponseMMSE?) -> Unit) {
+        ApiReport.getMmse(ooRestService, userId, completion)
+    }
+
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiReport.appUse(ooRestService, param, completion)
     }
@@ -171,12 +175,20 @@ object OoRestManager {
         ApiReport.scale(ooRestService, param, completion)
     }
 
+    fun getScaleReport(userId: String, completion: (OoErrorResponse?, OoResponseScale?) -> Unit) {
+        ApiReport.getScale(ooRestService, userId, completion)
+    }
+
     fun locationReport(param: OoParamLocation, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiReport.location(ooRestService, param, completion)
     }
 
     fun getLocationReport(userId: String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit) {
         ApiReport.getLocation(ooRestService, userId, completion)
+    }
+
+    fun getDailyReport(seniorId: String,  completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
+        ApiReport.getDaily(ooRestService, seniorId, completion)
     }
 
     fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {

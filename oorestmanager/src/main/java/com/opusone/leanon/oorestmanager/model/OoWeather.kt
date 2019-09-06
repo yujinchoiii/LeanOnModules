@@ -30,7 +30,6 @@ class OoFineDust(
 
 }
 
-
 class OoWeather(
     var date: String? = null,
     var time: String? = null,
@@ -43,6 +42,6 @@ class OoWeather(
     var cityName: String? = null): Serializable {
 
     override fun toString(): String {
-        return "OoFineDust(date=$date, time=$time, temp=$temp, minTemp=$minTemp, maxTemp=$maxTemp, sky=$sky, rain=$rain sidoName=$sidoName, cityName=$cityName"
+        return "OoWeather(date=$date, time=$time, temp=$temp, minTemp=$minTemp, maxTemp=$maxTemp, sky=$sky, rain=$rain sidoName=$sidoName, cityName=$cityName"
     }
 }

@@ -42,6 +42,9 @@ interface OoRestService {
     @POST("report/mmse")
     fun createMMSE(@Header("authorization") authorization : String, @Body param: OoParamMMSE): Call<OoResponse>
 
+    @GET("report/mmse/{userId}")
+    fun getMMSE(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseMMSE>>
+
     @POST("report/appuse")
     fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
 
@@ -82,7 +85,7 @@ interface OoRestService {
     fun scaleReport(@Header("authorization") authorization : String, @Body param: OoParamScale): Call<OoResponse>
 
     @GET("report/scale/{userId}")
-    fun getScaleReport(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseTurnUrl>>
+    fun getScaleReport(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseScale>>
 
     @POST("report/location")
     fun locationReport(@Header("authorization") authorization : String, @Body param: OoParamLocation): Call<OoResponse>
@@ -101,4 +104,7 @@ interface OoRestService {
 
     @DELETE("medication/reminder/delete/{seniorId}/{medicationId}")
     fun deleteMedication(@Header("authorization") authorization : String, @Path("seniorId") seniorId: String, @Path("medicationId") medicationId: String): Call<OoResponse>
+
+    @GET("report/daily/{userId}")
+    fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
 }

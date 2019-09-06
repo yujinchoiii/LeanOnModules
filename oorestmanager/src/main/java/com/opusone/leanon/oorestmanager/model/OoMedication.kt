@@ -2,7 +2,7 @@ package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 
-class OoMedicatio(
+class OoMedication(
     var id: String?= null,
     var userId: String?= null,
     var guardian: String?= null,
@@ -13,7 +13,7 @@ class OoMedicatio(
     var picture: String?= null,
     var weekdaysInfo: String?= null) : Serializable {
     override fun toString(): String {
-        return "OoMedicatio(id='$id', userId='$userId', guardian='$guardian' ,alarmId='$alarmId', " +
+        return "OoMedication(id='$id', userId='$userId', guardian='$guardian' ,alarmId='$alarmId', " +
                 "guardian='$guardian', hour='$hour', min='$min', name='$name', " +
                 "picture='$picture', weekdaysInfo='$weekdaysInfo')"
     }
