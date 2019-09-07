@@ -54,6 +54,12 @@ interface OoRestService {
     @POST("chat/groupMessage")
     fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
 
+    @POST("chat/groupChat")
+    fun groupChat(@Header("authorization") authorization : String, @Body param: OoParamChat): Call<OoDataResponse<OoResponseChat>>
+
+    @GET("chat/recentGroupChat/{roomId}/{timestamp}")
+    fun getRecentGroupChat(@Header("authorization") authorization : String, @Path("roomId") roomId: String, @Path("timestamp") timestamp: String): Call<OoDataResponse<OoResponseRecentChatList>>
+
     @POST("relation/request")
     fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
 
