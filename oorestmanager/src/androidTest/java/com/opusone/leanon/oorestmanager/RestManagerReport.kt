@@ -132,10 +132,11 @@ class RestManagerReport {
         OoRestManager.getDailyReport("UFWvQ1OV2gpuBaSj4Wnd") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotNull(response?.daily?.appRunCount)
-            Assert.assertNotNull(response?.daily?.location)
-            Assert.assertNotNull(response?.daily?.medication)
-            Assert.assertNotNull(response?.daily?.mmse)
-            Assert.assertNotNull(response?.daily?.scale)
+//            Assert.assertNotNull(response?.daily?.location)
+//            Assert.assertNotNull(response?.daily?.medication)
+//            Assert.assertNotNull(response?.daily?.mmse)
+//            Assert.assertNotNull(response?.daily?.scale)
+            Assert.assertNotNull(response?.daily?.brainDoctor)
             signal.countDown()
         }
         signal.await()
