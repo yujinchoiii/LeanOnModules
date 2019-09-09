@@ -9,16 +9,16 @@ open class OoRmMessage : RealmObject() {
     @Index
     var index : Long = OoRealmManager.getMessageCount() + 1
         private set
-    var dataType: Int = -1
+    var dataType: Int? = -1
     var picture : String? = ""
     var id : String? = ""
     var name : String? = ""
     var message: String? = ""
     var messageAnswer : RealmList<String?>? = RealmList()
     var timestamp: Long? = -1
-    var tag: String? = ""
+    var question: String? = ""
 
     override fun toString(): String {
-        return "OoRmMessage(index=$index, dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp, tag=$tag)"
+        return "OoRmMessage(index=$index, dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp, question=$question)"
     }
 }
