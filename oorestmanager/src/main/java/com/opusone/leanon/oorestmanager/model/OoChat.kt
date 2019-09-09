@@ -16,17 +16,16 @@ class OoMessage (var user: OoCompactUser? = null,
     }
 }
 
-class OoChat (var id: String? = null,
-              var senderId: String? = null,
+class OoChat (var senderId: String? = null,
               var roomId: String? = null,
               var type: String? = null,
               var message: String? = null,
               var answer: List<String>? = null,
               var question: String? = null,
-              var timestamp: String? = null): Serializable {
+              var timestamp: Long? = null): Serializable {
 
     override fun toString(): String {
-        return "OoChat (id='$id', 'senderId=$senderId'," +
+        return "OoChat ('senderId=$senderId'," +
                 " 'roomId=$roomId', 'type=$type', 'message=$message', 'answer=$answer', " +
                 "'question=$question', 'timestamp=$timestamp')"
     }

@@ -55,7 +55,7 @@ class OoAppUse(var name: String? = null,
 }
 
 class OoAppRunCount(var userId: String? = null,
-                    var report: MutableList<OoAppUse>? = null,
+                    var report: List<OoAppUse>? = null,
                     var timestamp: String? = null): Serializable {
 
     override fun toString(): String {

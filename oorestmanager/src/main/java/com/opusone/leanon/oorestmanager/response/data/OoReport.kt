@@ -23,7 +23,7 @@ class OoResponseMMSE(val mmse: OoMMSE) : Serializable {
 
 class OoResponseDaily(val appRunCount: OoAppRunCount? = null,
                       val location: OoLocation? = null,
-                      val medication: MutableList<OoMedication>? = null,
+                      val medication: List<OoMedication>? = null,
                       val mmse: OoMMSE? = null,
                       val scale: OoScale? = null) : Serializable {
     override fun toString(): String {
