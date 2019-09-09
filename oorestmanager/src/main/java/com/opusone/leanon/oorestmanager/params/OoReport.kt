@@ -18,8 +18,10 @@ class OoParamAppUse(
     var version: String? = null,
     var category: String? = null,
     var runCount: String = "0") : Serializable {
+
     override fun toString(): String {
-        return "OoAppUse(packageName='$packageName', runCount='$runCount')"
+        return "OoParamAppUse(name='$name', diaplayName='$diaplayName', packageName='$packageName', " +
+                "link='$link', version='$version', category='$category', runCount='$runCount')"
     }
 }
 

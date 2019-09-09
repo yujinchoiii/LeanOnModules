@@ -66,10 +66,16 @@ class OoBrainDoctor(var userId: String? = null,
 }
 
 class OoAppUse(var name: String? = null,
-                    var runCount: String? = null): Serializable {
+               var diaplayName: String? = null,
+               var packageName: String? = null,
+               var link: String? = null,
+               var version: String? = null,
+               var category: String? = null,
+               var runCount: String? = null): Serializable {
 
     override fun toString(): String {
-        return "OoAppUse (name='$name', runCount='$runCount')"
+        return "OoAppUse(name='$name', diaplayName='$diaplayName', packageName='$packageName', " +
+                "link='$link', version='$version', category='$category', runCount='$runCount')"
     }
 }
 
