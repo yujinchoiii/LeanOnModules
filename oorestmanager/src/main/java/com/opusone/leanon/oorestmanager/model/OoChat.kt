@@ -15,8 +15,7 @@ class OoMessage (var user: OoCompactUser? = null,
                 " 'dataType=$dataType', 'message=$message', 'timestamp=$timestamp', 'tag=$tag', messageAnswer=$messageAnswer')"
     }
 }
-
-class OoChat (var user: OoCompactUser? = null,
+class OoPushChat (var user: OoCompactUser? = null,
               var senderId: String? = null,
               var roomId: String? = null,
               var type: String? = null,
@@ -27,5 +26,18 @@ class OoChat (var user: OoCompactUser? = null,
 
     override fun toString(): String {
         return "OoChat(user=$user, senderId=$senderId, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"
+    }
+}
+
+class OoChat (var senderId: String? = null,
+              var roomId: String? = null,
+              var type: String? = null,
+              var message: String? = null,
+              var answer: List<String>? = null,
+              var question: String? = null,
+              var timestamp: Long? = null): Serializable {
+
+    override fun toString(): String {
+        return "OoChat(senderId=$senderId, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"
     }
 }
