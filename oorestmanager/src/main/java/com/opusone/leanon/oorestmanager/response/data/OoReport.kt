@@ -25,9 +25,10 @@ class OoResponseDaily(val appRunCount: OoAppRunCount? = null,
                       val location: OoLocation? = null,
                       val medication: List<OoMedication>? = null,
                       val mmse: OoMMSE? = null,
+                      val brainDoctor: OoBrainDoctor? = null,
                       val scale: OoScale? = null) : Serializable {
     override fun toString(): String {
-        return "OoResponseDaily(appRunCount=$appRunCount, location=$location, " +
+        return "OoResponseDaily(appRunCount=$appRunCount, location=$location, brainDoctor=$brainDoctor, " +
                 "medication=$medication, mmse=$mmse, scale=$scale)"
     }
 }

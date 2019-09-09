@@ -46,6 +46,25 @@ class OoMMSE(var userId: String? = null,
 }
 
 
+class OoBrainDoctor(var userId: String? = null,
+                    var timespace: String? = null,
+                    var name: String? = null,
+                    var type: String? = null,
+                    var attention: String? = null,
+                    var memory: String? = null,
+                    var enforce: String? = null,
+                    var speech: String? = null,
+                    var compute: String? = null,
+                    var sound: String? = null,
+                    var bq: String? = null): Serializable {
+
+    override fun toString(): String {
+        return "OoBrainDoctor (userId='$userId', timespace='$timespace', 'name=$name', " +
+                "'type=$type', 'attention=$attention', 'memory=$memory', 'enforce=$enforce', " +
+                "'speech=$speech', 'compute=$compute', 'sound=$sound', 'bq=$bq')"
+    }
+}
+
 class OoAppUse(var name: String? = null,
                     var runCount: String? = null): Serializable {
 
