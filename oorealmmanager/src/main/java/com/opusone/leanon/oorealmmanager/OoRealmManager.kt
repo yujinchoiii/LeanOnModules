@@ -117,6 +117,7 @@ object OoRealmManager {
         }
     }
 
+
     fun <T: RealmObject> updateById(id : String, type : Class<T>, f: (T) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {realm ->

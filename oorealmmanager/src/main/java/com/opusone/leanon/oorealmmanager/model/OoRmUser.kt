@@ -49,8 +49,8 @@ open class OoGuardian(var id: String?= null, var deviceToken: String?= null, var
     }
 }
 
-open class OoSenior(var id: String?= null) : RealmObject() {
+open class OoSenior(var id: String?= null, var name: String?=null) : RealmObject() {
     override fun toString(): String {
-        return "OoSenior(id='$id')"
+        return "OoSenior(id=$id, name=$name)"
     }
 }

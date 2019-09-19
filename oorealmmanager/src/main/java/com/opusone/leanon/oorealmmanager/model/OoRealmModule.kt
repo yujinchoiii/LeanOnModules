@@ -9,7 +9,8 @@ import io.realm.annotations.RealmModule
         OoRmScaleDevice::class,
         OoRmMessage::class,
         OoGuardian::class,
-        OoSenior::class
+        OoSenior::class,
+        OoRmMedicine::class
     )
 )
 class OoRealmModule
