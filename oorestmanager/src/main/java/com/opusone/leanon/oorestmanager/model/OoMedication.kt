@@ -11,7 +11,7 @@ class OoMedication(
     var min: String?= null,
     var name: String?= null,
     var picture: String?= null,
-    var weekdaysInfo: String?= null) : Serializable {
+    var weekdaysInfo: MutableList<Boolean>?= null) : Serializable {
     override fun toString(): String {
         return "OoMedication(id='$id', userId='$userId', guardian='$guardian' ,alarmId='$alarmId', " +
                 "guardian='$guardian', hour='$hour', min='$min', name='$name', " +

@@ -10,7 +10,7 @@ class OoParamRegisterMedication(
     var picture: String?= null,
     var hour: String?= null,
     var min: String?= null,
-    var weekdaysInfo: String?= null) : Serializable {
+    var weekdaysInfo: MutableList<Boolean>?= null) : Serializable {
 
     override fun toString(): String {
         return "OoParamRegisterMedication(userToken='$userToken', seniorId='$seniorId'" +
