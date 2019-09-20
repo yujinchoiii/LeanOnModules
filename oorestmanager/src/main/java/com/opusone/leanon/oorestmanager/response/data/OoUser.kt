@@ -3,9 +3,11 @@ package com.opusone.leanon.oorestmanager.response.data
 import com.opusone.leanon.oorestmanager.model.OoUser
 import java.io.Serializable
 
-class OoResponseCreateUser(val userToken: String?, val userId: String?, val webrtcToken: String?) : Serializable {
+class OoResponseUserSign(val userId: String?,
+                           val userToken: String?,
+                           val webrtcToken: String?) : Serializable {
     override fun toString(): String {
-        return "OoUserCreatedData(userToken=$userToken, userId=$userId, webrtcToken=$webrtcToken)"
+        return "OoResponseUserSign(userId=$userId, userToken=$userToken, webrtcToken=$webrtcToken)"
     }
 }
 
@@ -15,8 +17,12 @@ class OoResponseUser(val user: OoUser?) : Serializable {
     }
 }
 
-class OoResponseSigninUser(val userToken: String?, val userId: String?, val webrtcToken: String?) : Serializable{
+class OoResponseUserDevice(val isExist: String?) : Serializable {
+    fun isExist(): Boolean {
+        return isExist?.equals("true") ?: false
+    }
+
     override fun toString(): String {
-        return "OoUserSignInData(userToken=$userToken, userId=$userId, webrtcToken=$webrtcToken)"
+        return "OoResponseUserDevice(isExist=$isExist)"
     }
 }

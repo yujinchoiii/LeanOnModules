@@ -2,7 +2,9 @@ package com.opusone.leanon.oorestmanager.params
 
 import java.io.Serializable
 
-class OoParamCreateUser( var password: String?= null,
+class OoParamUserSignup( var idToken: String?= null,
+                         var password: String?= null,
+                         var picture: String?= null,
                          var birthdate: String?= null,
                          var gender: String?= null,
                          var address1: String?= null,
@@ -11,23 +13,27 @@ class OoParamCreateUser( var password: String?= null,
                          var mobile: String?= null,
                          var height: String?= null,
                          var weight: String?= null,
-                         var deviceToken: String?= null,
-                         var deviceOS: String?= null,
-                         var deviceModel: String?= null,
-                         var deviceSerial: String?= null,
-                         var idToken: String?= null,
-                         var picture: String?= null,
-                         var isLauncher: String?= null) : Serializable {
+                         var nationalCode: String?= null) : Serializable {
 
     override fun toString(): String {
-        return "OoUserCreateModel(password=$password, birthDate=$birthdate, gender=$gender, address1=$address1, address2=$address2, " +
-                "tel=$tel, mobile=$mobile, height=$height, weight=$weight, deviceToken=$deviceToken, deviceOS=$deviceOS," +
-                " deviceModel=$deviceModel, deviceSerial=$deviceSerial, idToken=$idToken, picture=$picture, isLauncher=$isLauncher"
+        return "OoParamUserSignup(idToken=$idToken, password=$password, birthDate=$birthdate, " +
+                "gender=$gender, address1=$address1, address2=$address2, " +
+                "tel=$tel, mobile=$mobile, height=$height, weight=$weight, picture=$picture, nationalCode=$nationalCode"
     }
 }
 
-class OoParamSigninUser(val email : String?, val password : String?) : Serializable{
+
+class OoParamUserSignin( var email: String?= null,
+                         var password: String?= null,
+                         var deviceOs: String?= null,
+                         var deviceType: String?= null,
+                         var deviceToken: String?= null,
+                         var deviceVersion: String?= null,
+                         var deviceModel: String?= null) : Serializable {
+
     override fun toString(): String {
-        return "OoUserSignInModel(email=$email, password=$password)"
+        return "OoParamUserSignin(email=$email, password=$password, deviceOs=$deviceOs, " +
+                "deviceType=$deviceType, deviceType=$deviceType, deviceToken=$deviceToken, " +
+                "deviceVersion=$deviceVersion, deviceModel=$deviceModel"
     }
 }

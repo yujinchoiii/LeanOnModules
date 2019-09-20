@@ -16,36 +16,49 @@ class OoUser(var id: String?= null,
              var tel: String?= null,
              var mobile: String?= null,
              var partner: String?= null,
-             var deviceToken: String?= null,
-             var deviceOS: String?= null,
-             var deviceModel: String?= null,
-             var deviceSerial: String?= null,
-             var guardians: List<OoGuardian>?= null,
-             var requestGuardians: List<String>?= null,
-             var seniors: List<OoSenior>?= null,
-             var requestSeniors: List<String>?= null,
-             var medicineAlarms: List<OoMedicineAlarm>?= null) : Serializable {
+             var nationalCode: String?=null) : Serializable {
 
     override fun toString(): String {
         return "OoUser(id='$id', email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
                 "weigh='$weight', height='$height', picture='$picture', isLauncher='$isLauncher', " +
-                "address1='$address1', address2='$address2', tel='$tel', mobile='$mobile', partner='$partner', deviceToke='$deviceToken', " +
-                "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', guardians='$guardians', " +
-                "requestGuardians='$requestGuardians', seniors='$seniors', requestSeniors='$requestSeniors', medicineAlarms='$medicineAlarms')"
+                "address1='$address1', address2='$address2', tel='$tel', " +
+                "mobile='$mobile', partner='$partner', nationalCode='$nationalCode')"
     }
 }
 
-class OoGuardian(var id: String?= null, var deviceToken: String?= null, var deviceOS:String?= null) : Serializable {
+
+class OoCompactUser (var id: String? = null,
+                     var name: String? = null,
+                     var picture: String? = null,
+                     var timestamp: String? = null,
+                     var deviceType: String? = null): Serializable {
     override fun toString(): String {
-        return "OoGuardian(id='$id', deviceToken='$deviceToken', deviceOS='$deviceOS')"
+        return "OoCompactUser (id='$id', 'name='$name', 'picture='$picture', " +
+                "'timestamp='$timestamp', 'deviceType='$deviceType')"
     }
 }
 
-class OoSenior(var id: String?= null) : Serializable {
+/**
+ * Device Type
+ *
+ * 0: Unknown
+ *
+ * 1~10: Senior. 1: Tablet, 2: mobile
+ *
+ * 11~20: Guardian. 11: Tablet, 12: mobile
+ *
+ */
+class OoUserDevice (var os: String? = null,
+                    var type: String? = null,
+                    var token: String? = null,
+                    var model: String? = null,
+                    var ver: String? = null): Serializable {
+
     override fun toString(): String {
-        return "OoSenior(id='$id')"
+        return "OoUserDevice (os='$os', 'type='$type', 'token='$token', 'model='$model', 'ver='$ver')"
     }
 }
+
 
 class OoMedicineAlarm(var weekdaysInfo: String?= null,
                       var hour: String?= null,
@@ -55,13 +68,7 @@ class OoMedicineAlarm(var weekdaysInfo: String?= null,
                       var name: String?= null,
                       var alarmId: String?= null) : Serializable{
     override fun toString(): String {
-        return "OoMedicineAlarm(weekdaysInfo='$weekdaysInfo', hour='$hour', min='$min', picture='$picture', guardian='$guardian', name='$name', alarmId='$alarmId')"
-    }
-}
-
-
-class OoCompactUser (var id: String? = null, var name: String? = null, var picture: String? = null): Serializable {
-    override fun toString(): String {
-        return "OoCompactUser (id='$id', 'name='$name', 'picture='$picture')"
+        return "OoMedicineAlarm(weekdaysInfo='$weekdaysInfo', hour='$hour', min='$min', picture='$picture', " +
+                "guardian='$guardian', name='$name', alarmId='$alarmId')"
     }
 }

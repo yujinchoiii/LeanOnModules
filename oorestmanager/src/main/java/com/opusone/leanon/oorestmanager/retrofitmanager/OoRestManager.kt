@@ -83,29 +83,33 @@ object OoRestManager {
         ApiAuth.auth(ooRestService, param, completion)
     }
 
-    fun signinUser(param : OoParamSigninUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
+    fun createUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        ApiUser.signup(ooRestService, param, completion)
+    }
+
+    fun signinUser(param : OoParamUserSignin, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
         ApiUser.signin(ooRestService, param, completion)
     }
 
-    fun createUser(param : OoParamCreateUser, completion:(OoErrorResponse?, OoResponseCreateUser?) -> Unit) {
-        ApiUser.create(ooRestService, param, completion)
+    fun signoutUser(userToken : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiUser.signout(ooRestService, userToken, completion)
     }
 
-    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.read(ooRestService, id, completion)
-    }
-
-    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.find(ooRestService, email, completion)
-    }
-
-    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
-        ApiUser.update(ooRestService, param, completion)
-    }
-
-    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
-        ApiUser.delete(ooRestService, id, completion)
-    }
+//    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+//        ApiUser.read(ooRestService, id, completion)
+//    }
+//
+//    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+//        ApiUser.find(ooRestService, email, completion)
+//    }
+//
+//    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
+//        ApiUser.update(ooRestService, param, completion)
+//    }
+//
+//    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
+//        ApiUser.delete(ooRestService, id, completion)
+//    }
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
         ApiWeahter.fineDust(ooRestService, admin, locality, completion)

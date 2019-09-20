@@ -15,23 +15,23 @@ interface OoRestService {
     @POST("auth/signin")
     fun postAuth(@Body authOoParam: OoParamPartnerAuth): Call<OoDataResponse<OoResponseAuth>>
 
-    @POST("user/signin")
-    fun postUserSignIn(@Header("authorization") authorization : String, @Body param: OoParamSigninUser): Call<OoDataResponse<OoResponseSigninUser>>
-
-    @POST("user/create")
-    fun createUser(@Header("authorization") authorization : String, @Body param: OoParamCreateUser): Call<OoDataResponse<OoResponseCreateUser>>
-
-    @GET("user/read/{id}")
-    fun readUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
-
-    @GET("user/find/{email}")
-    fun findUser(@Header("authorization") authorization : String, @Path("email") email: String): Call<OoDataResponse<OoResponseUser>>
-
-    @PUT("user/update")
-    fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseSigninUser>>
-
-    @DELETE("user/delete/{id}")
-    fun deleteUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
+//    @POST("user/signin")
+//    fun postUserSignIn(@Header("authorization") authorization : String, @Body param: OoParamSigninUser): Call<OoDataResponse<OoResponseSigninUser>>
+//
+//    @POST("user/create")
+//    fun createUser(@Header("authorization") authorization : String, @Body param: OoParamCreateUser): Call<OoDataResponse<OoResponseCreateUser>>
+//
+//    @GET("user/read/{id}")
+//    fun readUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
+//
+//    @GET("user/find/{email}")
+//    fun findUser(@Header("authorization") authorization : String, @Path("email") email: String): Call<OoDataResponse<OoResponseUser>>
+//
+//    @PUT("user/update")
+//    fun updateUser(@Header("authorization") authorization : String, @Body param: OoUser): Call<OoDataResponse<OoResponseSigninUser>>
+//
+//    @DELETE("user/delete/{id}")
+//    fun deleteUser(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
 
     @GET("weather/fineDust/{admin}/{locality}")
     fun fineDust(@Header("authorization") authorization : String, @Path("admin") admin: String, @Path("locality") locality: String): Call<OoDataResponse<OoResponseFineDust>>
@@ -113,4 +113,15 @@ interface OoRestService {
 
     @GET("report/daily/{userId}")
     fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
+
+
+    //V2
+    @POST("account/signup")
+    fun userSignup(@Header("authorization") authorization : String, @Body param: OoParamUserSignup): Call<OoDataResponse<OoResponseUserSign>>
+
+    @POST("account/signin")
+    fun userSignin(@Header("authorization") authorization : String, @Body param: OoParamUserSignin): Call<OoDataResponse<OoResponseUserSign>>
+
+    @POST("account/signout")
+    fun userSignout(@Header("authorization") authorization : String,  @Field("usetToken") usetToken: String): Call<OoResponse>
 }
