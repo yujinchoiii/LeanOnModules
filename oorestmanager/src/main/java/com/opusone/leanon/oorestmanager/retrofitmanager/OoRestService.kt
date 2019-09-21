@@ -108,6 +108,13 @@ interface OoRestService {
     @POST("report/greeted")
     fun resultGreetingReminer(@Header("authorization") authorization : String, @Field("userToken") usetToken: String): Call<OoResponse>
 
+    @GET("report/daily/{userId}")
+    fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
+
+    @FormUrlEncoded
+    @POST("report/clearReport")
+    fun clearDailyReport(@Header("authorization") authorization : String, @Field("userToken") usetToken: String): Call<OoResponse>
+
     @POST("medication/reminder/register")
     fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>
 
@@ -119,7 +126,4 @@ interface OoRestService {
 
     @DELETE("medication/reminder/delete/{seniorId}/{medicationId}")
     fun deleteMedication(@Header("authorization") authorization : String, @Path("seniorId") seniorId: String, @Path("medicationId") medicationId: String): Call<OoResponse>
-
-    @GET("report/daily/{userId}")
-    fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
 }

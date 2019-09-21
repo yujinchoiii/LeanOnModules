@@ -171,4 +171,16 @@ class RestManagerReportTest {
         }
         signal.await()
     }
+
+    @Test
+    fun clearDailyReport() {
+        val signal = CountDownLatch(1)
+        val userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGJXRnBiQ0k2SW1ONWFETTRNVE5BWjIxaGFXd3VZMjl0SWl3aWJtRnRaU0k2SWxsbGIyNW5JRWg1Wlc5dUlFTm9iMmtpTENKemFHRmtiM2NpT2lKa1pqVmpObU5sTUdRMU0yTTJORGxtWTJFeFpERXdZemt4TlRNMFpEQTNaamM1TkdFM09XRXdZelUxWVRJMk5ESm1ZVFptTURSbE5HRXlZelF5TVRkaE1qbG1NVFF5T1dZd05UZGlOR1l4TlRZNU5qUTVZbU5rTkRjek1qSTNaREZtTUdNeU1EVmhaVEJoWmpnMVpUa3dNVEExTWpNd1lXTm1OalU0TjJWak5DSXNJbkJwY21OMGRYSmxJam9pYUhSMGNDSXNJbVJsZG1salpWUjVjR1VpT2lJeElpd2laR1YyYVdObFZHOXJaVzRpT2lKMFpYTjBJaXdpYVdGMElqb3hOVFk1TURVd01qazNmUS5ON1NwdWJJVWY4OS1Bd3B4WmMyS1ZDeGpWLTNnbnhxU1pWOV9kYko4TEVrIiwidXNlcklkIjoieG1QalZMQ3RRcjJsTXduODJyd0kiLCJpYXQiOjE1NjkwNTAyOTd9.iuZseXwXnhQ8Yy_mboqfHz7cyBi-rJZWyUaNMbKH3mo"
+        OoRestManager.clearDailyReport(userToken) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertEquals(true, response?.isSuccess())
+            signal.countDown()
+        }
+        signal.await()
+    }
 }

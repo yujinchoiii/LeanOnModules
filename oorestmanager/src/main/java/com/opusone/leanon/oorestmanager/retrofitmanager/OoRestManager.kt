@@ -199,6 +199,10 @@ object OoRestManager {
         ApiReport.getDaily(ooRestService, seniorId, completion)
     }
 
+    fun clearDailyReport(userToken: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.clearDailyReport(ooRestService, userToken, completion)
+    }
+
     fun registerGreeting(param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiReport.registerGreeting(ooRestService, param, completion)
     }
