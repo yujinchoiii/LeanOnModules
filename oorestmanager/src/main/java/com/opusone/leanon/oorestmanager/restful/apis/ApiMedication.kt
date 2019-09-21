@@ -1,4 +1,4 @@
-package com.opusone.leanon.oorestmanager.retrofitmanager.apis
+package com.opusone.leanon.oorestmanager.restful.apis
 
 import com.opusone.leanon.oorestmanager.params.OoParamRegisterMedication
 import com.opusone.leanon.oorestmanager.params.OoParamResultMedication
@@ -6,8 +6,8 @@ import com.opusone.leanon.oorestmanager.response.OoDataResponse
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseMedications
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestService
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

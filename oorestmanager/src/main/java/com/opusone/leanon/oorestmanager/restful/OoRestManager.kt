@@ -1,9 +1,9 @@
-package com.opusone.leanon.oorestmanager.retrofitmanager
+package com.opusone.leanon.oorestmanager.restful
 
 import android.util.Log
 import com.opusone.leanon.oorestmanager.model.OoUser
 import com.opusone.leanon.oorestmanager.params.*
-import com.opusone.leanon.oorestmanager.retrofitmanager.apis.*
+import com.opusone.leanon.oorestmanager.restful.apis.*
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.*
@@ -59,11 +59,10 @@ object OoRestManager {
         printLog(bearerToken)
     }
 
-    fun retrofitInit() {
-        retrofit= Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+    fun init() {
+        retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
         ooRestService = retrofit.create(OoRestService::class.java)
-        errorConverter = OoRestManager.retrofit
-            .responseBodyConverter<OoErrorResponse?>(OoErrorResponse::class.java, arrayOfNulls<Annotation>(0))
+        errorConverter = retrofit.responseBodyConverter(OoErrorResponse::class.java, arrayOfNulls<Annotation>(0))
     }
 
     fun hello(completion: (OoResponse?) -> Unit) {

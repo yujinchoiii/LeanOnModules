@@ -2,8 +2,7 @@ package com.opusone.leanon.oorestmanager
 
 import com.opusone.leanon.oorestmanager.params.OoParamChat
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
-import com.opusone.leanon.oorestmanager.params.OoParamScale
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -13,7 +12,7 @@ class RestManagerChatTest {
 
     @Before
     fun setUp() {
-        OoRestManager.retrofitInit()
+        OoRestManager.init()
 
         val signal = CountDownLatch(1)
         OoRestManager.auth(

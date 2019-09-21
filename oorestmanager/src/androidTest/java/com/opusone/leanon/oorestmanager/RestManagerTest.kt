@@ -1,21 +1,17 @@
 package com.opusone.leanon.oorestmanager
 
-import android.util.Log
-import androidx.test.runner.AndroidJUnit4
 import com.opusone.leanon.oorestmanager.params.*
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import java.util.*
 import java.util.concurrent.CountDownLatch
 
 class RestManagerTest {
 
     @Before
     fun setUp() {
-        OoRestManager.retrofitInit()
+        OoRestManager.init()
 
         val signal = CountDownLatch(1)
         OoRestManager.auth(OoParamPartnerAuth("dev@theopusone.com", "opusone1004")) { error, response ->

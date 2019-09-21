@@ -1,4 +1,4 @@
-package com.opusone.leanon.oorestmanager.retrofitmanager
+package com.opusone.leanon.oorestmanager.restful
 
 import com.opusone.leanon.oorestmanager.model.OoUser
 import com.opusone.leanon.oorestmanager.params.*

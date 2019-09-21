@@ -2,7 +2,7 @@ package com.opusone.leanon.oorestmanager
 
 import com.opusone.leanon.oorestmanager.params.OoParamCreateChannel
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -12,15 +12,12 @@ class RestManagerVOIPTest {
 
     @Before
     fun setUp() {
-        OoRestManager.retrofitInit()
+        OoRestManager.init()
 
         val signal = CountDownLatch(1)
-        OoRestManager.auth(
-            OoParamPartnerAuth(
-                "dev@theopusone.com",
-                "opusone1004"
-            )
-        ) { error, response ->
+        OoRestManager.auth(OoParamPartnerAuth(
+            "dev@theopusone.com",
+            "opusone1004")) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.accessToken)
             OoRestManager.setBearerToken(response?.accessToken)

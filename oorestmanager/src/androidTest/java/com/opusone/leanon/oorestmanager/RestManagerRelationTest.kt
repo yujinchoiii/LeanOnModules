@@ -4,7 +4,7 @@ import com.opusone.leanon.oorestmanager.params.OoParamAcceptGuardian
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.oorestmanager.params.OoParamRejectGuardian
 import com.opusone.leanon.oorestmanager.params.OoParamRequestGuardian
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -14,7 +14,7 @@ class RestManagerRelationTest {
 
     @Before
     fun setUp() {
-        OoRestManager.retrofitInit()
+        OoRestManager.init()
 
         val signal = CountDownLatch(1)
         OoRestManager.auth(

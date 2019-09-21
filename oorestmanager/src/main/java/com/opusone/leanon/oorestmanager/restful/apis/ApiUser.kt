@@ -1,4 +1,4 @@
-package com.opusone.leanon.oorestmanager.retrofitmanager.apis
+package com.opusone.leanon.oorestmanager.restful.apis
 
 import com.opusone.leanon.oorestmanager.model.OoUser
 import com.opusone.leanon.oorestmanager.params.OoParamUserSignin
@@ -9,8 +9,8 @@ import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseUser
 import com.opusone.leanon.oorestmanager.response.data.OoResponseUserDevice
 import com.opusone.leanon.oorestmanager.response.data.OoResponseUserSign
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestService
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

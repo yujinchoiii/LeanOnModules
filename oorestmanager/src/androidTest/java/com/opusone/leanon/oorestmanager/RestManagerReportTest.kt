@@ -1,7 +1,7 @@
 package com.opusone.leanon.oorestmanager
 
 import com.opusone.leanon.oorestmanager.params.*
-import com.opusone.leanon.oorestmanager.retrofitmanager.OoRestManager
+import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -11,7 +11,7 @@ class RestManagerReportTest {
 
     @Before
     fun setUp() {
-        OoRestManager.retrofitInit()
+        OoRestManager.init()
 
         val signal = CountDownLatch(1)
         OoRestManager.auth(
