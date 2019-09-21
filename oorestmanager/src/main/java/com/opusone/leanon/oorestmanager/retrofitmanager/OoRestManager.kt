@@ -199,6 +199,14 @@ object OoRestManager {
         ApiReport.getDaily(ooRestService, seniorId, completion)
     }
 
+    fun registerGreeting(param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.registerGreeting(ooRestService, param, completion)
+    }
+
+    fun resultGreeting(userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.resultGreeting(ooRestService, userToken, completion)
+    }
+
     fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiMedication.registerMedication(ooRestService, param, completion)
     }

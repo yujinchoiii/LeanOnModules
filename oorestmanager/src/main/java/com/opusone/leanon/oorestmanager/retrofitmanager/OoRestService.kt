@@ -101,6 +101,13 @@ interface OoRestService {
     @GET("report/location/{userId}")
     fun getLocation(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseLocation>>
 
+    @POST("report/greeting")
+    fun registerGreetingReminer(@Header("authorization") authorization : String, @Body param: OoParamRegisterGreeting): Call<OoResponse>
+
+    @FormUrlEncoded
+    @POST("report/greeted")
+    fun resultGreetingReminer(@Header("authorization") authorization : String, @Field("userToken") usetToken: String): Call<OoResponse>
+
     @POST("medication/reminder/register")
     fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>
 

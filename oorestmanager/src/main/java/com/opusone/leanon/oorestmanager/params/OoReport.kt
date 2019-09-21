@@ -42,8 +42,7 @@ class OoParamScale(
     var muscleRate: String? = null,
     var boneMass: String? = null,
     var bmr: String? = null,
-    var heartRate: String? = null
-) : Serializable {
+    var heartRate: String? = null) : Serializable {
     override fun toString(): String {
         return "OoAppUse(userToken='$userToken', weight='$weight', bmi='$bmi', bodyFatRate='$bodyFatRate'" +
                 ", subcutaneousFat='$subcutaneousFat', visceralFat='$visceralFat', bodyWaterRate='$bodyWaterRate'" +
@@ -52,10 +51,27 @@ class OoParamScale(
 }
 
 
-class OoParamLocation(var userToken: String? = null, var geoCoding: String? = null,
-                      var latitude: String? = null, var longitude: String? = null) : Serializable {
+class OoParamLocation(var userToken: String? = null,
+                      var geoCoding: String? = null,
+                      var latitude: String? = null,
+                      var longitude: String? = null) : Serializable {
     override fun toString(): String {
         return "OoParamLocation(userToken='$userToken', geoCoding='$geoCoding', latitude='$latitude', longitude='$longitude'"
     }
+}
 
+
+class OoParamRegisterGreeting(
+    var userToken: String? = null,
+    var seniorId: String? = null,
+    var hour: String? = null,
+    var minute: String? = null,
+    var ampm: String? = null,
+    var message: String? = null,
+    var on: String? = null) : Serializable {
+
+    override fun toString(): String {
+        return "OoParamRegisterGreeting(userToken='$userToken', seniorId='$seniorId', " +
+                "hour='$hour', minute='$minute', ampm='$ampm', message='$message', on='$on')"
+    }
 }

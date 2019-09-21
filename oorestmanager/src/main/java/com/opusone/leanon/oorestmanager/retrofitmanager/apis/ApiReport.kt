@@ -1,9 +1,6 @@
 package com.opusone.leanon.oorestmanager.retrofitmanager.apis
 
-import com.opusone.leanon.oorestmanager.params.OoParamAppUseReport
-import com.opusone.leanon.oorestmanager.params.OoParamLocation
-import com.opusone.leanon.oorestmanager.params.OoParamMMSE
-import com.opusone.leanon.oorestmanager.params.OoParamScale
+import com.opusone.leanon.oorestmanager.params.*
 import com.opusone.leanon.oorestmanager.response.OoDataResponse
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
@@ -169,6 +166,46 @@ object ApiReport {
                 }
                 override fun onFailure(call: Call<OoDataResponse<OoResponseDailyReport>>, t: Throwable) {
                     OoRestManager.printError("getDaily Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun registerGreeting(service: OoRestService, param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.registerGreetingReminer(it, param).enqueue(object : Callback<OoResponse> {
+                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.toString())
+                        completion(null, response.body())
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                    OoRestManager.printError("registerGreeting Failed. ${t.message}")
+                    completion(null, null)
+                }
+            })
+        }
+    }
+
+    fun resultGreeting(service: OoRestService, userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        OoRestManager.bearerToken?.let {
+            service.resultGreetingReminer(it, userToken).enqueue(object : Callback<OoResponse> {
+                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                    if (response.isSuccessful) {
+                        OoRestManager.printLog(response.body()?.toString())
+                        completion(null, response.body())
+                    } else {
+                        OoRestManager.printError(response.errorBody().toString())
+                        completion(OoRestManager.parseError(response.errorBody()), null)
+                    }
+                }
+                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                    OoRestManager.printError("resultGreeting Failed. ${t.message}")
                     completion(null, null)
                 }
             })
