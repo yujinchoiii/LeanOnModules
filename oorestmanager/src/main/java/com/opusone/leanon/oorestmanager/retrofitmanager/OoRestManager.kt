@@ -135,14 +135,6 @@ object OoRestManager {
         ApiReport.appUse(ooRestService, param, completion)
     }
 
-    fun sendMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
-        ApiChat.sendMessage(ooRestService, param, completion)
-    }
-
-    fun sendGroupMessage(param: OoParamMessage, completion: (OoErrorResponse?, OoResponseMessage?) -> Unit) {
-        ApiChat.sendGroupMessage(ooRestService, param, completion)
-    }
-
     fun sendGroupChat(param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
         ApiChat.sendGroupChat(ooRestService, param, completion)
     }

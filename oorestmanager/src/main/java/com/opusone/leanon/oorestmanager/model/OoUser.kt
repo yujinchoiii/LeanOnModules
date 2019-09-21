@@ -31,12 +31,11 @@ class OoUser(var id: String?= null,
 class OoCompactUser (var id: String? = null,
                      var name: String? = null,
                      var picture: String? = null,
-                     var email: String? = null,
                      var timestamp: String? = null,
                      var deviceType: String? = null): Serializable {
     override fun toString(): String {
         return "OoCompactUser (id='$id', 'name='$name', 'picture='$picture', " +
-                "'timestamp='$timestamp', 'email='$email', 'deviceType='$deviceType')"
+                "'timestamp='$timestamp', 'deviceType='$deviceType')"
     }
 }
 

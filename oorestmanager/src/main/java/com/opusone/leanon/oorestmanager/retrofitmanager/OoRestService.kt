@@ -56,12 +56,6 @@ interface OoRestService {
     @POST("report/appuse")
     fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
 
-    @POST("chat/message")
-    fun message(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
-
-    @POST("chat/groupMessage")
-    fun groupMessage(@Header("authorization") authorization : String, @Body param: OoParamMessage): Call<OoDataResponse<OoResponseMessage>>
-
     @POST("chat/groupChat")
     fun groupChat(@Header("authorization") authorization : String, @Body param: OoParamChat): Call<OoDataResponse<OoResponseChat>>
 
