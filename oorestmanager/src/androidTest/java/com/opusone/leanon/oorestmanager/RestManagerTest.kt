@@ -49,43 +49,6 @@ class RestManagerTest {
         signal.await()
     }
 
-
-//    @Test
-//    fun signinUser() {
-//        val signal = CountDownLatch(1)
-//        val auth = OoParamSigninUser("opusonetest03@gmail.com",  "opusone1004")
-//        OoRestManager.signinUser(auth) { error, response ->
-//            Assert.assertEquals(null, error)
-//            Assert.assertNotEquals(null, response?.userToken)
-//            Assert.assertNotEquals(null, response?.userId)
-//            signal.countDown()
-//        }
-//        signal.await()
-//    }
-//
-//    @Test
-//    fun createUser() {
-//        val signal = CountDownLatch(1)
-//
-//        val params = OoParamCreateUser()
-//        params.password = "opusone1004"
-//        params.birthdate = "400804"
-//        params.gender = "femail"
-//        params.deviceToken = "testToken"
-//        params.deviceOS = "android"
-//        params.deviceModel = "sm-s9"
-//        params.deviceSerial = "1234"
-//        params.isLauncher = "false"
-//        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2OGNhNTBjZTY0YjQxYWIzNGZhMDM1NzIwMmQ5ZTk0ZTcyYmQ2ZWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoi7KCV7Jik7Y287IqkIiwicGljdHVyZSI6Imh0dHBzOi8vbGg0Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tQWk2ZC1TeTRXN3MvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvQUNIaTNyZG1YU0tRMzZpdllCWUZmbXREMDcwSXJjckpody9zOTYtYy9waG90by5qcGciLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGVhbm9udGFiIiwiYXVkIjoibGVhbm9udGFiIiwiYXV0aF90aW1lIjoxNTY2NDQ3MDgzLCJ1c2VyX2lkIjoiMEU3eDFJOENOQVlFcVAzWVZMdlZYb2JQb1I0MyIsInN1YiI6IjBFN3gxSThDTkFZRXFQM1lWTHZWWG9iUG9SNDMiLCJpYXQiOjE1NjY0NDcwODQsImV4cCI6MTU2NjQ1MDY4NCwiZW1haWwiOiJvcHVzb25ldGVzdDAzQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTA2ODEzMTY0MTY5NzY5Mjg2OTQ5Il0sImVtYWlsIjpbIm9wdXNvbmV0ZXN0MDNAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.Y_DtJkTH4dhZBLCq4TwR4CWFOM0OmQ61HkkCy3xUjSE88b4PrKk2Eptwp3l0eVGxOHfkO_IgpcbpW7o3GAZRlegmjG3MJGArSr0hLsbFbGQkKMyQ3kk-Z_1MUd-Abiy1QBLAwUQNIN_S3Tml3yWXzFKNKrlCSP2zCOWxa3jwMLxFNARV74Ik2FxdNRrzMd5LnDera6QDaTclvEu2ccuNUyvJFTL9V2aPUpmHWCpBc0pqi_keQLh3RA6ftgPBmDzjZXvbk9M22bIDkE61xL3a82jOdkbGEQkuu0Kg8pxwSkTKuvh0-q4gYEWmaLMq_GzLYdtvKiI42NJP1d303OAqvA"
-//
-//        OoRestManager.createUser(params) { error, response ->
-//            Assert.assertEquals(null, error)
-//            Assert.assertNotEquals(null, response?.userToken)
-//            signal.countDown()
-//        }
-//        signal.await()
-//    }
-
     @Test
     fun requestGuardian() {
         val signal = CountDownLatch(1)
@@ -130,81 +93,6 @@ class RestManagerTest {
         }
         signal.await()
     }
-
-//    @Test
-//    fun readUser() {
-//        val signal = CountDownLatch(1)
-//        OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
-//            Assert.assertEquals(null, error)
-//            Assert.assertNotEquals(null, response?.user)
-//            Assert.assertNotEquals(null, response?.user?.id)
-//            Assert.assertNotEquals(null, response?.user?.name)
-//            signal.countDown()
-//        }
-//        signal.await()
-//    }
-//
-//    @Test
-//    fun findUser() {
-//        val signal = CountDownLatch(1)
-//        OoRestManager.findUser("opusonetest03@gmail.com") { error, response ->
-//            Assert.assertEquals(null, error)
-//            Assert.assertNotEquals(null, response?.user)
-//            Assert.assertNotEquals(null, response?.user?.id)
-//            Assert.assertNotEquals(null, response?.user?.name)
-//            signal.countDown()
-//        }
-//        signal.await()
-//    }
-//
-//    @Test
-//    fun readAndUpdateUser() {
-//        val signal = CountDownLatch(1)
-//
-//        OoRestManager.readUser("QVXx3RNSN9DRQWp8opJs") { error, response ->
-//            Assert.assertEquals(null, error)
-//            Assert.assertNotEquals(null, response?.user)
-//
-//            response?.let {
-//                val user = it.user
-//                user?.address1 = "update completed"
-//
-//                OoRestManager.updateUser(user!!) { error, response ->
-//                    Assert.assertEquals(null, error)
-//                    Assert.assertNotNull(response?.userToken)
-//
-//                    response?.let {
-//                        OoRestManager.readUser("QVXx3RNSN9DRQWp8opJs") { error, response ->
-//                            Assert.assertEquals(null, error)
-//
-//                            val user = response?.user
-//                            Assert.assertEquals("update completed", user?.address1)
-//                            signal.countDown()
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        signal.await()
-//    }
-//
-//    @Test
-//    fun deleteUser() {
-//        val signal = CountDownLatch(1)
-//        OoRestManager.deleteUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
-//            Assert.assertEquals(null, error)
-//
-//            OoRestManager.readUser("dACzSSGoyPsHqgyNwPjc") { error, response ->
-//                Assert.assertEquals(null, error)
-//                Assert.assertEquals(null, response?.user)
-//                signal.countDown()
-//            }
-//            error?.let {
-//                Assert.assertNotEquals(null, it)
-//            }
-//        }
-//        signal.await()
-//    }
 
     @Test
     fun fineDust() {
