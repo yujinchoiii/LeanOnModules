@@ -4,8 +4,8 @@ import java.io.Serializable
 
 class OoParamUserSignup( var idToken: String?= null,
                          var password: String?= null,
-                         var picture: String?= null,
                          var birthdate: String?= null,
+                         var picture: String?= null,
                          var gender: String?= null,
                          var address1: String?= null,
                          var address2: String?= null,
@@ -13,12 +13,19 @@ class OoParamUserSignup( var idToken: String?= null,
                          var mobile: String?= null,
                          var height: String?= null,
                          var weight: String?= null,
-                         var nationalCode: String?= null) : Serializable {
+                         var nationalCode: String?= null,
+                         var deviceType: String? = null,
+                         var deviceOs: String? = null,
+                         var deviceToken: String? = null,
+                         var deviceModel: String? = null,
+                         var deviceVersion: String? = null) : Serializable {
 
     override fun toString(): String {
         return "OoParamUserSignup(idToken=$idToken, password=$password, birthDate=$birthdate, " +
                 "gender=$gender, address1=$address1, address2=$address2, " +
-                "tel=$tel, mobile=$mobile, height=$height, weight=$weight, picture=$picture, nationalCode=$nationalCode"
+                "tel=$tel, mobile=$mobile, height=$height, weight=$weight, picture=$picture, " +
+                "nationalCode=$nationalCode, deviceType=$deviceType, deviceOs=$deviceOs, " +
+                "deviceToken=$deviceToken, deviceModel=$deviceModel, deviceVersion=$deviceVersion"
     }
 }
 

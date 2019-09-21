@@ -12,7 +12,7 @@ import retrofit2.Response
 
 object ApiAuth {
     fun auth(service: OoRestService, param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
-        service.postAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
+        service.partnerAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
             override fun onResponse(call: Call<OoDataResponse<OoResponseAuth>>, response: Response<OoDataResponse<OoResponseAuth>>) {
                 if (response.isSuccessful) {
                     OoRestManager.printLog(response.body()?.data.toString())

@@ -17,7 +17,7 @@ object OoRestManager {
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = PRODCUT_BASE_URL
+    private val BASE_URL = DEV_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
@@ -83,7 +83,7 @@ object OoRestManager {
         ApiAuth.auth(ooRestService, param, completion)
     }
 
-    fun createUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+    fun signupUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
         ApiUser.signup(ooRestService, param, completion)
     }
 
@@ -95,21 +95,25 @@ object OoRestManager {
         ApiUser.signout(ooRestService, userToken, completion)
     }
 
-//    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-//        ApiUser.read(ooRestService, id, completion)
-//    }
-//
-//    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-//        ApiUser.find(ooRestService, email, completion)
-//    }
-//
-//    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseSigninUser?) -> Unit) {
-//        ApiUser.update(ooRestService, param, completion)
-//    }
-//
-//    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponseUser?) -> Unit) {
-//        ApiUser.delete(ooRestService, id, completion)
-//    }
+    fun device(userToken : String, completion:(OoErrorResponse?, OoResponseUserDevice?) -> Unit) {
+        ApiUser.device(ooRestService, userToken, completion)
+    }
+
+    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        ApiUser.read(ooRestService, id, completion)
+    }
+
+    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        ApiUser.find(ooRestService, email, completion)
+    }
+
+    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        ApiUser.update(ooRestService, param, completion)
+    }
+
+    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiUser.delete(ooRestService, id, completion)
+    }
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
         ApiWeahter.fineDust(ooRestService, admin, locality, completion)

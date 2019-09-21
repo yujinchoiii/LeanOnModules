@@ -36,7 +36,7 @@ class RestManagerMedicationTest {
         params.hour = "8"
         params.min = "20"
         params.picture = ""
-        params.weekdaysInfo = "true" //배열 수정?
+//        params.weekdaysInfo = "true" //배열 수정?
 
         OoRestManager.registerMedication(params) { error, response ->
             Assert.assertEquals(null, error)
