@@ -35,19 +35,19 @@ class RestManagerAccountTest {
         val signal = CountDownLatch(1)
 
         val params = OoParamUserSignup()
-        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMjc0MWQ0MWY5ZDQzZmFiMWU2MjhhODVlZmI0MmE4OGVmMzIyOWYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiWWVvbmcgSHllb24gQ2hvaSIsInBpY3R1cmUiOiJodHRwczovL2xoNS5nb29nbGV1c2VyY29udGVudC5jb20vLW9SM0dmalhieUpvL0FBQUFBQUFBQUFJL0FBQUFBQUFBQUFBL0FDSGkzcmVaNU1JRXJFMThrbEJJMl9YZmZQSVMyOGdnZFEvcGhvdG8uanBnIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2xlYW5vbnRhYiIsImF1ZCI6ImxlYW5vbnRhYiIsImF1dGhfdGltZSI6MTU2OTAzOTM4NiwidXNlcl9pZCI6IkZTeHFTRkxMOVdZMDhrZlJscVNiNENUTWR3NzIiLCJzdWIiOiJGU3hxU0ZMTDlXWTA4a2ZSbHFTYjRDVE1kdzcyIiwiaWF0IjoxNTY5MDM5Mzg3LCJleHAiOjE1NjkwNDI5ODcsImVtYWlsIjoiY3loMzgxM0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwODk0MjE2OTUxMjUzNjI4MzYzOSJdLCJlbWFpbCI6WyJjeWgzODEzQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.GhtT_1Gp4kWsvj17DkmJ_uGLjNfTP3a3uggiCDTacLne8Mvo2DWDaJikxBqtUUbG3EO2lLME4UVBzdMwMEwRkYTbjthDuOFPdkEhuy-55ZJxWiUBZN5P2s8-1D7vW9zD1XDtJmZifsay1Ifokdzhbuiooj99yLB9rs7APzzoN3dZxyUR1w56O3Lr56TL0vv90KKRMLpR5uAHKncVrCdLlNCetfscYKq0WU4UXHAI8zJk9P1pW3ixmtkisSqYt-iayIb07n7xQYElPa0NuFQisW_4BMZnDemS80aurFlFIKnxXtAy2bVjT8yEGDr5cEmhykrHVXcN_E-v5E1SCwhM8Q"
+        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMjc0MWQ0MWY5ZDQzZmFiMWU2MjhhODVlZmI0MmE4OGVmMzIyOWYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiWWVvbmcgSHllb24gQ0hPSSIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLURaa3lLTVhPS2xFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQS1VL25QWnFqQWxnUXljL3Bob3RvLmpwZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9sZWFub250YWIiLCJhdWQiOiJsZWFub250YWIiLCJhdXRoX3RpbWUiOjE1NjkwNDk2MTgsInVzZXJfaWQiOiJ2QTBGY0hOa1plZGNnd1NodEE2YmhJTGswRkIzIiwic3ViIjoidkEwRmNITmtaZWRjZ3dTaHRBNmJoSUxrMEZCMyIsImlhdCI6MTU2OTA0OTYxOSwiZXhwIjoxNTY5MDUzMjE5LCJlbWFpbCI6InNhbmFpaHllb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMTA0MTYxMjQ3MjMyOTU2OTE1OTciXSwiZW1haWwiOlsic2FuYWloeWVvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Ihp7komCS1gh3kS9BO8DzwcvSCLRqZvlsvuRnUipH9eytnMKlI1jjppmxpFvFgN0kq4dqrGsFHCyDdft4GB6PcYr5CqaWqLQ2XMeT-4B0CJl1k5RtcGMg2RmuW2pA29Y0LdkBijEU3ZE0-8QcS565CX5Qwbus5SPLLyg1j8PgYzgLDoN1whIGIsDda4UzEOnYcwuqlacp-TISbwIcX971Zsqv8xbO5cAo7bNzq7E8KiixEQAdo9dNZ4Wq9J7K7PVhbPJLjcgfkplvyXSZpgRqoxRftFB-0n8A0eiQEoX_MR0P1RB-6SOSJiLhJRUoGVVI6suTk4eFJQ8LE4r4Clk3A"
         params.password = "opusone1004"
-        params.birthdate = "810122"
-        params.picture = "http"
+        params.birthdate = "830415"
+        params.picture = "https://t1.daumcdn.net/cfile/tistory/99945F4C5BB591F330"
         params.gender = "male"
-        params.address1 = "경기도"
-        params.address2 = "안양시"
+        params.address1 = "서울시"
+        params.address2 = "도봉"
         params.tel = "031-382-7992"
         params.mobile = "010-2000-0000"
         params.height = "175"
         params.weight = "75"
         params.nationalCode = "82"
-        params.deviceType= "1" //tablet
+        params.deviceType= "12"
         params.deviceOs = "android"
         params.deviceToken = "test"
         params.deviceModel = "SM-t595"
@@ -68,13 +68,13 @@ class RestManagerAccountTest {
         val signal = CountDownLatch(1)
 
         val params = OoParamUserSignin()
-        params.email = "cyh3813@gmail.com"
+        params.email = "sanaihyeon@gmail.com"
         params.password = "opusone1004"
-        params.deviceType= "2" //tablet
-        params.deviceOs = "ios"
-        params.deviceToken = "test"
-        params.deviceModel = "iphone xs"
-        params.deviceVersion = "11"
+        params.deviceType= "12"
+        params.deviceOs = "android"
+        params.deviceToken = "fTiY-WMWnU4:APA91bG3jJmoo9rlcGhbYofj8Btm9BtyfUL2d8lnw-YbsxhviORgRXxpMyT6kvRmUE6i4eEYRNJ76HqA_GGz4ZwdW9GaUhO2sdpmfPDr0eOkXtJRrTKPT-KHUJO0YLq6aMxksV_2CRuh"
+        params.deviceModel = "iPhone Xs"
+        params.deviceVersion = "12"
 
         OoRestManager.signinUser(params) { error, response ->
             Assert.assertEquals(null, error)

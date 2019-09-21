@@ -72,10 +72,10 @@ interface OoRestService {
     fun requestGuardian(@Header("authorization") authorization : String, @Body param: OoParamRequestGuardian): Call<OoResponse>
 
     @POST("relation/accept")
-    fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoDataResponse<OoResponseDailyReport>>
+    fun acceptGuardian(@Header("authorization") authorization : String, @Body param: OoParamAcceptGuardian): Call<OoResponse>
 
-    @DELETE("relation/reject/{senior}/{guardian}")
-    fun rejectGuardian(@Header("authorization") authorization : String, @Path("senior") senior: String, @Path("guardian") guardian: String): Call<OoResponse>
+    @POST("relation/reject")
+    fun rejectGuardian(@Header("authorization") authorization : String, @Body param: OoParamRejectGuardian): Call<OoResponse>
 
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Body param: OoParamCreateChannel): Call<OoDataResponse<OoResponseCreateChannel>>

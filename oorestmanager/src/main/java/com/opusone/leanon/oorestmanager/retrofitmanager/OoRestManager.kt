@@ -155,12 +155,12 @@ object OoRestManager {
         ApiRelation.requestGuardian(ooRestService, param, completion)
     }
 
-    fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
+    fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         ApiRelation.acceptGuardian(ooRestService, param, completion)
     }
 
-    fun rejectGuardian(seniorId: String, guardian: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiRelation.rejectGuardian(ooRestService, seniorId, guardian, completion)
+    fun rejectGuardian(param: OoParamRejectGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiRelation.rejectGuardian(ooRestService, param, completion)
     }
 
     fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {

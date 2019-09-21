@@ -50,51 +50,6 @@ class RestManagerTest {
     }
 
     @Test
-    fun requestGuardian() {
-        val signal = CountDownLatch(1)
-
-        val params = OoParamRequestGuardian()
-        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbEZXV0hnelVrNVRUamxFVWxGWGNEaHZjRXB6SWl3aVpXMWhhV3dpT2lKellXNWhhV2g1Wlc5dVFHZHRZV2xzTG1OdmJTSXNJbTVoYldVaU9pSlpaVzl1WnlCSWVXVnZiaUJEU0U5Sklpd2ljMmhoWkc5M0lqb2laRFptT0RSbE9XSmtOekl3TW1Oa05HVXhaamsxWmpjeVkyVTRabUZqWW1SaU9EVXhZV1k1T1RrM016azFORE0zT1RneE1qYzRZV1U0TnpjeFptWTFOakEzWldabE5ETmhaRFpoTkRSak9UVmhOelkwWkRBM01ERXhaVEU0TWpZMVkyWXpNbU14TVdSa1lqZzVZVFU1T1RKaFlUUmpZelZrTlRaa01tWTBNellpTENKa1pYWnBZMlZVYjJ0bGJpSTZJbTVsZHlCMGIydGxiaklpTENKcGMweGhkVzVqYUdWeUlqb2labUZzYzJVaUxDSndhWEpqZEhWeVpTSTZJbWgwZEhBNkx5OTNkM2NpTENKcFlYUWlPakUxTmpjMk5qazFOekY5LnBBQzQ1S1pSRzc3VFgwTVNhTVR0dFp2bHJKU09MR0l4Q3pOcU42MjVkcEkiLCJ1c2VySWQiOiJRVlh4M1JOU045RFJRV3A4b3BKcyIsImlhdCI6MTU2NzY2OTU3MX0.E0Ryt5OQxI5ifSRVgznRip4vsXdHFUY05ePB-NdFJtk"
-        params.seniorId = "UFWvQ1OV2gpuBaSj4Wnd"
-
-        OoRestManager.requestGuardian(params) { error, response ->
-            Assert.assertEquals(null, error)
-            Assert.assertEquals(true, response?.isSuccess())
-            signal.countDown()
-        }
-        signal.await()
-    }
-
-    @Test
-    fun acceptGuardian() {
-        val signal = CountDownLatch(1)
-
-        val params = OoParamAcceptGuardian()
-        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFZHVjNaUk1VOVdNbWR3ZFVKaFUybzBWMjVrSWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkltWmhiSE5sSWl3aWNHbHlZM1IxY21VaU9pSm9kSFJ3T2k4dmQzZDNJaXdpYVdGMElqb3hOVFkzTmpZd056STVmUS5KTTRDUmRyRXMwNExGcGQ1OEd2eWZrOXZJRlA5OE9pLWZvWkw5Q05TSEZFIiwidXNlcklkIjoiVUZXdlExT1YyZ3B1QmFTajRXbmQiLCJpYXQiOjE1Njc2NjA3Mjl9.WWrGS5-UDDMXoI7aO4fjjkOj9vSUKOmEQrq3Bfb7qB4"
-        params.guardianId = "QVXx3RNSN9DRQWp8opJs"
-
-        OoRestManager.acceptGuardian(params) { error, response ->
-            Assert.assertEquals(null, error)
-            Assert.assertNotNull(response?.daily?.appRunCount)
-            Assert.assertNotNull(response?.daily?.location)
-            signal.countDown()
-        }
-        signal.await()
-    }
-
-    @Test
-    fun rejectGuardian() {
-        val signal = CountDownLatch(1)
-
-        OoRestManager.rejectGuardian("UFWvQ1OV2gpuBaSj4Wnd", "QVXx3RNSN9DRQWp8opJs") { error, response ->
-            Assert.assertEquals(null, error)
-            Assert.assertEquals(true, response?.isSuccess())
-            signal.countDown()
-        }
-        signal.await()
-    }
-
-    @Test
     fun fineDust() {
         val signal = CountDownLatch(1)
         OoRestManager.fineDust("서울", "도봉") { error, response ->
