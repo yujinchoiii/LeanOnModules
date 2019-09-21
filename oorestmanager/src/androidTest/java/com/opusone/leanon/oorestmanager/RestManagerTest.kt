@@ -1,6 +1,8 @@
 package com.opusone.leanon.oorestmanager
 
+import android.util.Log
 import com.opusone.leanon.oorestmanager.params.*
+import com.opusone.leanon.oorestmanager.restful.OoDeviceWrapper
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
@@ -89,5 +91,17 @@ class RestManagerTest {
             signal.countDown()
         }
         signal.await()
+    }
+
+    @Test
+    fun deviceWrapper() {
+        OoDeviceWrapper.type = "1"
+        OoDeviceWrapper.token = "testToken"
+
+        Assert.assertNotEquals("", OoDeviceWrapper.type)
+        Assert.assertNotEquals("", OoDeviceWrapper.token)
+        Assert.assertNotEquals("", OoDeviceWrapper.os)
+        Assert.assertNotEquals("", OoDeviceWrapper.model)
+        Assert.assertNotEquals("", OoDeviceWrapper.version)
     }
 }

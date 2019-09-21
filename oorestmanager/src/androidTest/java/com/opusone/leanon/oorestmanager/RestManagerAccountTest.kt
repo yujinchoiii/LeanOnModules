@@ -3,6 +3,7 @@ package com.opusone.leanon.oorestmanager
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.oorestmanager.params.OoParamUserSignin
 import com.opusone.leanon.oorestmanager.params.OoParamUserSignup
+import com.opusone.leanon.oorestmanager.restful.OoDeviceWrapper
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
@@ -68,13 +69,22 @@ class RestManagerAccountTest {
         val signal = CountDownLatch(1)
 
         val params = OoParamUserSignin()
-        params.email = "sanaihyeon@gmail.com"
+        params.email = "cyh3813@gmail.com"
         params.password = "opusone1004"
         params.deviceType= "12"
         params.deviceOs = "android"
         params.deviceToken = "fTiY-WMWnU4:APA91bG3jJmoo9rlcGhbYofj8Btm9BtyfUL2d8lnw-YbsxhviORgRXxpMyT6kvRmUE6i4eEYRNJ76HqA_GGz4ZwdW9GaUhO2sdpmfPDr0eOkXtJRrTKPT-KHUJO0YLq6aMxksV_2CRuh"
         params.deviceModel = "iPhone Xs"
         params.deviceVersion = "12"
+
+        //OoDeviceWrapper 활용
+//        OoDeviceWrapper.type = "1"
+//        OoDeviceWrapper.token = "testToken"
+//        params.deviceType= OoDeviceWrapper.type
+//        params.deviceOs = OoDeviceWrapper.os
+//        params.deviceToken = OoDeviceWrapper.token
+//        params.deviceModel = OoDeviceWrapper.model
+//        params.deviceVersion = OoDeviceWrapper.version
 
         OoRestManager.signinUser(params) { error, response ->
             Assert.assertEquals(null, error)
