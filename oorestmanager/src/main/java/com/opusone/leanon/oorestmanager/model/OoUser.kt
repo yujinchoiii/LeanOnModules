@@ -17,13 +17,14 @@ class OoUser(var id: String?= null,
              var mobile: String?= null,
              var partner: String?= null,
              var nationalCode: String?=null,
-             var deviceType: String?=null) : Serializable {
+             var deviceType: String?=null,
+             var regiTimestamp: String?=null) : Serializable {
 
     override fun toString(): String {
         return "OoUser(id='$id', email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
                 "weigh='$weight', height='$height', picture='$picture', isLauncher='$isLauncher', " +
                 "address1='$address1', address2='$address2', tel='$tel', " +
-                "mobile='$mobile', partner='$partner', nationalCode='$nationalCode, deviceType='$deviceType')"
+                "mobile='$mobile', partner='$partner', nationalCode='$nationalCode, deviceType='$deviceType, regiTimestamp='$regiTimestamp')"
     }
 }
 

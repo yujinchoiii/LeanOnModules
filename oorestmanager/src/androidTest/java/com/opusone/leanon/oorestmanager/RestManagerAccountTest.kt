@@ -36,10 +36,10 @@ class RestManagerAccountTest {
         val signal = CountDownLatch(1)
 
         val params = OoParamUserSignup()
-        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImVlMjc0MWQ0MWY5ZDQzZmFiMWU2MjhhODVlZmI0MmE4OGVmMzIyOWYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiWWVvbmcgSHllb24gQ0hPSSIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLURaa3lLTVhPS2xFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQS1VL25QWnFqQWxnUXljL3Bob3RvLmpwZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9sZWFub250YWIiLCJhdWQiOiJsZWFub250YWIiLCJhdXRoX3RpbWUiOjE1NjkwNDk2MTgsInVzZXJfaWQiOiJ2QTBGY0hOa1plZGNnd1NodEE2YmhJTGswRkIzIiwic3ViIjoidkEwRmNITmtaZWRjZ3dTaHRBNmJoSUxrMEZCMyIsImlhdCI6MTU2OTA0OTYxOSwiZXhwIjoxNTY5MDUzMjE5LCJlbWFpbCI6InNhbmFpaHllb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMTA0MTYxMjQ3MjMyOTU2OTE1OTciXSwiZW1haWwiOlsic2FuYWloeWVvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Ihp7komCS1gh3kS9BO8DzwcvSCLRqZvlsvuRnUipH9eytnMKlI1jjppmxpFvFgN0kq4dqrGsFHCyDdft4GB6PcYr5CqaWqLQ2XMeT-4B0CJl1k5RtcGMg2RmuW2pA29Y0LdkBijEU3ZE0-8QcS565CX5Qwbus5SPLLyg1j8PgYzgLDoN1whIGIsDda4UzEOnYcwuqlacp-TISbwIcX971Zsqv8xbO5cAo7bNzq7E8KiixEQAdo9dNZ4Wq9J7K7PVhbPJLjcgfkplvyXSZpgRqoxRftFB-0n8A0eiQEoX_MR0P1RB-6SOSJiLhJRUoGVVI6suTk4eFJQ8LE4r4Clk3A"
+        params.idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBhOTAwNTFmYzA5ZThmNjBlMTE2N2ViYzMxMjYwZjNiM2Y2YmJhYmIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiWWVvbmcgSHllb24gQ0hPSSIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLURaa3lLTVhPS2xFL0FBQUFBQUFBQUFJL0FBQUFBQUFBQS1VL25QWnFqQWxnUXljL3Bob3RvLmpwZyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9sZWFub250YWIiLCJhdWQiOiJsZWFub250YWIiLCJhdXRoX3RpbWUiOjE1NjkxMjY3NDcsInVzZXJfaWQiOiJ2QTBGY0hOa1plZGNnd1NodEE2YmhJTGswRkIzIiwic3ViIjoidkEwRmNITmtaZWRjZ3dTaHRBNmJoSUxrMEZCMyIsImlhdCI6MTU2OTEyNjc0NywiZXhwIjoxNTY5MTMwMzQ3LCJlbWFpbCI6InNhbmFpaHllb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMTA0MTYxMjQ3MjMyOTU2OTE1OTciXSwiZW1haWwiOlsic2FuYWloeWVvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.X4hhUkUX27kOig98snjoGD6OVYIkUH8ly9kZrn06EQRMFYfTXMu5ZPg5TXX1ALw1C-c7WCF_DWlMqvuKvaFGoxRNuJrKi6r3Q-tQKByp8Kx1CBAq2JTue59JqYYNQIX6vPIaa8sG7wNwb-9m0SflJTx-ohAia6BuwvqckZpAVWqKJHKJobMWmn_oGFc7ALuvOqDNkWlK5M4fokOf5HPgLEKd22x5OGqONi3xy_rUDqNmn2xiEPhvx0diiEgIuKHzy990fLLtX59JbSTCU8yJujsKF_TMV05G27sALvpwrrA805fYpcmWY_yLiHq3c3ubzmn-qbPgSyInm5kjT5L7yQ"
         params.password = "opusone1004"
         params.birthdate = "830415"
-        params.picture = "https://t1.daumcdn.net/cfile/tistory/99945F4C5BB591F330"
+        params.picture = "http://yepan.net/data/file/news/thumb/720x0_90/3667595528_5d0a3c42_1.jpg"
         params.gender = "male"
         params.address1 = "서울시"
         params.address2 = "도봉"
@@ -51,8 +51,8 @@ class RestManagerAccountTest {
         params.deviceType= "12"
         params.deviceOs = "android"
         params.deviceToken = "test"
-        params.deviceModel = "SM-t595"
-        params.deviceVersion = "Pie"
+        params.deviceModel = "SM-S610"
+        params.deviceVersion = "8.1.0"
 
         OoRestManager.signupUser(params) { error, response ->
             Assert.assertEquals(null, error)
