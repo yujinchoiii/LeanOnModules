@@ -17,29 +17,29 @@ open class OoRmUser(
     var mobile : String = "",
     var height : String = "",
     var weight: String = "",
+    var deviceType : String = "",
     var deviceToken : String = "",
-    var deviceOS : String = "",
+    var deviceOs : String = "",
     var deviceModel : String = "",
-    var deviceSerial : String = "",
+    var deviceVersion : String = "",
     var partner : String = "",
-    var picture : String = "",
-    var seniors : RealmList<OoSenior> = RealmList(),
-    var requestSeniors : RealmList<String> = RealmList(),
-    var guardians : RealmList<OoGuardian> = RealmList(),
-    var requestGuardians : RealmList<String> = RealmList(),
-    var isLauncher : String = "false") : RealmObject() {
+    var picture : String = "") : RealmObject() {
 
     override fun toString(): String {
         return "OoRmUser(id='$id', userToken='$userToken', email='$email', password='$password', name='$name', " +
                 "birthdate='$birthdate', gender='$gender', address1='$address1', address2='$address2', tel='$tel', " +
                 "mobile='$mobile', height='$height', weight='$weight', deviceToken='$deviceToken', " +
-                "deviceOS='$deviceOS', deviceModel='$deviceModel', deviceSerial='$deviceSerial', partner='$partner', " +
-                "picture='$picture', seniors=$seniors, requestSeniors=$requestSeniors, guardians=$guardians, " +
-                "requestGuardians=$requestGuardians, isLauncher=$isLauncher"
+                "deviceOS='$deviceOs', deviceModel='$deviceModel', deviceType='$deviceType', partner='$partner', " +
+                "picture='$picture', deviceVersion='$deviceVersion'"
     }
 
     fun getIsLauncher(): Boolean {
-        return isLauncher != "false"
+        var type = 0
+        try {
+            type = deviceType.toInt()
+        } catch (e: Exception) {
+        }
+        return ((type > 0) and (type < 11))
     }
 }
 

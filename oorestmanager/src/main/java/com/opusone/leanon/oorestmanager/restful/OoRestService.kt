@@ -23,11 +23,11 @@ interface OoRestService {
 
     @FormUrlEncoded
     @POST("account/signout")
-    fun userSignout(@Header("authorization") authorization : String,  @Field("userToken") usetToken: String): Call<OoResponse>
+    fun userSignout(@Header("authorization") authorization : String,  @Field("userToken") userToken: String): Call<OoResponse>
 
     @FormUrlEncoded
     @POST("account/device")
-    fun userDevice(@Header("authorization") authorization : String,  @Field("userToken") usetToken: String): Call<OoDataResponse<OoResponseUserDevice>>
+    fun userDevice(@Header("authorization") authorization : String,  @Field("userToken") userToken: String): Call<OoDataResponse<OoResponseUserDevice>>
 
     @GET("account/read/{id}")
     fun userRead(@Header("authorization") authorization : String, @Path("id") id: String): Call<OoDataResponse<OoResponseUser>>
@@ -71,6 +71,22 @@ interface OoRestService {
     @POST("relation/reject")
     fun rejectGuardian(@Header("authorization") authorization : String, @Body param: OoParamRejectGuardian): Call<OoResponse>
 
+    @FormUrlEncoded
+    @POST("relation/requestSeniorList")
+    fun requestSeniorList(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoDataResponse<OoResponseRequestSeniorList>>
+
+    @FormUrlEncoded
+    @POST("relation/seniorList")
+    fun seniorList(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoDataResponse<OoResponseSeniorList>>
+
+    @FormUrlEncoded
+    @POST("relation/requestGuardianList")
+    fun requestGuardianList(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoDataResponse<OoResponseRequestGuardianList>>
+
+    @FormUrlEncoded
+    @POST("relation/guardianList")
+    fun guardianList(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoDataResponse<OoResponseGuardianList>>
+
     @POST("voip/create")
     fun createChannel(@Header("authorization") authorization : String, @Body param: OoParamCreateChannel): Call<OoDataResponse<OoResponseCreateChannel>>
 
@@ -106,14 +122,14 @@ interface OoRestService {
 
     @FormUrlEncoded
     @POST("report/greeted")
-    fun resultGreetingReminer(@Header("authorization") authorization : String, @Field("userToken") usetToken: String): Call<OoResponse>
+    fun resultGreetingReminer(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoResponse>
 
     @GET("report/daily/{userId}")
     fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
 
     @FormUrlEncoded
     @POST("report/clearReport")
-    fun clearDailyReport(@Header("authorization") authorization : String, @Field("userToken") usetToken: String): Call<OoResponse>
+    fun clearDailyReport(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoResponse>
 
     @POST("medication/reminder/register")
     fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>

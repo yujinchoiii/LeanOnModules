@@ -114,6 +114,22 @@ object OoRestManager {
         ApiUser.delete(ooRestService, id, completion)
     }
 
+    fun getRequestSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {
+        ApiUser.getRequestSeniorList(ooRestService, userToken, completion)
+    }
+
+    fun getSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseSeniorList?) -> Unit) {
+        ApiUser.getSeniorList(ooRestService, userToken, completion)
+    }
+
+    fun getRequestGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestGuardianList?) -> Unit) {
+        ApiUser.getRequestGuardianList(ooRestService, userToken, completion)
+    }
+
+    fun getGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseGuardianList?) -> Unit) {
+        ApiUser.getGuardianList(ooRestService, userToken, completion)
+    }
+
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
         ApiWeahter.fineDust(ooRestService, admin, locality, completion)
     }

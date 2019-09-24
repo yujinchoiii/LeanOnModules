@@ -25,7 +25,7 @@ class RealmManagerTest {
         val g = OoGuardian("test1", "testtoken")
 
         val user = OoRmUser("Rosi4",
-            "", "Rosi@gmail.com","1234", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", RealmList(), RealmList(), RealmList(g))
+            "", "Rosi@gmail.com","1234", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
 
         OoRealmManager.create(user)
 

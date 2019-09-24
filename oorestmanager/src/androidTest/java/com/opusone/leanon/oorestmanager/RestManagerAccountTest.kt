@@ -3,7 +3,6 @@ package com.opusone.leanon.oorestmanager
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.oorestmanager.params.OoParamUserSignin
 import com.opusone.leanon.oorestmanager.params.OoParamUserSignup
-import com.opusone.leanon.oorestmanager.restful.OoDeviceWrapper
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
@@ -77,14 +76,14 @@ class RestManagerAccountTest {
         params.deviceModel = "iPhone Xs"
         params.deviceVersion = "12"
 
-        //OoDeviceWrapper 활용
-//        OoDeviceWrapper.type = "1"
-//        OoDeviceWrapper.token = "testToken"
-//        params.deviceType= OoDeviceWrapper.type
-//        params.deviceOs = OoDeviceWrapper.os
-//        params.deviceToken = OoDeviceWrapper.token
-//        params.deviceModel = OoDeviceWrapper.model
-//        params.deviceVersion = OoDeviceWrapper.version
+        //OoUserDevice 활용
+//        OoUserDevice.type = "1"
+//        OoUserDevice.token = "testToken"
+//        params.deviceType= OoUserDevice.type
+//        params.deviceOs = OoUserDevice.os
+//        params.deviceToken = OoUserDevice.token
+//        params.deviceModel = OoUserDevice.model
+//        params.deviceVersion = OoUserDevice.version
 
         OoRestManager.signinUser(params) { error, response ->
             Assert.assertEquals(null, error)
