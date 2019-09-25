@@ -12,6 +12,7 @@ open class OoRmMessage : RealmObject() {
     var dataType: Int? = -1
     var picture : String? = ""
     var id : String? = ""
+    var deviceType : String? = ""
     var chatroomId : String? = ""
     var name : String? = ""
     var message: String? = ""
@@ -20,6 +21,7 @@ open class OoRmMessage : RealmObject() {
     var question: String? = ""
 
     override fun toString(): String {
-        return "OoRmMessage(index=$index, chatroomId=$chatroomId,dataType=$dataType, picture=$picture, id=$id, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp, question=$question)"
+        return "OoRmMessage(index=$index, chatroomId=$chatroomId,dataType=$dataType, picture=$picture, " +
+                "id=$id, deviceType=$deviceType, name=$name, message=$message, messageAnswer=$messageAnswer, timestamp=$timestamp, question=$question)"
     }
 }
