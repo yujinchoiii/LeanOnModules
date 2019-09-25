@@ -4,9 +4,9 @@ import android.os.Build
 
 object OoLeanOnDevice {
     val TYPE_UNKNOWN = "0"
-    val TYPE_SENIOR_TABLE = "1"
+    val TYPE_SENIOR_TABLET = "1"
     val TYPE_SENIOR_MOBILE= "2"
-    val TYPE_GUARDIAN_TABLE = "11"
+    val TYPE_GUARDIAN_TABLET = "11"
     val TYPE_GUARDIAN_MOBILE= "12"
 
     var type = TYPE_UNKNOWN
