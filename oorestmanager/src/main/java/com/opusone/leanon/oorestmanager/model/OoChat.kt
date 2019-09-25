@@ -17,7 +17,7 @@ class OoPushChat (var user: OoCompactUser? = null,
 }
 
 class OoChat (var id: String? = null,
-              var devicetype: String? = null,
+              var deviceType: String? = null,
               var name: String? = null,
               var picture: String? = null,
               var roomId: String? = null,
@@ -28,6 +28,6 @@ class OoChat (var id: String? = null,
               var timestamp: Long? = null): Serializable {
 
     override fun toString(): String {
-        return "OoChat(id=$id, devicetype=$devicetype, name=$name, picture=$picture, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"
+        return "OoChat(id=$id, devicetype=$deviceType, name=$name, picture=$picture, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"
     }
 }
