@@ -152,7 +152,7 @@ class RestManagerAccountTest {
     fun updateUser() {
         val signal = CountDownLatch(1)
 
-        OoRestManager.readUser("xmPjVLCtQr2lMwn82rwI") { error, response ->
+        OoRestManager.readUser("GUexMteeMmqUA0Qp5Hrc") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotEquals(null, response?.user)
 
@@ -166,7 +166,7 @@ class RestManagerAccountTest {
                     Assert.assertNotNull(response?.userToken)
 
                     response?.let {
-                        OoRestManager.readUser("xmPjVLCtQr2lMwn82rwI") { error, response ->
+                        OoRestManager.readUser("GUexMteeMmqUA0Qp5Hrc") { error, response ->
                             Assert.assertEquals(null, error)
 
                             val user = response?.user
