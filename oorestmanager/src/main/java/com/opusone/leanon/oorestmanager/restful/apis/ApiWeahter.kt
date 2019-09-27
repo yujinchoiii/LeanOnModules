@@ -5,14 +5,14 @@ import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseFineDust
 import com.opusone.leanon.oorestmanager.response.data.OoResponseWeather
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceWeather
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiWeahter {
 
-    fun fineDust(service: OoRestService, admin : String, locality: String, completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
+    fun fineDust(service: OoRestServiceWeather, admin : String, locality: String, completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.fineDust(it, admin, locality).enqueue(object :
                 Callback<OoDataResponse<OoResponseFineDust>> {
@@ -33,7 +33,7 @@ object ApiWeahter {
         }
     }
 
-    fun weather(service: OoRestService, admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
+    fun weather(service: OoRestServiceWeather, admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.weather(it, admin, locality).enqueue(object : Callback<OoDataResponse<OoResponseWeather>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseWeather>>, response: Response<OoDataResponse<OoResponseWeather>>) {

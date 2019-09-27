@@ -7,12 +7,13 @@ import com.opusone.leanon.oorestmanager.response.data.OoResponseChat
 import com.opusone.leanon.oorestmanager.response.data.OoResponseRecentChatList
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import com.opusone.leanon.oorestmanager.restful.OoRestService
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceChat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiChat {
-    fun sendGroupChat(service: OoRestService, param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
+    fun sendGroupChat(service: OoRestServiceChat, param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.groupChat(it, param).enqueue(object : Callback<OoDataResponse<OoResponseChat>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseChat>>, response: Response<OoDataResponse<OoResponseChat>>) {
@@ -32,7 +33,7 @@ object ApiChat {
         }
     }
 
-    fun getRecentGroupChatList(service: OoRestService, roomId: String, timestamp: String, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
+    fun getRecentGroupChatList(service: OoRestServiceChat, roomId: String, timestamp: String, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.getRecentGroupChat(it, roomId, timestamp).enqueue(object :
                 Callback<OoDataResponse<OoResponseRecentChatList>> {

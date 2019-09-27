@@ -7,12 +7,13 @@ import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.*
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import com.opusone.leanon.oorestmanager.restful.OoRestService
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceReport
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiReport {
-    fun appUse(service: OoRestService, param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun appUse(service: OoRestServiceReport, param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.createAppUseReport(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -32,7 +33,7 @@ object ApiReport {
         }
     }
 
-    fun scale(service: OoRestService, param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun scale(service: OoRestServiceReport, param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.scaleReport(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -52,7 +53,7 @@ object ApiReport {
         }
     }
 
-    fun getScale(service: OoRestService, userId : String, completion: (OoErrorResponse?, OoResponseScale?) -> Unit){
+    fun getScale(service: OoRestServiceReport, userId : String, completion: (OoErrorResponse?, OoResponseScale?) -> Unit){
         OoRestManager.bearerToken?.let {
             service.getScaleReport(it, userId).enqueue(object : Callback<OoDataResponse<OoResponseScale>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseScale>>, response: Response<OoDataResponse<OoResponseScale>>) {
@@ -72,7 +73,7 @@ object ApiReport {
         }
     }
 
-    fun location(service: OoRestService, param: OoParamLocation, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun location(service: OoRestServiceReport, param: OoParamLocation, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.locationReport(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -92,7 +93,7 @@ object ApiReport {
         }
     }
 
-    fun getLocation(service: OoRestService, userId : String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit){
+    fun getLocation(service: OoRestServiceReport, userId : String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit){
         OoRestManager.bearerToken?.let {
             service.getLocation(it, userId).enqueue(object : Callback<OoDataResponse<OoResponseLocation>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseLocation>>, response: Response<OoDataResponse<OoResponseLocation>>) {
@@ -112,7 +113,7 @@ object ApiReport {
         }
     }
 
-    fun getDaily(service: OoRestService, userId : String, completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit){
+    fun getDaily(service: OoRestServiceReport, userId : String, completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit){
         OoRestManager.bearerToken?.let {
             service.getDaily(it, userId).enqueue(object : Callback<OoDataResponse<OoResponseDailyReport>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseDailyReport>>, response: Response<OoDataResponse<OoResponseDailyReport>>) {
@@ -132,7 +133,7 @@ object ApiReport {
         }
     }
 
-    fun registerGreeting(service: OoRestService, param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun registerGreeting(service: OoRestServiceReport, param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.registerGreetingReminer(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -152,7 +153,7 @@ object ApiReport {
         }
     }
 
-    fun resultGreeting(service: OoRestService, userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun resultGreeting(service: OoRestServiceReport, userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.resultGreetingReminer(it, userToken).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {

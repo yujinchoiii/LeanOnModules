@@ -5,13 +5,13 @@ import com.opusone.leanon.oorestmanager.response.OoDataResponse
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseAuth
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiAuth {
-    fun auth(service: OoRestService, param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
+    fun auth(service: OoRestServiceAuth, param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
         service.partnerAuth(param).enqueue(object : Callback<OoDataResponse<OoResponseAuth>> {
             override fun onResponse(call: Call<OoDataResponse<OoResponseAuth>>, response: Response<OoDataResponse<OoResponseAuth>>) {
                 if (response.isSuccessful) {
@@ -28,5 +28,4 @@ object ApiAuth {
             }
         })
     }
-
 }
