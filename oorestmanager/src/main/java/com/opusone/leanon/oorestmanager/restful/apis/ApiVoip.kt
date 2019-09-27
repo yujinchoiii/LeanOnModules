@@ -6,14 +6,14 @@ import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseCreateChannel
 import com.opusone.leanon.oorestmanager.response.data.OoResponseTurnUrl
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
 import com.opusone.leanon.oorestmanager.params.OoParamCreateChannel
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceVOIP
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiVoip {
-    fun create(service: OoRestService, param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+    fun create(service: OoRestServiceVOIP, param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.createChannel(it, param).enqueue(object :
                 Callback<OoDataResponse<OoResponseCreateChannel>> {
@@ -35,7 +35,7 @@ object ApiVoip {
         }
     }
 
-    fun read(service: OoRestService, channelId : String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit){
+    fun read(service: OoRestServiceVOIP, channelId : String, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit){
         OoRestManager.bearerToken?.let {
             service.readChannel(it, channelId).enqueue(object : Callback<OoDataResponse<OoResponseCreateChannel>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseCreateChannel>>, response: Response<OoDataResponse<OoResponseCreateChannel>>) {
@@ -55,7 +55,7 @@ object ApiVoip {
         }
     }
 
-    fun delete(service: OoRestService, channelId: String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+    fun delete(service: OoRestServiceVOIP, channelId: String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.deleteChannel(it, channelId, caller).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -75,7 +75,7 @@ object ApiVoip {
         }
     }
 
-    fun busy(service: OoRestService, channelId: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+    fun busy(service: OoRestServiceVOIP, channelId: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.voipBusy(it, channelId).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -95,7 +95,7 @@ object ApiVoip {
         }
     }
 
-    fun reject(service: OoRestService, channelId: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+    fun reject(service: OoRestServiceVOIP, channelId: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.voipReject(it, channelId).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -115,7 +115,7 @@ object ApiVoip {
         }
     }
 
-    fun turnUrl(service: OoRestService, roomId: String, completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
+    fun turnUrl(service: OoRestServiceVOIP, roomId: String, completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.turnUrl(it, roomId).enqueue(object : Callback<OoDataResponse<OoResponseTurnUrl>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseTurnUrl>>, response: Response<OoDataResponse<OoResponseTurnUrl>>) {

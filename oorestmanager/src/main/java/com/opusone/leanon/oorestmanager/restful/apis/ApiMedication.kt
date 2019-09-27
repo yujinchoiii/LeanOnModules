@@ -7,14 +7,14 @@ import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseMedications
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
+import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceMedication
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 object ApiMedication {
 
-    fun registerMedication(service: OoRestService, param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun registerMedication(service: OoRestServiceMedication, param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.registerMedicationReminder(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -34,7 +34,7 @@ object ApiMedication {
         }
     }
 
-    fun resultMedication(service: OoRestService, param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun resultMedication(service: OoRestServiceMedication, param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.resultMedicationReminder(it, param).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
@@ -55,7 +55,7 @@ object ApiMedication {
     }
 
 
-    fun getMedicationList(service: OoRestService, seniorId: String, completion: (OoErrorResponse?, OoResponseMedications?) -> Unit) {
+    fun getMedicationList(service: OoRestServiceMedication, seniorId: String, completion: (OoErrorResponse?, OoResponseMedications?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.getMedications(it, seniorId).enqueue(object : Callback<OoDataResponse<OoResponseMedications>> {
                 override fun onResponse(call: Call<OoDataResponse<OoResponseMedications>>, response: Response<OoDataResponse<OoResponseMedications>>) {
@@ -75,7 +75,7 @@ object ApiMedication {
         }
     }
 
-    fun deleteMedication(service: OoRestService, seniorId: String, medicationId: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun deleteMedication(service: OoRestServiceMedication, seniorId: String, medicationId: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.deleteMedication(it, seniorId, medicationId).enqueue(object : Callback<OoResponse> {
                 override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {

@@ -7,6 +7,7 @@ import com.opusone.leanon.oorestmanager.restful.apis.*
 import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.*
+import com.opusone.leanon.oorestmanager.restful.service.*
 import okhttp3.ResponseBody
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +22,15 @@ object OoRestManager {
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
+    private lateinit var ooRestServiceWeather: OoRestServiceWeather
+    private lateinit var ooRestServiceAuth: OoRestServiceAuth
+    private lateinit var ooRestServiceAccount: OoRestServiceAccount
+    private lateinit var ooRestServiceRelation: OoRestServiceRelation
+    private lateinit var ooRestServiceVOIP: OoRestServiceVOIP
+    private lateinit var ooRestServiceChat: OoRestServiceChat
+    private lateinit var ooRestServiceMedication: OoRestServiceMedication
+    private lateinit var ooRestServiceReport: OoRestServiceReport
+
     private  lateinit var retrofit : Retrofit
     internal lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
 
@@ -61,7 +71,7 @@ object OoRestManager {
 
     fun init() {
         retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-        ooRestService = retrofit.create(OoRestService::class.java)
+        initServices()
         errorConverter = retrofit.responseBodyConverter(OoErrorResponse::class.java, arrayOfNulls<Annotation>(0))
     }
 
@@ -78,168 +88,168 @@ object OoRestManager {
         })
     }
 
+    private fun initServices() {
+        ooRestService = retrofit.create(OoRestService::class.java)
+        ooRestServiceWeather = retrofit.create(OoRestServiceWeather::class.java)
+        ooRestServiceAuth = retrofit.create(OoRestServiceAuth::class.java)
+        ooRestServiceAccount = retrofit.create(OoRestServiceAccount::class.java)
+        ooRestServiceRelation = retrofit.create(OoRestServiceRelation::class.java)
+        ooRestServiceVOIP = retrofit.create(OoRestServiceVOIP::class.java)
+        ooRestServiceChat = retrofit.create(OoRestServiceChat::class.java)
+        ooRestServiceMedication = retrofit.create(OoRestServiceMedication::class.java)
+        ooRestServiceReport = retrofit.create(OoRestServiceReport::class.java)
+    }
+
     fun auth(param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
-        ApiAuth.auth(ooRestService, param, completion)
-    }
-
-    fun signupUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.signup(ooRestService, param, completion)
-    }
-
-    fun signinUser(param : OoParamUserSignin, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.signin(ooRestService, param, completion)
-    }
-
-    fun signoutUser(userToken : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiUser.signout(ooRestService, userToken, completion)
-    }
-
-    fun device(userToken : String, completion:(OoErrorResponse?, OoResponseUserDevice?) -> Unit) {
-        ApiUser.device(ooRestService, userToken, completion)
-    }
-
-    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.read(ooRestService, id, completion)
-    }
-
-    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.find(ooRestService, email, completion)
-    }
-
-    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.update(ooRestService, param, completion)
-    }
-
-    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiUser.delete(ooRestService, id, completion)
-    }
-
-    fun getRequestSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {
-        ApiUser.getRequestSeniorList(ooRestService, userToken, completion)
-    }
-
-    fun getSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseSeniorList?) -> Unit) {
-        ApiUser.getSeniorList(ooRestService, userToken, completion)
-    }
-
-    fun getRequestGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestGuardianList?) -> Unit) {
-        ApiUser.getRequestGuardianList(ooRestService, userToken, completion)
-    }
-
-    fun getGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseGuardianList?) -> Unit) {
-        ApiUser.getGuardianList(ooRestService, userToken, completion)
+        ApiAuth.auth(ooRestServiceAuth, param, completion)
     }
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
-        ApiWeahter.fineDust(ooRestService, admin, locality, completion)
+        ApiWeahter.fineDust(ooRestServiceWeather, admin, locality, completion)
     }
 
     fun weather(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
-        ApiWeahter.weather(ooRestService, admin, locality, completion)
+        ApiWeahter.weather(ooRestServiceWeather, admin, locality, completion)
     }
 
-    fun createMMSE(param: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.mmse(ooRestService, param, completion)
+    fun signupUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        ApiAccount.signup(ooRestServiceAccount, param, completion)
     }
 
-    fun getMMSE(userId: String, completion: (OoErrorResponse?, OoResponseMMSE?) -> Unit) {
-        ApiReport.getMmse(ooRestService, userId, completion)
+    fun signinUser(param : OoParamUserSignin, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        ApiAccount.signin(ooRestServiceAccount, param, completion)
     }
 
-    fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.appUse(ooRestService, param, completion)
+    fun signoutUser(userToken : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiAccount.signout(ooRestServiceAccount, userToken, completion)
+    }
+
+    fun device(userToken : String, completion:(OoErrorResponse?, OoResponseUserDevice?) -> Unit) {
+        ApiAccount.device(ooRestServiceAccount, userToken, completion)
+    }
+
+    fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        ApiAccount.read(ooRestServiceAccount, id, completion)
+    }
+
+    fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        ApiAccount.find(ooRestServiceAccount, email, completion)
+    }
+
+    fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        ApiAccount.update(ooRestServiceAccount, param, completion)
+    }
+
+    fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiAccount.delete(ooRestServiceAccount, id, completion)
+    }
+
+    fun getRequestSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {
+        ApiRelation.getRequestSeniorList(ooRestServiceRelation, userToken, completion)
+    }
+
+    fun getSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseSeniorList?) -> Unit) {
+        ApiRelation.getSeniorList(ooRestServiceRelation, userToken, completion)
+    }
+
+    fun getRequestGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestGuardianList?) -> Unit) {
+        ApiRelation.getRequestGuardianList(ooRestServiceRelation, userToken, completion)
+    }
+
+    fun getGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseGuardianList?) -> Unit) {
+        ApiRelation.getGuardianList(ooRestServiceRelation, userToken, completion)
     }
 
     fun sendGroupChat(param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
-        ApiChat.sendGroupChat(ooRestService, param, completion)
+        ApiChat.sendGroupChat(ooRestServiceChat, param, completion)
     }
 
     fun getRecentGroupChatList(roomId: String, timestamp: String, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
-        ApiChat.getRecentGroupChatList(ooRestService, roomId, timestamp, completion)
+        ApiChat.getRecentGroupChatList(ooRestServiceChat, roomId, timestamp, completion)
     }
 
     fun requestGuardian(param : OoParamRequestGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiRelation.requestGuardian(ooRestService, param, completion)
+        ApiRelation.requestGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiRelation.acceptGuardian(ooRestService, param, completion)
+        ApiRelation.acceptGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun rejectGuardian(param: OoParamRejectGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiRelation.rejectGuardian(ooRestService, param, completion)
+        ApiRelation.rejectGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
-        ApiVoip.create(ooRestService, param, completion)
+        ApiVoip.create(ooRestServiceVOIP, param, completion)
     }
 
     fun readChannel(channelId : String, completion:(OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
-        ApiVoip.read(ooRestService, channelId, completion)
+        ApiVoip.read(ooRestServiceVOIP, channelId, completion)
     }
 
     fun deleteChannel(channelId : String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.delete(ooRestService, channelId, caller, completion)
+        ApiVoip.delete(ooRestServiceVOIP, channelId, caller, completion)
     }
 
     fun voipBusy(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.busy(ooRestService, channelId, completion)
+        ApiVoip.busy(ooRestServiceVOIP, channelId, completion)
     }
 
     fun voipReject(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiVoip.reject(ooRestService, channelId, completion)
+        ApiVoip.reject(ooRestServiceVOIP, channelId, completion)
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
-        ApiVoip.turnUrl(ooRestService, roomId, completion)
+        ApiVoip.turnUrl(ooRestServiceVOIP, roomId, completion)
+    }
+
+    fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiReport.appUse(ooRestServiceReport, param, completion)
     }
 
     fun scaleReport(param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.scale(ooRestService, param, completion)
+        ApiReport.scale(ooRestServiceReport, param, completion)
     }
 
     fun getScaleReport(userId: String, completion: (OoErrorResponse?, OoResponseScale?) -> Unit) {
-        ApiReport.getScale(ooRestService, userId, completion)
+        ApiReport.getScale(ooRestServiceReport, userId, completion)
     }
 
     fun locationReport(param: OoParamLocation, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.location(ooRestService, param, completion)
+        ApiReport.location(ooRestServiceReport, param, completion)
     }
 
     fun getLocationReport(userId: String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit) {
-        ApiReport.getLocation(ooRestService, userId, completion)
+        ApiReport.getLocation(ooRestServiceReport, userId, completion)
     }
 
     fun getDailyReport(seniorId: String,  completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
-        ApiReport.getDaily(ooRestService, seniorId, completion)
-    }
-
-    fun clearDailyReport(userToken: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.clearDailyReport(ooRestService, userToken, completion)
+        ApiReport.getDaily(ooRestServiceReport, seniorId, completion)
     }
 
     fun registerGreeting(param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.registerGreeting(ooRestService, param, completion)
+        ApiReport.registerGreeting(ooRestServiceReport, param, completion)
     }
 
     fun resultGreeting(userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.resultGreeting(ooRestService, userToken, completion)
+        ApiReport.resultGreeting(ooRestServiceReport, userToken, completion)
     }
 
     fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiMedication.registerMedication(ooRestService, param, completion)
+        ApiMedication.registerMedication(ooRestServiceMedication, param, completion)
     }
 
     fun resultMedication(param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiMedication.resultMedication(ooRestService, param, completion)
+        ApiMedication.resultMedication(ooRestServiceMedication, param, completion)
     }
 
     fun getMedications(seniorId: String, completion: (OoErrorResponse?, OoResponseMedications?) -> Unit) {
-        ApiMedication.getMedicationList(ooRestService, seniorId, completion)
+        ApiMedication.getMedicationList(ooRestServiceMedication, seniorId, completion)
     }
 
     fun deleteMedications(seniorId: String, medicationId: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiMedication.deleteMedication(ooRestService, seniorId,  medicationId, completion)
+        ApiMedication.deleteMedication(ooRestServiceMedication, seniorId,  medicationId, completion)
     }
 }
 
