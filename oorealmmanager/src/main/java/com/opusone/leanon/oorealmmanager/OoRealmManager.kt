@@ -37,6 +37,13 @@ object OoRealmManager {
         }
     }
 
+
+    fun deleteRealm() {
+        Realm.getDefaultConfiguration()?.let {
+            Realm.deleteRealm(it)
+        }
+    }
+
     fun relese() {
         Realm.getDefaultInstance()?.let {
             it.removeAllChangeListeners()

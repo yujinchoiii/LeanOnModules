@@ -3,7 +3,6 @@ package com.opusone.leanon.oocontentresolver
 import android.content.ContentResolver
 import android.net.Uri
 import com.google.gson.Gson
-import com.opusone.leanon.oocontentresolver.model.Partner
 import com.opusone.leanon.oocontentresolver.model.User
 
 object OoContentResolver {
