@@ -42,7 +42,7 @@ object OoRestManager {
             try {
                 error = errorConverter.convert(it)
             } catch (e: IOException) {
-                error = OoErrorResponse(null, null, null)
+                error = OoErrorResponse(null, 0, null)
             }
         }
         return error
@@ -164,7 +164,7 @@ object OoRestManager {
         ApiChat.sendGroupChat(ooRestServiceChat, param, completion)
     }
 
-    fun getRecentGroupChatList(roomId: String, timestamp: String, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
+    fun getRecentGroupChatList(roomId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
         ApiChat.getRecentGroupChatList(ooRestServiceChat, roomId, timestamp, completion)
     }
 

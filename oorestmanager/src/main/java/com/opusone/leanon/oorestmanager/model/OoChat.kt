@@ -9,7 +9,7 @@ class OoPushChat (var user: OoCompactUser? = null,
               var message: String? = null,
               var answer: List<String>? = null,
               var question: String? = null,
-              var timestamp: Long? = null): Serializable {
+              var timestamp: Long = 0): Serializable {
 
     override fun toString(): String {
         return "OoChat(user=$user, senderId=$senderId, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"
@@ -25,7 +25,7 @@ class OoChat (var id: String? = null,
               var message: String? = null,
               var answer: List<String>? = null,
               var question: String? = null,
-              var timestamp: Long? = null): Serializable {
+              var timestamp: Long = 0): Serializable {
 
     override fun toString(): String {
         return "OoChat(id=$id, devicetype=$deviceType, name=$name, picture=$picture, roomId=$roomId, type=$type, message=$message, answer=$answer, question=$question, timestamp=$timestamp)"

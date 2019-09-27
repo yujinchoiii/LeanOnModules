@@ -32,7 +32,7 @@ object ApiChat {
         }
     }
 
-    fun getRecentGroupChatList(service: OoRestServiceChat, roomId: String, timestamp: String, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
+    fun getRecentGroupChatList(service: OoRestServiceChat, roomId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.getRecentGroupChat(it, roomId, timestamp).enqueue(object :
                 Callback<OoDataResponse<OoResponseRecentChatList>> {

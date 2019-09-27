@@ -18,7 +18,7 @@ class OoUser(var id: String?= null,
              var partner: String?= null,
              var nationalCode: String?=null,
              var deviceType: String?=null,
-             var regiTimestamp: String?=null) : Serializable {
+             var regiTimestamp: Long = 0) : Serializable {
 
     override fun toString(): String {
         return "OoUser(id='$id', email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
@@ -33,7 +33,7 @@ class OoCompactUser (var id: String? = null,
                      var name: String? = null,
                      var email: String?= null,
                      var picture: String? = null,
-                     var timestamp: String? = null,
+                     var timestamp: Long = 0,
                      var deviceType: String? = null): Serializable {
     override fun toString(): String {
         return "OoCompactUser (id='$id', 'name='$name', 'email='$email', 'picture='$picture', " +

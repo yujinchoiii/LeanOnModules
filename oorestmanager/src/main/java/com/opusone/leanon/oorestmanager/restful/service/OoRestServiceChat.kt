@@ -12,6 +12,6 @@ interface OoRestServiceChat {
     fun groupChat(@Header("authorization") authorization : String, @Body param: OoParamChat): Call<OoDataResponse<OoResponseChat>>
 
     @GET("chat/recentGroupChat/{roomId}/{timestamp}")
-    fun getRecentGroupChat(@Header("authorization") authorization : String, @Path("roomId") roomId: String, @Path("timestamp") timestamp: String): Call<OoDataResponse<OoResponseRecentChatList>>
+    fun getRecentGroupChat(@Header("authorization") authorization : String, @Path("roomId") roomId: String, @Path("timestamp") timestamp: Long): Call<OoDataResponse<OoResponseRecentChatList>>
 
 }

@@ -2,20 +2,19 @@ package com.opusone.leanon.oorestmanager.model
 
 import java.io.Serializable
 
-class OoLocation(var userId: String? = null,
-                 var geoCoding: String? = null,
+class OoLocation(var geoCoding: String? = null,
                  var latitude: String? = null,
                  var longitude: String? = null): Serializable {
 
     override fun toString(): String {
-        return "OoLocation (userId='$userId', geoCoding='$geoCoding', 'latitude=$latitude'," +
+        return "OoLocation (geoCoding='$geoCoding', 'latitude=$latitude'," +
                 " 'longitude=$longitude')"
     }
 }
 
-class OoReportLocation(var report: OoLocation? = null, val timestamp: String? = null): Serializable {
+class OoReportLocation(var location: OoLocation? = null, val timestamp: Long = 0): Serializable {
     override fun toString(): String {
-        return "OoReportLocation (report='$report', 'timestamp=$timestamp')"
+        return "OoReportLocation (location='$location', 'timestamp=$timestamp')"
     }
 }
 
@@ -39,7 +38,7 @@ class OoScale(var userId: String? = null,
     }
 }
 
-class OoReportSclae(val report: OoScale? = null, val timestamp: String? = null) {
+class OoReportSclae(val report: OoScale? = null, val timestamp: Long = 0) {
     override fun toString(): String {
         return "OoReportSclae (report='$report', timestamp='$timestamp')"
     }
@@ -61,13 +60,13 @@ class OoBrainDoctor(var timespace: String? = null,
     }
 }
 
-class OoBrainDoctorDiagnosis(var report: OoBrainDoctor? = null, var timestamp: String? = null) {
+class OoBrainDoctorDiagnosis(var report: OoBrainDoctor? = null, var timestamp: Long = 0) {
     override fun toString(): String {
         return "OoBrainDoctorDiagnosis (report='$report', timestamp='$timestamp')"
     }
 }
 
-class OoBrainDoctorDaily(var report: OoBrainDoctor? = null, var timestamp: String? = null) {
+class OoBrainDoctorDaily(var report: OoBrainDoctor? = null, var timestamp: Long = 0) {
     override fun toString(): String {
         return "OoBrainDoctorDaily (report='$report', timestamp='$timestamp')"
     }
@@ -94,7 +93,7 @@ class OoAppUse(var name: String? = null,
 }
 
 class OoReportAppUse(var report: List<OoAppUse>? = null,
-                     var timestamp: String? = null): Serializable {
+                     var timestamp: Long = 0): Serializable {
 
     override fun toString(): String {
         return "OoReportAppUse (report='$report', timestamp='$timestamp')"
@@ -108,7 +107,7 @@ class OoGreeting(var ampm: String? = null,
                  var message: String? = null,
                  var on: String? = null,
                  var greeted: String? = null,
-                 var timestamp: String? = null): Serializable {
+                 var timestamp: Long = 0): Serializable {
 
     override fun toString(): String {
         return "OoGreeting(ampm='$ampm', hour='$hour', minute='$minute', " +
