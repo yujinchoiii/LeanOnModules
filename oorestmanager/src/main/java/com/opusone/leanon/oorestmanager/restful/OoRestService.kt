@@ -47,12 +47,6 @@ interface OoRestService {
     @GET("weather/weather/{admin}/{locality}")
     fun weather(@Header("authorization") authorization : String, @Path("admin") admin: String, @Path("locality") locality: String): Call<OoDataResponse<OoResponseWeather>>
 
-    @POST("report/mmse")
-    fun createMMSE(@Header("authorization") authorization : String, @Body param: OoParamMMSE): Call<OoResponse>
-
-    @GET("report/mmse/{userId}")
-    fun getMMSE(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseMMSE>>
-
     @POST("report/appuse")
     fun createAppUseReport(@Header("authorization") authorization : String, @Body param: OoParamAppUseReport): Call<OoResponse>
 
@@ -126,10 +120,6 @@ interface OoRestService {
 
     @GET("report/daily/{userId}")
     fun getDaily(@Header("authorization") authorization : String, @Path("userId") userId: String): Call<OoDataResponse<OoResponseDailyReport>>
-
-    @FormUrlEncoded
-    @POST("report/clearReport")
-    fun clearDailyReport(@Header("authorization") authorization : String, @Field("userToken") userToken: String): Call<OoResponse>
 
     @POST("medication/reminder/register")
     fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>

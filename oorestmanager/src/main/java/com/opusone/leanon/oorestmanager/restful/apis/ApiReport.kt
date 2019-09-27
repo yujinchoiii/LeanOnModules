@@ -12,46 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object ApiReport {
-    fun mmse(service: OoRestService, param: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.createMMSE(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body())
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("createMMSE Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
-    }
-
-    fun getMmse(service: OoRestService, userId : String, completion: (OoErrorResponse?, OoResponseMMSE?) -> Unit){
-        OoRestManager.bearerToken?.let {
-            service.getMMSE(it, userId).enqueue(object : Callback<OoDataResponse<OoResponseMMSE>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseMMSE>>, response: Response<OoDataResponse<OoResponseMMSE>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.data.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseMMSE>>, t: Throwable) {
-                    OoRestManager.printError("getMmse Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
-    }
-
     fun appUse(service: OoRestService, param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         OoRestManager.bearerToken?.let {
             service.createAppUseReport(it, param).enqueue(object : Callback<OoResponse> {
@@ -206,26 +166,6 @@ object ApiReport {
                 }
                 override fun onFailure(call: Call<OoResponse>, t: Throwable) {
                     OoRestManager.printError("resultGreeting Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
-    }
-
-    fun clearDailyReport(service: OoRestService, userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.clearDailyReport(it, userToken).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body())
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
-                }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("clearDailyReport Failed. ${t.message}")
                     completion(null, null)
                 }
             })

@@ -138,14 +138,6 @@ object OoRestManager {
         ApiWeahter.weather(ooRestService, admin, locality, completion)
     }
 
-    fun createMMSE(param: OoParamMMSE, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.mmse(ooRestService, param, completion)
-    }
-
-    fun getMMSE(userId: String, completion: (OoErrorResponse?, OoResponseMMSE?) -> Unit) {
-        ApiReport.getMmse(ooRestService, userId, completion)
-    }
-
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiReport.appUse(ooRestService, param, completion)
     }
@@ -212,10 +204,6 @@ object OoRestManager {
 
     fun getDailyReport(seniorId: String,  completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
         ApiReport.getDaily(ooRestService, seniorId, completion)
-    }
-
-    fun clearDailyReport(userToken: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiReport.clearDailyReport(ooRestService, userToken, completion)
     }
 
     fun registerGreeting(param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {

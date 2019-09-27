@@ -3,33 +3,27 @@ package com.opusone.leanon.oorestmanager.response.data
 import com.opusone.leanon.oorestmanager.model.*
 import java.io.Serializable
 
-class OoResponseLocation(val location: OoLocation) : Serializable {
+class OoResponseLocation(val location: OoReportLocation) : Serializable {
     override fun toString(): String {
         return "OoResponseLocation(location=$location)"
     }
 }
 
-class OoResponseScale(val scale: OoScale) : Serializable {
+class OoResponseScale(val scale: OoReportSclae? = null) : Serializable {
     override fun toString(): String {
         return "OoResponseScale(scale=$scale)"
     }
 }
 
-class OoResponseMMSE(val mmse: OoMMSE) : Serializable {
-    override fun toString(): String {
-        return "OoResponseMMSE(mmse=$mmse)"
-    }
-}
-
-class OoResponseDaily(val appRunCount: OoAppRunCount? = null,
-                      val location: OoLocation? = null,
-                      val medication: List<OoMedication>? = null,
-                      val mmse: OoMMSE? = null,
-                      val brainDoctor: OoBrainDoctor? = null,
-                      val scale: OoScale? = null) : Serializable {
+class OoResponseDaily(val appRunCount: OoReportAppUse? = null,
+                      val location: OoReportLocation? = null,
+                      val brainDoctor: OoReportBrainDoctor? = null,
+                      val scale: OoReportSclae? = null,
+                      val greeting: OoGreeting? = null,
+                      val medication: List<OoMedication>? = null) : Serializable {
     override fun toString(): String {
         return "OoResponseDaily(appRunCount=$appRunCount, location=$location, brainDoctor=$brainDoctor, " +
-                "medication=$medication, mmse=$mmse, scale=$scale)"
+                "greeting=$greeting, medication=$medication, scale=$scale)"
     }
 }
 
