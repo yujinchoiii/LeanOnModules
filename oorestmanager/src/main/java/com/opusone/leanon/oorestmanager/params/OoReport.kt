@@ -12,7 +12,7 @@ class OoParamMMSE(var userToken : String? = null,
 
 class OoParamAppUse(
     var name: String? = null,
-    var diaplayName: String? = null,
+    var displayName: String? = null,
     var packageName: String? = null,
     var link: String? = null,
     var version: String? = null,
@@ -20,7 +20,7 @@ class OoParamAppUse(
     var runCount: String = "0") : Serializable {
 
     override fun toString(): String {
-        return "OoParamAppUse(name='$name', diaplayName='$diaplayName', packageName='$packageName', " +
+        return "OoParamAppUse(name='$name', displayName='$displayName', packageName='$packageName', " +
                 "link='$link', version='$version', category='$category', runCount='$runCount')"
     }
 }

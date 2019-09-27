@@ -78,7 +78,7 @@ class OoReportBrainDoctor(val diagnosis: OoBrainDoctorDiagnosis? = null, val dai
 }
 
 class OoAppUse(var name: String? = null,
-               var diaplayName: String? = null,
+               var displayName: String? = null,
                var packageName: String? = null,
                var link: String? = null,
                var version: String? = null,
@@ -86,7 +86,7 @@ class OoAppUse(var name: String? = null,
                var runCount: String? = null): Serializable {
 
     override fun toString(): String {
-        return "OoAppUse(name='$name', diaplayName='$diaplayName', packageName='$packageName', " +
+        return "OoAppUse(name='$name', displayName='$displayName', packageName='$packageName', " +
                 "link='$link', version='$version', category='$category', runCount='$runCount')"
     }
 }
