@@ -113,35 +113,35 @@ object OoRestManager {
     }
 
     fun signupUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.signup(ooRestServiceAccount, param, completion)
+        ApiAccount.signup(ooRestServiceAccount, param, completion)
     }
 
     fun signinUser(param : OoParamUserSignin, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.signin(ooRestServiceAccount, param, completion)
+        ApiAccount.signin(ooRestServiceAccount, param, completion)
     }
 
     fun signoutUser(userToken : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiUser.signout(ooRestServiceAccount, userToken, completion)
+        ApiAccount.signout(ooRestServiceAccount, userToken, completion)
     }
 
     fun device(userToken : String, completion:(OoErrorResponse?, OoResponseUserDevice?) -> Unit) {
-        ApiUser.device(ooRestServiceAccount, userToken, completion)
+        ApiAccount.device(ooRestServiceAccount, userToken, completion)
     }
 
     fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.read(ooRestServiceAccount, id, completion)
+        ApiAccount.read(ooRestServiceAccount, id, completion)
     }
 
     fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
-        ApiUser.find(ooRestServiceAccount, email, completion)
+        ApiAccount.find(ooRestServiceAccount, email, completion)
     }
 
     fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
-        ApiUser.update(ooRestServiceAccount, param, completion)
+        ApiAccount.update(ooRestServiceAccount, param, completion)
     }
 
     fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        ApiUser.delete(ooRestServiceAccount, id, completion)
+        ApiAccount.delete(ooRestServiceAccount, id, completion)
     }
 
     fun getRequestSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {

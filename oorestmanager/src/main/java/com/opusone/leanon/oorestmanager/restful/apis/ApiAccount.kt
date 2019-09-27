@@ -8,13 +8,12 @@ import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.*
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
 import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceAccount
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object ApiUser {
+object ApiAccount {
 
     fun signup(service: OoRestServiceAccount, param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
         OoRestManager.bearerToken?.let {

@@ -6,7 +6,6 @@ import com.opusone.leanon.oorestmanager.response.OoErrorResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseChat
 import com.opusone.leanon.oorestmanager.response.data.OoResponseRecentChatList
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
-import com.opusone.leanon.oorestmanager.restful.OoRestService
 import com.opusone.leanon.oorestmanager.restful.service.OoRestServiceChat
 import retrofit2.Call
 import retrofit2.Callback
