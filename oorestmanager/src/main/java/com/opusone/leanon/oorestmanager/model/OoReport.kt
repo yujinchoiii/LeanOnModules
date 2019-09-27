@@ -18,8 +18,7 @@ class OoReportLocation(var location: OoLocation? = null, val timestamp: Long = 0
     }
 }
 
-class OoScale(var userId: String? = null,
-              var weight: String? = null,
+class OoScale(var weight: String? = null,
               var bmi: String? = null,
               var bmr: String? = null,
               var bodyFatRate: String? = null,
@@ -31,16 +30,16 @@ class OoScale(var userId: String? = null,
               var visceralFat: String? = null): Serializable {
 
     override fun toString(): String {
-        return "OoScale (userId='$userId', weight='$weight', 'bmi=$bmi', 'bmr=$bmr', " +
+        return "OoScale (weight='$weight', 'bmi=$bmi', 'bmr=$bmr', " +
                 "'bodyFatRate=$bodyFatRate', 'bodyWaterRate=$bodyWaterRate', " +
                 "'boneMass=$boneMass', 'heartRate=$heartRate', 'muscleRate=$muscleRate', " +
                 "'subcutaneousFat=$subcutaneousFat', 'visceralFat=$visceralFat')"
     }
 }
 
-class OoReportSclae(val report: OoScale? = null, val timestamp: Long = 0) {
+class OoReportSclae(val scale: OoScale? = null, val timestamp: Long = 0) {
     override fun toString(): String {
-        return "OoReportSclae (report='$report', timestamp='$timestamp')"
+        return "OoReportSclae (scale='$scale', timestamp='$timestamp')"
     }
 }
 
@@ -60,15 +59,15 @@ class OoBrainDoctor(var timespace: String? = null,
     }
 }
 
-class OoBrainDoctorDiagnosis(var report: OoBrainDoctor? = null, var timestamp: Long = 0) {
+class OoBrainDoctorDiagnosis(var result: OoBrainDoctor? = null, var timestamp: Long = 0) {
     override fun toString(): String {
-        return "OoBrainDoctorDiagnosis (report='$report', timestamp='$timestamp')"
+        return "OoBrainDoctorDiagnosis (result='$result', timestamp='$timestamp')"
     }
 }
 
-class OoBrainDoctorDaily(var report: OoBrainDoctor? = null, var timestamp: Long = 0) {
+class OoBrainDoctorDaily(var result: OoBrainDoctor? = null, var timestamp: Long = 0) {
     override fun toString(): String {
-        return "OoBrainDoctorDaily (report='$report', timestamp='$timestamp')"
+        return "OoBrainDoctorDaily (result='$result', timestamp='$timestamp')"
     }
 }
 
@@ -92,11 +91,11 @@ class OoAppUse(var name: String? = null,
     }
 }
 
-class OoReportAppUse(var report: List<OoAppUse>? = null,
+class OoReportAppUse(var appUse: List<OoAppUse>? = null,
                      var timestamp: Long = 0): Serializable {
 
     override fun toString(): String {
-        return "OoReportAppUse (report='$report', timestamp='$timestamp')"
+        return "OoReportAppUse (appUse='$appUse', timestamp='$timestamp')"
     }
 }
 
@@ -106,11 +105,18 @@ class OoGreeting(var ampm: String? = null,
                  var minute: String? = null,
                  var message: String? = null,
                  var on: String? = null,
-                 var greeted: String? = null,
-                 var timestamp: Long = 0): Serializable {
+                 var greeted: String? = null): Serializable {
 
     override fun toString(): String {
         return "OoGreeting(ampm='$ampm', hour='$hour', minute='$minute', " +
-                "message='$message', on='$on', greeted='$greeted', timestamp='$timestamp')"
+                "message='$message', on='$on', greeted='$greeted')"
+    }
+}
+
+class OoReportGreeting(var greeting: OoGreeting? = null,
+                       var timestamp: Long = 0): Serializable {
+
+    override fun toString(): String {
+        return "OoReportGreeting (greeting='$greeting', timestamp='$timestamp')"
     }
 }

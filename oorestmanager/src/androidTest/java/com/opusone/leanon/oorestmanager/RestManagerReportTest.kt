@@ -57,7 +57,7 @@ class RestManagerReportTest {
         val signal = CountDownLatch(1)
         OoRestManager.getScaleReport("bzT8GybqLYyyRJdXlyJR") { error, response ->
             Assert.assertEquals(null, error)
-            Assert.assertNotNull(response?.scale?.report)
+            Assert.assertNotNull(response?.scale?.scale)
             Assert.assertNotNull(response?.scale?.timestamp)
             signal.countDown()
         }
@@ -102,7 +102,7 @@ class RestManagerReportTest {
             Assert.assertNotNull(response?.daily?.appRunCount?.report)
             Assert.assertNotNull(response?.daily?.location?.location)
 //            Assert.assertNotNull(response?.daily?.medication)
-            Assert.assertNotNull(response?.daily?.scale?.report)
+            Assert.assertNotNull(response?.daily?.scale?.scale)
             Assert.assertNotNull(response?.daily?.brainDoctor?.diagnosis)
             Assert.assertNotNull(response?.daily?.brainDoctor?.daily)
             Assert.assertNotNull(response?.daily?.greeting?.ampm)

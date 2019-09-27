@@ -33,7 +33,7 @@ class RestManagerChatTest {
     fun getGroupChatList() {
         val signal = CountDownLatch(1)
 
-        OoRestManager.getRecentGroupChatList("UFWvQ1OV2gpuBaSj4Wnd", "1567837188260") { error, response ->
+        OoRestManager.getRecentGroupChatList("UFWvQ1OV2gpuBaSj4Wnd", 1567837188260) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotNull(response)
             signal.countDown()
