@@ -25,9 +25,9 @@ class OoParamAppUse(
     }
 }
 
-class OoParamAppUseReport(var userToken: String? = null, var report: List<OoParamAppUse>) {
+class OoParamAppUseReport(var userToken: String? = null, var appUse: List<OoParamAppUse>) {
     override fun toString(): String {
-        return "OoAppUseReport(userToken='$userToken', report='$report')"
+        return "OoAppUseReport(userToken='$userToken', appUse='$appUse')"
     }
 }
 
