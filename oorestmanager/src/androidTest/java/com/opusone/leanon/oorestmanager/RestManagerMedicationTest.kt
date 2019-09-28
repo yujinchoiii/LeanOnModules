@@ -3,6 +3,7 @@ package com.opusone.leanon.oorestmanager
 import com.opusone.leanon.oorestmanager.params.OoParamPartnerAuth
 import com.opusone.leanon.oorestmanager.params.OoParamRegisterMedication
 import com.opusone.leanon.oorestmanager.params.OoParamResultMedication
+import com.opusone.leanon.oorestmanager.params.OoParamUpdateMedication
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
 import org.junit.Before
@@ -29,16 +30,38 @@ class RestManagerMedicationTest {
     fun registerMedication() {
         val signal = CountDownLatch(1)
         val params = OoParamRegisterMedication()
-        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFZHVjNaUk1VOVdNbWR3ZFVKaFUybzBWMjVrSWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkluUnlkV1VpTENKd2FYSmpkSFZ5WlNJNkltaDBkSEE2THk5M2QzY2lMQ0pwWVhRaU9qRTFOamMyTnpBME5qWjkuU3hHZnF5bGE4Wl8zLTB3MkdzQS1zYi0wMnNjbGxteVJJNXg4NDNWZkF0QSIsInVzZXJJZCI6IlVGV3ZRMU9WMmdwdUJhU2o0V25kIiwiaWF0IjoxNTY3NjcwNDY2fQ.LddVfqlVt9q9Ur-FFcJ1cHl8fHzZfbT_14x7GhFad2Q"
-        params.seniorId = "UFWvQ1OV2gpuBaSj4Wnd"
-        params.alarmId = "120"
-        params.alarmName = "depression"
+        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGJXRnBiQ0k2SW05d2RYTnZibVYwWlhOME1ERkFaMjFoYVd3dVkyOXRJaXdpYm1GdFpTSTZJdXE1Z095WXBPMk52T3lLcENJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpY0dseVkzUjFjbVVpT2lKb2RIUndjem92TDNCa2N5NXFiMmx1Y3k1amIyMHZMMjVsZDNNdlkyOXRjRzl1Wlc1MEwyaDBiV3h3YUc5MGIxOXRiV1JoZEdFdk1qQXhPREEwTHpJeUwyUXhaVE01T0dJNUxUSTRNVE10TkRNek55MDRPVEUwTFRrNE5EZGpaR1ExWXpjM1pTNXFjR2NpTENKa1pYWnBZMlZVZVhCbElqb2lNU0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2laalZLU0VGU1UyaGpValE2UVZCQk9URmlSV0k0UlVaU2QzbHlUMlJ3Y2pCRlkwZHBaRTFJUzFaRlFYTmFXa1YyVkZVeVFWOVFjVzVtVlhkdlpIUlFkMDl5VjJoMU5FRm5USGRvYVhOemFFczBiemxUV0ZSaFowcHVNRmhpWjJWRFQzUldOWGQ1TjE5SE9GSTNjbXhrZWxGaVIwVmpZMU4xYzFkd1pYTlZOVkJKYUVsUmNrZEViblJ2YXpnM2R6ZFdORFZ5V0ZSNmRWZ2lMQ0pwWVhRaU9qRTFOamsyTkRJeE9UUjkuU0JselFkR2VlTVpxdm9qcFVqVmtvTUpZajk4N3NVRVVLejJMZTJqSnZQZyIsInVzZXJJZCI6ImJ6VDhHeWJxTFl5eVJKZFhseUpSIiwiaWF0IjoxNTY5NjQyMTk0fQ.xqQgGjpAycHrDSYCRAlvWmO5iYwFBr_QjgFViqMJxS0"
+        params.seniorId = "bzT8GybqLYyyRJdXlyJR"
+        params.alarmId = "1010"
+        params.name = "감기약스"
         params.hour = "8"
         params.min = "20"
         params.picture = ""
-//        params.weekdaysInfo = "true" //배열 수정?
+        params.weekdaysInfo = arrayListOf(true, true, true, true, true, true, true, true)
 
         OoRestManager.registerMedication(params) { error, response ->
+            Assert.assertEquals(null, error)
+            Assert.assertNotNull(response?.medication)
+            signal.countDown()
+        }
+        signal.await()
+    }
+
+    @Test
+    fun updateMedication() {
+        val signal = CountDownLatch(1)
+        val params = OoParamUpdateMedication()
+        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGJXRnBiQ0k2SW05d2RYTnZibVYwWlhOME1ERkFaMjFoYVd3dVkyOXRJaXdpYm1GdFpTSTZJdXE1Z095WXBPMk52T3lLcENJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpY0dseVkzUjFjbVVpT2lKb2RIUndjem92TDNCa2N5NXFiMmx1Y3k1amIyMHZMMjVsZDNNdlkyOXRjRzl1Wlc1MEwyaDBiV3h3YUc5MGIxOXRiV1JoZEdFdk1qQXhPREEwTHpJeUwyUXhaVE01T0dJNUxUSTRNVE10TkRNek55MDRPVEUwTFRrNE5EZGpaR1ExWXpjM1pTNXFjR2NpTENKa1pYWnBZMlZVZVhCbElqb2lNU0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2laalZLU0VGU1UyaGpValE2UVZCQk9URmlSV0k0UlVaU2QzbHlUMlJ3Y2pCRlkwZHBaRTFJUzFaRlFYTmFXa1YyVkZVeVFWOVFjVzVtVlhkdlpIUlFkMDl5VjJoMU5FRm5USGRvYVhOemFFczBiemxUV0ZSaFowcHVNRmhpWjJWRFQzUldOWGQ1TjE5SE9GSTNjbXhrZWxGaVIwVmpZMU4xYzFkd1pYTlZOVkJKYUVsUmNrZEViblJ2YXpnM2R6ZFdORFZ5V0ZSNmRWZ2lMQ0pwWVhRaU9qRTFOamsyTkRJeE9UUjkuU0JselFkR2VlTVpxdm9qcFVqVmtvTUpZajk4N3NVRVVLejJMZTJqSnZQZyIsInVzZXJJZCI6ImJ6VDhHeWJxTFl5eVJKZFhseUpSIiwiaWF0IjoxNTY5NjQyMTk0fQ.xqQgGjpAycHrDSYCRAlvWmO5iYwFBr_QjgFViqMJxS0"
+        params.seniorId = "bzT8GybqLYyyRJdXlyJR"
+        params.medicationId = "-LprSvZNpZvnyQoKjlD8"
+        params.alarmId = "1010"
+        params.name = "뽕"
+        params.hour = "8"
+        params.min = "20"
+        params.picture = ""
+        params.weekdaysInfo = arrayListOf(true, true, true, false, true, true, true, true)
+
+        OoRestManager.updateMedication(params) { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertEquals(true, response?.isSuccess())
             signal.countDown()
@@ -50,9 +73,9 @@ class RestManagerMedicationTest {
     fun resultMedication() {
         val signal = CountDownLatch(1)
         val params = OoParamResultMedication()
-        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbFZHVjNaUk1VOVdNbWR3ZFVKaFUybzBWMjVrSWl3aVpXMWhhV3dpT2lKdmNIVnpiMjVsZEdWemREQXhRR2R0WVdsc0xtTnZiU0lzSW01aGJXVWlPaUxxdVlEc21LVHRqYnpzaXFRaUxDSnphR0ZrYjNjaU9pSmtaalZqTm1ObE1HUTFNMk0yTkRsbVkyRXhaREV3WXpreE5UTTBaREEzWmpjNU5HRTNPV0V3WXpVMVlUSTJOREptWVRabU1EUmxOR0V5WXpReU1UZGhNamxtTVRReU9XWXdOVGRpTkdZeE5UWTVOalE1WW1Oa05EY3pNakkzWkRGbU1HTXlNRFZoWlRCaFpqZzFaVGt3TVRBMU1qTXdZV05tTmpVNE4yVmpOQ0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2lkR1Z6ZEZSdmEyVnVJaXdpYVhOTVlYVnVZMmhsY2lJNkltWmhiSE5sSWl3aWNHbHlZM1IxY21VaU9pSm9kSFJ3T2k4dmQzZDNJaXdpYVdGMElqb3hOVFkzTmpZd056STVmUS5KTTRDUmRyRXMwNExGcGQ1OEd2eWZrOXZJRlA5OE9pLWZvWkw5Q05TSEZFIiwidXNlcklkIjoiVUZXdlExT1YyZ3B1QmFTajRXbmQiLCJpYXQiOjE1Njc2NjA3Mjl9.WWrGS5-UDDMXoI7aO4fjjkOj9vSUKOmEQrq3Bfb7qB4"
-        params.medicationId = "-Lo-fw4JyxKQ_Yja6it-"
-        params.isTaken = "false"
+        params.userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKbGJXRnBiQ0k2SW05d2RYTnZibVYwWlhOME1ERkFaMjFoYVd3dVkyOXRJaXdpYm1GdFpTSTZJdXE1Z095WXBPMk52T3lLcENJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpY0dseVkzUjFjbVVpT2lKb2RIUndjem92TDNCa2N5NXFiMmx1Y3k1amIyMHZMMjVsZDNNdlkyOXRjRzl1Wlc1MEwyaDBiV3h3YUc5MGIxOXRiV1JoZEdFdk1qQXhPREEwTHpJeUwyUXhaVE01T0dJNUxUSTRNVE10TkRNek55MDRPVEUwTFRrNE5EZGpaR1ExWXpjM1pTNXFjR2NpTENKa1pYWnBZMlZVZVhCbElqb2lNU0lzSW1SbGRtbGpaVlJ2YTJWdUlqb2laalZLU0VGU1UyaGpValE2UVZCQk9URmlSV0k0UlVaU2QzbHlUMlJ3Y2pCRlkwZHBaRTFJUzFaRlFYTmFXa1YyVkZVeVFWOVFjVzVtVlhkdlpIUlFkMDl5VjJoMU5FRm5USGRvYVhOemFFczBiemxUV0ZSaFowcHVNRmhpWjJWRFQzUldOWGQ1TjE5SE9GSTNjbXhrZWxGaVIwVmpZMU4xYzFkd1pYTlZOVkJKYUVsUmNrZEViblJ2YXpnM2R6ZFdORFZ5V0ZSNmRWZ2lMQ0pwWVhRaU9qRTFOamsyTkRJeE9UUjkuU0JselFkR2VlTVpxdm9qcFVqVmtvTUpZajk4N3NVRVVLejJMZTJqSnZQZyIsInVzZXJJZCI6ImJ6VDhHeWJxTFl5eVJKZFhseUpSIiwiaWF0IjoxNTY5NjQyMTk0fQ.xqQgGjpAycHrDSYCRAlvWmO5iYwFBr_QjgFViqMJxS0"
+        params.medicationId = "-LprO7UNjPat40NfI2nF"
+        params.isTaken = "true"
 
         OoRestManager.resultMedication(params) { error, response ->
             Assert.assertEquals(null, error)
@@ -65,9 +88,9 @@ class RestManagerMedicationTest {
     @Test
     fun getMedicationList() {
         val signal = CountDownLatch(1)
-        OoRestManager.getMedications("UFWvQ1OV2gpuBaSj4Wnd") { error, response ->
+        OoRestManager.getMedications("bzT8GybqLYyyRJdXlyJR") { error, response ->
             Assert.assertEquals(null, error)
-            Assert.assertNotNull(response)
+            Assert.assertNotNull(response?.medications)
             signal.countDown()
         }
         signal.await()
@@ -76,7 +99,7 @@ class RestManagerMedicationTest {
     @Test
     fun deleteMedication() {
         val signal = CountDownLatch(1)
-        OoRestManager.deleteMedications("UFWvQ1OV2gpuBaSj4Wnd", "-Lo-fw4JyxKQ_Yja6it-") { error, response ->
+        OoRestManager.deleteMedications("bzT8GybqLYyyRJdXlyJR", "-LprAEf-CMCm_TqeA6jq") { error, response ->
             Assert.assertEquals(null, error)
             Assert.assertNotNull(response)
             signal.countDown()

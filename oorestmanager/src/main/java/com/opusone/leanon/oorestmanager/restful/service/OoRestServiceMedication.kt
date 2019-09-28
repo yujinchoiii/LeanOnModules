@@ -2,15 +2,20 @@ package com.opusone.leanon.oorestmanager.restful.service
 
 import com.opusone.leanon.oorestmanager.params.OoParamRegisterMedication
 import com.opusone.leanon.oorestmanager.params.OoParamResultMedication
+import com.opusone.leanon.oorestmanager.params.OoParamUpdateMedication
 import com.opusone.leanon.oorestmanager.response.OoDataResponse
 import com.opusone.leanon.oorestmanager.response.OoResponse
 import com.opusone.leanon.oorestmanager.response.data.OoResponseMedications
+import com.opusone.leanon.oorestmanager.response.data.OoResponseRegisterMedication
 import retrofit2.Call
 import retrofit2.http.*
 
 interface OoRestServiceMedication {
     @POST("medication/reminder/register")
-    fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoResponse>
+    fun registerMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamRegisterMedication): Call<OoDataResponse<OoResponseRegisterMedication>>
+
+    @PUT("medication/reminder/update")
+    fun updateMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamUpdateMedication): Call<OoResponse>
 
     @POST("medication/reminder/result")
     fun resultMedicationReminder(@Header("authorization") authorization : String, @Body param: OoParamResultMedication): Call<OoResponse>

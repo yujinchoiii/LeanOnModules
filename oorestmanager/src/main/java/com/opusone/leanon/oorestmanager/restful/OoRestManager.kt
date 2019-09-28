@@ -236,8 +236,12 @@ object OoRestManager {
         ApiReport.resultGreeting(ooRestServiceReport, userToken, completion)
     }
 
-    fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+    fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponseRegisterMedication?) -> Unit) {
         ApiMedication.registerMedication(ooRestServiceMedication, param, completion)
+    }
+
+    fun updateMedication(param: OoParamUpdateMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiMedication.updateMedication(ooRestServiceMedication, param, completion)
     }
 
     fun resultMedication(param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
