@@ -3,13 +3,7 @@ package com.opusone.leanon.oorestmanager.restful
 import android.os.Build
 
 object OoLeanOnDevice {
-    val TYPE_UNKNOWN = "0"
-    val TYPE_SENIOR_TABLET = "1"
-    val TYPE_SENIOR_MOBILE= "2"
-    val TYPE_GUARDIAN_TABLET = "11"
-    val TYPE_GUARDIAN_MOBILE= "12"
-
-    var type = TYPE_UNKNOWN
+    var type = OoLeanonDeviceType.UNKNOWN.type
     var deviceToken = ""
     var nationalCode = ""
 
@@ -22,7 +16,6 @@ object OoLeanOnDevice {
     val version = Build.VERSION.RELEASE
 
     fun clear() {
-        type = "0"
         deviceToken = ""
         nationalCode = ""
         userId =""
@@ -33,4 +26,14 @@ object OoLeanOnDevice {
         return "OoLeanOnDevice (type=$type, deviceToken =$deviceToken , nationalCode=$nationalCode, " +
                 "os=$os, model=$model, version=$version, userId=$userId, userToken=$userToken, assessToken=$assessToken)"
     }
+}
+
+enum class OoLeanonDeviceType(val type: String) {
+    UNKNOWN("0"),
+
+    SENIOR_TABLET("1"),
+    SENIOR_MOBILE("2"),
+
+    GUARDIAN_TABLET("11"),
+    GUARDIAN_MOBILE("12"),
 }

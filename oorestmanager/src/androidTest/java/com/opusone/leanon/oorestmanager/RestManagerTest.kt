@@ -1,6 +1,5 @@
 package com.opusone.leanon.oorestmanager
 
-import com.opusone.leanon.oorestmanager.model.OoUserDevice
 import com.opusone.leanon.oorestmanager.params.*
 import com.opusone.leanon.oorestmanager.restful.OoRestManager
 import org.junit.Assert
