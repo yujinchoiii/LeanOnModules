@@ -18,7 +18,7 @@ object OoRestManager {
 
     private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = PRODCUT_BASE_URL
+    private val BASE_URL = DEV_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
@@ -30,6 +30,7 @@ object OoRestManager {
     private lateinit var ooRestServiceChat: OoRestServiceChat
     private lateinit var ooRestServiceMedication: OoRestServiceMedication
     private lateinit var ooRestServiceReport: OoRestServiceReport
+    private lateinit var ooRestServiceAlbum: OoRestServiceAlbum
 
     private  lateinit var retrofit : Retrofit
     internal lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
@@ -98,6 +99,7 @@ object OoRestManager {
         ooRestServiceChat = retrofit.create(OoRestServiceChat::class.java)
         ooRestServiceMedication = retrofit.create(OoRestServiceMedication::class.java)
         ooRestServiceReport = retrofit.create(OoRestServiceReport::class.java)
+        ooRestServiceAlbum = retrofit.create(OoRestServiceAlbum::class.java)
     }
 
     fun auth(param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
@@ -254,6 +256,19 @@ object OoRestManager {
 
     fun deleteMedications(seniorId: String, medicationId: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
         ApiMedication.deleteMedication(ooRestServiceMedication, seniorId,  medicationId, completion)
+    }
+
+
+    fun uploadAlbumPicture(param: OoParamAlbumPictureUpload, completion: (OoErrorResponse?, OoResponseAlbumUpload?) -> Unit) {
+        ApiAlbum.uploadAlbumPicture(ooRestServiceAlbum, param, completion)
+    }
+
+    fun getRecentAlbumlList(albumId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentAlbumList?) -> Unit) {
+        ApiAlbum.getRecentAlbumList(ooRestServiceAlbum, albumId, timestamp, completion)
+    }
+
+    fun deleteAlbumPicture(albumId: String, timestamp: Long,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        ApiAlbum.deleteAlbumPicture(ooRestServiceAlbum, albumId,  timestamp, completion)
     }
 }
 
