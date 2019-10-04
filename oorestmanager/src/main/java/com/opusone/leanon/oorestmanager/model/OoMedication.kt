@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class OoMedication(
     var id: String?= null,
-    var isTaken: Boolean? = null,
+    var isTaken: String? = null,
     var guardian: String?= null,
     var alarmId: String?= null,
     var hour: String?= null,
