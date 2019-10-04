@@ -40,10 +40,10 @@ class OoParamUpdateMedication(
 class OoParamResultMedication(
     var userToken: String?= null,
     var medicationId: String?= null,
-    var isTaken: String?= null) : Serializable {
+    var taken: String?= null) : Serializable {
 
     override fun toString(): String {
         return "OoParamResultMedication(userToken='$userToken', " +
-                "medicationId='$medicationId', isTaken='$isTaken'"
+                "medicationId='$medicationId', taken='$taken'"
     }
 }
