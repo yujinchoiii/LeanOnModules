@@ -14,7 +14,7 @@ object OoRealmManager {
 
     private fun checkMigration(config: RealmConfiguration, context: Context) {
         try {
-            Realm.getDefaultInstance()
+            Realm.getDefaultInstance().close()
         } catch (e: RealmMigrationNeededException) {
             e.printStackTrace()
 
@@ -39,11 +39,8 @@ object OoRealmManager {
 
 
     fun deleteRealm() {
-        Realm.getDefaultInstance().close()
-        if (Realm.getDefaultInstance().isClosed) {
-            Realm.getDefaultConfiguration()?.let {
-                Realm.deleteRealm(it)
-            }
+        Realm.getDefaultConfiguration()?.let {
+            Realm.deleteRealm(it)
         }
     }
 

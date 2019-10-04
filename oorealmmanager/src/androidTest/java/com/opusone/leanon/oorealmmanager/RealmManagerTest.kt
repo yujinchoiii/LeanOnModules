@@ -21,14 +21,10 @@ class RealmManagerTest {
 
     @Test
     fun createUser() {
-
-        val g = OoGuardian("test1", "testtoken")
-
         val user = OoRmUser("Rosi4",
             "", "Rosi@gmail.com","1234", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
 
         OoRealmManager.create(user)
-
         OoRealmManager.findOneById("Rosi4", OoRmUser::class.java) {found ->
             Assert.assertEquals(found?.id, user.id)
         }
@@ -37,7 +33,9 @@ class RealmManagerTest {
     @Test
     fun deleteRealm() {
         OoRealmManager.deleteRealm()
-        Assert.assertEquals(null, Realm.getDefaultInstance())
+        OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { found ->
+            Assert.assertEquals(null, found)
+        }
     }
 
     @Test
