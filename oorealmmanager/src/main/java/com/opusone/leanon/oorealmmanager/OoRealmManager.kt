@@ -39,8 +39,11 @@ object OoRealmManager {
 
 
     fun deleteRealm() {
-        Realm.getDefaultConfiguration()?.let {
-            Realm.deleteRealm(it)
+        Realm.getDefaultInstance().close()
+        if (Realm.getDefaultInstance().isClosed) {
+            Realm.getDefaultConfiguration()?.let {
+                Realm.deleteRealm(it)
+            }
         }
     }
 
@@ -196,15 +199,15 @@ object OoRealmManager {
         return count
     }
 
-    fun findMessageList(index : Long, completion: (List<OoRmMessage>?) -> Unit) {
-        val realm = Realm.getDefaultInstance()
-        realm?.let {
-            if(index > 20) {
-                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 20, index).sort("index", Sort.ASCENDING).findAll()))
-            } else {
-                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).sort("index", Sort.ASCENDING).findAll()))
-            }
-        }
-        realm.close()
-    }
+//    fun findMessageList(index : Long, completion: (List<OoRmMessage>?) -> Unit) {
+//        val realm = Realm.getDefaultInstance()
+//        realm?.let {
+//            if(index > 20) {
+//                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 20, index).sort("index", Sort.ASCENDING).findAll()))
+//            } else {
+//                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).sort("index", Sort.ASCENDING).findAll()))
+//            }
+//        }
+//        realm.close()
+//    }
 }

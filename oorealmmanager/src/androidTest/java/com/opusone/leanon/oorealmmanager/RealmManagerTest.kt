@@ -35,6 +35,12 @@ class RealmManagerTest {
     }
 
     @Test
+    fun deleteRealm() {
+        OoRealmManager.deleteRealm()
+        Assert.assertEquals(null, Realm.getDefaultInstance())
+    }
+
+    @Test
     fun readUser() {
         OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { found ->   Assert.assertEquals(found?.id, "Rosi3")
             Assert.assertEquals(found?.email, "Rosi@gmail.com")
