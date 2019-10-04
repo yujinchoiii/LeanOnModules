@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class OoMedication(
     var id: String?= null,
+    var isTaken: Boolean? = null,
     var guardian: String?= null,
     var alarmId: String?= null,
     var hour: String?= null,
@@ -13,7 +14,7 @@ class OoMedication(
     var timestamp: Long = 0,
     var weekdaysInfo: MutableList<Boolean>?= null) : Serializable {
     override fun toString(): String {
-        return "OoMedication(id='$id', timestamp='$timestamp', guardian='$guardian' ,alarmId='$alarmId', " +
+        return "OoMedication(id='$id', isTaken='$isTaken', timestamp='$timestamp', guardian='$guardian' ,alarmId='$alarmId', " +
                 "guardian='$guardian', hour='$hour', min='$min', name='$name', " +
                 "picture='$picture', weekdaysInfo='$weekdaysInfo')"
     }
