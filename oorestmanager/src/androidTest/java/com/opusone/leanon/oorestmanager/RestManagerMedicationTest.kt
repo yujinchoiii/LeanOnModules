@@ -37,7 +37,7 @@ class RestManagerMedicationTest {
         params.hour = "8"
         params.min = "20"
         params.picture = ""
-        params.weekdaysInfo = arrayListOf(true, true, true, true, true, true, true, true)
+        params.weekdaysInfo = mutableListOf(true, true, true, true, true, true, true, true)
 
         OoRestManager.registerMedication(params) { error, response ->
             Assert.assertEquals(null, error)
