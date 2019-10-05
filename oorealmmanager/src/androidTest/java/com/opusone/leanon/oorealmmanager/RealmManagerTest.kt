@@ -1,10 +1,7 @@
 package com.opusone.leanon.oorealmmanager
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.opusone.leanon.oorealmmanager.model.*
-import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
 import org.junit.Assert
@@ -32,7 +29,7 @@ class RealmManagerTest {
 
     @Test
     fun deleteRealm() {
-        OoRealmManager.deleteRealm()
+        OoRealmManager.clear()
         OoRealmManager.findOneById("Rosi3", OoRmUser::class.java) { found ->
             Assert.assertEquals(null, found)
         }

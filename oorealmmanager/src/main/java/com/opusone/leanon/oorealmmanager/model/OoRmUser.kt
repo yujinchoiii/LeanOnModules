@@ -1,6 +1,5 @@
 package com.opusone.leanon.oorealmmanager.model
 
-import io.realm.RealmList
 import io.realm.RealmObject
 
 open class OoRmUser(
@@ -43,14 +42,14 @@ open class OoRmUser(
     }
 }
 
-open class OoGuardian(var id: String?= null, var deviceToken: String?= null, var deviceOS:String?= null) : RealmObject() {
+open class OoRmGuardian(var id: String?= null, var deviceToken: String?= null, var deviceOS:String?= null) : RealmObject() {
     override fun toString(): String {
-        return "OoGuardian(id='$id', deviceToken='$deviceToken', deviceOS='$deviceOS')"
+        return "OoRmGuardian(id='$id', deviceToken='$deviceToken', deviceOS='$deviceOS')"
     }
 }
 
-open class OoSenior(var id: String?= null, var name: String?=null) : RealmObject() {
+open class OoRmSenior(var id: String?= null, var name: String?=null) : RealmObject() {
     override fun toString(): String {
-        return "OoSenior(id=$id, name=$name)"
+        return "OoRmSenior(id=$id, name=$name)"
     }
 }

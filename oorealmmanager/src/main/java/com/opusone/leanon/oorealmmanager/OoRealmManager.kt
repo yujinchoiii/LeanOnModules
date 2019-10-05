@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
-import com.opusone.leanon.oorealmmanager.model.OoRmUser
-import io.realm.*
+import io.realm.Realm
+import io.realm.RealmConfiguration
+import io.realm.RealmObject
 import io.realm.exceptions.RealmMigrationNeededException
-import java.lang.reflect.Type
 
 object OoRealmManager {
     private val TAG = "OoRealmManager"
@@ -38,7 +38,7 @@ object OoRealmManager {
     }
 
 
-    fun deleteRealm() {
+    fun clear() {
         Realm.getDefaultConfiguration()?.let {
             Realm.deleteRealm(it)
         }
@@ -65,7 +65,6 @@ object OoRealmManager {
             } finally {
                 it.close()
             }
-
         }
         return result
     }

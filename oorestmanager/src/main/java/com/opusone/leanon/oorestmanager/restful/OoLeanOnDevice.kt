@@ -18,7 +18,6 @@ object OoLeanOnDevice {
     val version = Build.VERSION.RELEASE
 
     fun clear() {
-        deviceToken = ""
         nationalCode = ""
 
         userId = ""

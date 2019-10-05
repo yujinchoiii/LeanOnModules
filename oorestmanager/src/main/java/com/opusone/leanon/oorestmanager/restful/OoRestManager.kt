@@ -16,9 +16,9 @@ import java.io.IOException
 object OoRestManager {
     internal val TAG = "OoRestManager"
 
-    private val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
-    private val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-    private val BASE_URL = PRODCUT_BASE_URL
+    private const val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
+    private const val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
+    private var BASE_URL = PRODCUT_BASE_URL
     internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
@@ -34,6 +34,8 @@ object OoRestManager {
 
     private  lateinit var retrofit : Retrofit
     internal lateinit var errorConverter: Converter<ResponseBody, OoErrorResponse?>
+
+    private var isInit = false
 
     var enableLog = true
 
@@ -70,10 +72,21 @@ object OoRestManager {
         printLog(bearerToken)
     }
 
-    fun init() {
+    fun init(isProduct: Boolean) {
+        if (isInit) {
+            return
+        }
+
+        if (isProduct) {
+            BASE_URL = PRODCUT_BASE_URL
+        } else {
+            BASE_URL = DEV_BASE_URL
+        }
+
         retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
         initServices()
         errorConverter = retrofit.responseBodyConverter(OoErrorResponse::class.java, arrayOfNulls<Annotation>(0))
+        isInit = true
     }
 
     fun hello(completion: (OoResponse?) -> Unit) {
