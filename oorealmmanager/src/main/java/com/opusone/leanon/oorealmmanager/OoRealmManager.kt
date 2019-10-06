@@ -4,9 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
-import io.realm.Realm
-import io.realm.RealmConfiguration
-import io.realm.RealmObject
+import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
 
 object OoRealmManager {
@@ -195,15 +193,41 @@ object OoRealmManager {
         return count
     }
 
-//    fun findMessageList(index : Long, completion: (List<OoRmMessage>?) -> Unit) {
-//        val realm = Realm.getDefaultInstance()
-//        realm?.let {
-//            if(index > 20) {
-//                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", index - 20, index).sort("index", Sort.ASCENDING).findAll()))
-//            } else {
-//                completion(it.copyFromRealm(it.where(OoRmMessage::class.java).between("index", 0, index).sort("index", Sort.ASCENDING).findAll()))
-//            }
-//        }
-//        realm.close()
-//    }
+    fun getAllGroupChatDatas(chatRoomId: String): Pair<Realm, RealmResults<OoRmMessage>>? {
+        if (chatRoomId.isEmpty()) {
+            return null
+        }
+
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val result = it.where(OoRmMessage::class.java)
+                .equalTo("chatroomId", chatRoomId)
+                .findAll()
+                .sort("timestamp", Sort.ASCENDING)
+            return Pair(it, result)
+        }
+        return null
+    }
+
+    fun getLastGroupChat(chatRoomId : String): OoRmMessage? {
+        if (chatRoomId.isEmpty()) {
+            return null
+        }
+
+        var result: OoRmMessage? = null
+
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val found = it.where(OoRmMessage::class.java)
+                .equalTo("chatroomId", chatRoomId)
+                .sort("timestamp", Sort.DESCENDING)
+                .findFirst()
+
+            if (found != null) {
+                result = it.copyFromRealm(found)
+            }
+            realm.close()
+        }
+        return result
+    }
 }
