@@ -3,6 +3,7 @@ package com.opusone.leanon.oorealmmanager
 import android.content.Context
 import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.OoRealmModule
+import com.opusone.leanon.oorealmmanager.model.OoRmAlbumPicture
 import com.opusone.leanon.oorealmmanager.model.OoRmMessage
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
@@ -220,6 +221,44 @@ object OoRealmManager {
         realm?.let {
             val found = it.where(OoRmMessage::class.java)
                 .equalTo("chatroomId", chatRoomId)
+                .sort("timestamp", Sort.DESCENDING)
+                .findFirst()
+
+            if (found != null) {
+                result = it.copyFromRealm(found)
+            }
+            realm.close()
+        }
+        return result
+    }
+
+    fun getAllAlbumPictures(albumId: String): Pair<Realm, RealmResults<OoRmAlbumPicture>>? {
+        if (albumId.isEmpty()) {
+            return null
+        }
+
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val result = it.where(OoRmAlbumPicture::class.java)
+                .equalTo("albumId", albumId)
+                .findAll()
+                .sort("timestamp", Sort.ASCENDING)
+            return Pair(it, result)
+        }
+        return null
+    }
+
+    fun getLastAlbumPicture(albumId : String): OoRmAlbumPicture? {
+        if (albumId .isEmpty()) {
+            return null
+        }
+
+        var result: OoRmAlbumPicture? = null
+
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val found = it.where(OoRmAlbumPicture::class.java)
+                .equalTo("albumId", albumId)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
 

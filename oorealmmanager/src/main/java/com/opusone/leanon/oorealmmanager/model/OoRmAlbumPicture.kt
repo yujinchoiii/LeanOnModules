@@ -3,6 +3,7 @@ package com.opusone.leanon.oorealmmanager.model
 import io.realm.RealmObject
 
 open class OoRmAlbumPicture: RealmObject() {
+    var albumId: String? = null
     var authorId: String? = null
     var authorName: String? = null
     var authorPicture: String? = null
