@@ -230,4 +230,19 @@ object OoRealmManager {
         }
         return result
     }
+
+    fun getLauncherGroupChat(chatRoomId: String): Pair<Realm, RealmResults<OoRmMessage>>? {
+        if (chatRoomId.isEmpty()) {
+            return null
+        }
+
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val result = it.where(OoRmMessage::class.java)
+                .findAll()
+                .sort("timestamp", Sort.ASCENDING)
+            return Pair(it, result)
+        }
+        return null
+    }
 }
