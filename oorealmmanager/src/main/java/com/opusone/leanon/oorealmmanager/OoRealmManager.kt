@@ -250,7 +250,7 @@ object OoRealmManager {
                 val result = it.where(OoRmAlbumPicture::class.java)
                     .equalTo("albumId", albumId)
                     .findAll()
-                    .sort("timestamp", Sort.ASCENDING)
+                    .sort("timestamp", Sort.DESCENDING)
                 return Pair(it, result)
             }
         }
