@@ -49,17 +49,18 @@ object OoRealmManager {
             it.close()
         }
     }
+
     fun create(data: RealmObject): Boolean {
         val realm = Realm.getDefaultInstance()
         var result = false
 
         realm?.let {
             try {
-                it.executeTransaction{
+                it.executeTransaction {
                     realm.copyToRealm(data)
                 }
                 result = true
-            } catch (e : Throwable) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
             } finally {
                 it.close()
@@ -68,7 +69,7 @@ object OoRealmManager {
         return result
     }
 
-    fun delete(obj: RealmObject) : Boolean {
+    fun delete(obj: RealmObject): Boolean {
         val realm = Realm.getDefaultInstance()
         var result = false
 
@@ -78,7 +79,7 @@ object OoRealmManager {
                     obj.deleteFromRealm()
                 }
                 result = true
-            } catch (e : Throwable) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
             } finally {
                 it.close()
@@ -94,11 +95,11 @@ object OoRealmManager {
         }
     }
 
-    fun updateByIndex(index : Long, f: (OoRmMessage) -> Unit) {
+    fun updateByIndex(index: Long, f: (OoRmMessage) -> Unit) {
         val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
+        realm?.let { realm ->
             val result = realm.where(OoRmMessage::class.java).equalTo("index", index).findFirst()
-            result?.let {message ->
+            result?.let { message ->
                 realm.executeTransaction {
                     f(message)
                 }
@@ -107,13 +108,14 @@ object OoRealmManager {
         }
     }
 
-    fun updateByTag(tag : String, f: (OoRmMessage) -> Unit) {
+    fun updateByTag(tag: String, f: (OoRmMessage) -> Unit) {
         val realm = Realm.getDefaultInstance()
         val selected = 4
-        realm?.let {realm ->
-            val result = realm.where(OoRmMessage::class.java).notEqualTo("dataType", selected).equalTo("question", tag).findFirst()
+        realm?.let { realm ->
+            val result = realm.where(OoRmMessage::class.java).notEqualTo("dataType", selected)
+                .equalTo("question", tag).findFirst()
             Log.i(TAG, "found $result")
-            result?.let {message ->
+            result?.let { message ->
                 realm.executeTransaction {
                     f(message)
                 }
@@ -123,11 +125,11 @@ object OoRealmManager {
     }
 
 
-    fun <T: RealmObject> updateById(id : String, type : Class<T>, f: (T) -> Unit) {
+    fun <T : RealmObject> updateById(id: String, type: Class<T>, f: (T) -> Unit) {
         val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
+        realm?.let { realm ->
             val result = realm.where(type).equalTo("id", id).findFirst()
-            result?.let {t ->
+            result?.let { t ->
                 realm.executeTransaction {
                     f(t)
                 }
@@ -136,11 +138,11 @@ object OoRealmManager {
         }
     }
 
-    fun <T: RealmObject> updateByEmail(email : String, type : Class<T>, f: (T) -> Unit) {
+    fun <T : RealmObject> updateByEmail(email: String, type: Class<T>, f: (T) -> Unit) {
         val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
+        realm?.let { realm ->
             val result = realm.where(type).equalTo("email", email).findFirst()
-            result?.let {t ->
+            result?.let { t ->
                 realm.executeTransaction {
                     f(t)
                 }
@@ -150,7 +152,7 @@ object OoRealmManager {
     }
 
 
-    fun <T: RealmObject> findOneById(id : String, type: Class<T>, completion: (T?) -> Unit) {
+    fun <T : RealmObject> findOneById(id: String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
             val one = it.where(type).equalTo("id", id).findFirst()
@@ -163,7 +165,7 @@ object OoRealmManager {
         realm.close()
     }
 
-    fun <T: RealmObject> findOneByEmail(email : String, type: Class<T>, completion: (T?) -> Unit) {
+    fun <T : RealmObject> findOneByEmail(email: String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
             val one = it.where(type).equalTo("email", email).findFirst()
@@ -176,17 +178,24 @@ object OoRealmManager {
         realm.close()
     }
 
-    fun findMessageByIndex(index : Long, completion: (OoRmMessage?) -> Unit) {
+    fun findMessageByIndex(index: Long, completion: (OoRmMessage?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {
-            completion(it.copyFromRealm(it.where(OoRmMessage::class.java).equalTo("index", index).findFirst()))
+            completion(
+                it.copyFromRealm(
+                    it.where(OoRmMessage::class.java).equalTo(
+                        "index",
+                        index
+                    ).findFirst()
+                )
+            )
         }
         realm.close()
     }
 
-    fun getMessageCount() : Long {
+    fun getMessageCount(): Long {
         val realm = Realm.getDefaultInstance()
-        var count : Long = 0
+        var count: Long = 0
         realm?.let {
             count = it.where(OoRmMessage::class.java).count()
         }
@@ -210,7 +219,7 @@ object OoRealmManager {
         return null
     }
 
-    fun getLastGroupChat(chatRoomId : String): OoRmMessage? {
+    fun getLastGroupChat(chatRoomId: String): OoRmMessage? {
         if (chatRoomId.isEmpty()) {
             return null
         }
@@ -232,24 +241,25 @@ object OoRealmManager {
         return result
     }
 
+
     fun getAllAlbumPictures(albumId: String): Pair<Realm, RealmResults<OoRmAlbumPicture>>? {
         if (albumId.isEmpty()) {
-            return null
-        }
 
-        val realm = Realm.getDefaultInstance()
-        realm?.let {
-            val result = it.where(OoRmAlbumPicture::class.java)
-                .equalTo("albumId", albumId)
-                .findAll()
-                .sort("timestamp", Sort.ASCENDING)
-            return Pair(it, result)
+            val realm = Realm.getDefaultInstance()
+            realm?.let {
+                val result = it.where(OoRmAlbumPicture::class.java)
+                    .equalTo("albumId", albumId)
+                    .findAll()
+                    .sort("timestamp", Sort.ASCENDING)
+                return Pair(it, result)
+            }
         }
         return null
     }
 
-    fun getLastAlbumPicture(albumId : String): OoRmAlbumPicture? {
-        if (albumId .isEmpty()) {
+
+    fun getLastAlbumPicture(albumId: String): OoRmAlbumPicture? {
+        if (albumId.isEmpty()) {
             return null
         }
 
