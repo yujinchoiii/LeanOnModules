@@ -11,29 +11,24 @@ import io.realm.exceptions.RealmMigrationNeededException
 object OoRealmManager {
     private val TAG = "OoRealmManager"
 
-    private fun checkMigration(config: RealmConfiguration, context: Context) {
-        try {
-            Realm.getDefaultInstance().close()
-        } catch (e: RealmMigrationNeededException) {
-            e.printStackTrace()
-
-            Realm.deleteRealm(config)
-            initRealm(context)
-        }
-    }
+    private const val SCHEMA_VERSION = 0L
 
     fun initRealm(context: Context) {
         Realm.init(context)
 
-        val realmConfiguration = RealmConfiguration.Builder().modules(OoRealmModule()).build()
-        if (BuildConfig.DEBUG) {
-            RealmConfiguration.Builder().directory(context.getExternalFilesDir(null))
-        }
-        Realm.setDefaultConfiguration(realmConfiguration)
+        val realmConfiguration = RealmConfiguration.Builder()
+            .modules(OoRealmModule())
+//            .schemaVersion(SCHEMA_VERSION)
+//            .migration(::migration)
+            .deleteRealmIfMigrationNeeded()
+            .build()
 
-        context.run {
-            checkMigration(realmConfiguration, context)
-        }
+        Realm.setDefaultConfiguration(realmConfiguration)
+    }
+
+    private fun migration(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
+        //william: 마이크레이션 참고. 현재는 마이그레이션 필요할경우 삭제함.
+        //https://black-jin0427.tistory.com/98
     }
 
 
