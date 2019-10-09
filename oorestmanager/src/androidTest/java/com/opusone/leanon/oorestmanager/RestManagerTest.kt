@@ -11,16 +11,7 @@ class RestManagerTest {
 
     @Before
     fun setUp() {
-        OoRestManager.init()
-
-        val signal = CountDownLatch(1)
-        OoRestManager.auth(OoParamPartnerAuth("dev@theopusone.com", "opusone1004")) { error, response ->
-            Assert.assertEquals(null, error)
-            Assert.assertNotEquals(null, response?.accessToken)
-            OoRestManager.setBearerToken(response?.accessToken)
-            signal.countDown()
-        }
-        signal.await()
+        OoRestManager.init(false)
     }
 
     @Test

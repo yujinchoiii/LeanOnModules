@@ -17,143 +17,131 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object ApiRelation {
+    private val bearer = OoRestManager.bearerToken
+
     fun requestGuardian(service: OoRestServiceRelation, param : OoParamRequestGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.requestGuardian(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body())
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.requestGuardian(bearer, param).enqueue(object : Callback<OoResponse> {
+            override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.toString())
+                    completion(null, response.body())
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("requestGuardian Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                OoRestManager.printError("requestGuardian Failed. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun acceptGuardian(service: OoRestServiceRelation, param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.acceptGuardian(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body())
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.acceptGuardian(bearer, param).enqueue(object : Callback<OoResponse> {
+            override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.toString())
+                    completion(null, response.body())
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("acceptGuardian Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                OoRestManager.printError("acceptGuardian Failed. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun rejectGuardian(service: OoRestServiceRelation, param: OoParamRejectGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.rejectGuardian(it, param).enqueue(object : Callback<OoResponse> {
-                override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body())
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.rejectGuardian(bearer, param).enqueue(object : Callback<OoResponse> {
+            override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.toString())
+                    completion(null, response.body())
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoResponse>, t: Throwable) {
-                    OoRestManager.printError("rejectGuardian Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoResponse>, t: Throwable) {
+                OoRestManager.printError("rejectGuardian Failed. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun getRequestSeniorList(service: OoRestServiceRelation, userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.requestSeniorList(it, userToken).enqueue(object : Callback<OoDataResponse<OoResponseRequestSeniorList>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseRequestSeniorList>>, response: Response<OoDataResponse<OoResponseRequestSeniorList>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.data.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.requestSeniorList(bearer, userToken).enqueue(object : Callback<OoDataResponse<OoResponseRequestSeniorList>> {
+            override fun onResponse(call: Call<OoDataResponse<OoResponseRequestSeniorList>>, response: Response<OoDataResponse<OoResponseRequestSeniorList>>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.data.toString())
+                    completion(null, response.body()?.data)
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseRequestSeniorList>>, t: Throwable) {
-                    OoRestManager.printError("getRequestSeniorList. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoDataResponse<OoResponseRequestSeniorList>>, t: Throwable) {
+                OoRestManager.printError("getRequestSeniorList. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun getSeniorList(service: OoRestServiceRelation, userToken: String, completion:(OoErrorResponse?, OoResponseSeniorList?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.seniorList(it, userToken).enqueue(object : Callback<OoDataResponse<OoResponseSeniorList>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseSeniorList>>, response: Response<OoDataResponse<OoResponseSeniorList>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.data.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.seniorList(bearer, userToken).enqueue(object : Callback<OoDataResponse<OoResponseSeniorList>> {
+            override fun onResponse(call: Call<OoDataResponse<OoResponseSeniorList>>, response: Response<OoDataResponse<OoResponseSeniorList>>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.data.toString())
+                    completion(null, response.body()?.data)
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseSeniorList>>, t: Throwable) {
-                    OoRestManager.printError("getSeniorList. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoDataResponse<OoResponseSeniorList>>, t: Throwable) {
+                OoRestManager.printError("getSeniorList. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun getRequestGuardianList(service: OoRestServiceRelation, userToken: String, completion:(OoErrorResponse?, OoResponseRequestGuardianList?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.requestGuardianList(it, userToken).enqueue(object : Callback<OoDataResponse<OoResponseRequestGuardianList>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseRequestGuardianList>>, response: Response<OoDataResponse<OoResponseRequestGuardianList>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.data.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.requestGuardianList(bearer, userToken).enqueue(object : Callback<OoDataResponse<OoResponseRequestGuardianList>> {
+            override fun onResponse(call: Call<OoDataResponse<OoResponseRequestGuardianList>>, response: Response<OoDataResponse<OoResponseRequestGuardianList>>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.data.toString())
+                    completion(null, response.body()?.data)
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseRequestGuardianList>>, t: Throwable) {
-                    OoRestManager.printError("getRequestGuardianList. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoDataResponse<OoResponseRequestGuardianList>>, t: Throwable) {
+                OoRestManager.printError("getRequestGuardianList. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun getGuardianList(service: OoRestServiceRelation, userToken: String, completion:(OoErrorResponse?, OoResponseGuardianList?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.guardianList(it, userToken).enqueue(object : Callback<OoDataResponse<OoResponseGuardianList>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseGuardianList>>, response: Response<OoDataResponse<OoResponseGuardianList>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.data.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.guardianList(bearer, userToken).enqueue(object : Callback<OoDataResponse<OoResponseGuardianList>> {
+            override fun onResponse(call: Call<OoDataResponse<OoResponseGuardianList>>, response: Response<OoDataResponse<OoResponseGuardianList>>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.data.toString())
+                    completion(null, response.body()?.data)
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseGuardianList>>, t: Throwable) {
-                    OoRestManager.printError("getGuardianList. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoDataResponse<OoResponseGuardianList>>, t: Throwable) {
+                OoRestManager.printError("getGuardianList. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 }

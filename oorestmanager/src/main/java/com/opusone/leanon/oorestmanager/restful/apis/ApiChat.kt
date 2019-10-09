@@ -12,24 +12,24 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object ApiChat {
+    private val bearer = OoRestManager.bearerToken
+
     fun sendGroupChat(service: OoRestServiceChat, param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
-        OoRestManager.bearerToken?.let {
-            service.groupChat(it, param).enqueue(object : Callback<OoDataResponse<OoResponseChat>> {
-                override fun onResponse(call: Call<OoDataResponse<OoResponseChat>>, response: Response<OoDataResponse<OoResponseChat>>) {
-                    if (response.isSuccessful) {
-                        OoRestManager.printLog(response.body()?.toString())
-                        completion(null, response.body()?.data)
-                    } else {
-                        OoRestManager.printError(response.errorBody().toString())
-                        completion(OoRestManager.parseError(response.errorBody()), null)
-                    }
+        service.groupChat(bearer, param).enqueue(object : Callback<OoDataResponse<OoResponseChat>> {
+            override fun onResponse(call: Call<OoDataResponse<OoResponseChat>>, response: Response<OoDataResponse<OoResponseChat>>) {
+                if (response.isSuccessful) {
+                    OoRestManager.printLog(response.body()?.toString())
+                    completion(null, response.body()?.data)
+                } else {
+                    OoRestManager.printError(response.errorBody().toString())
+                    completion(OoRestManager.parseError(response.errorBody()), null)
                 }
-                override fun onFailure(call: Call<OoDataResponse<OoResponseChat>>, t: Throwable) {
-                    OoRestManager.printError("sendGroupChat Failed. ${t.message}")
-                    completion(null, null)
-                }
-            })
-        }
+            }
+            override fun onFailure(call: Call<OoDataResponse<OoResponseChat>>, t: Throwable) {
+                OoRestManager.printError("sendGroupChat Failed. ${t.message}")
+                completion(null, null)
+            }
+        })
     }
 
     fun getRecentGroupChatList(service: OoRestServiceChat, roomId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {

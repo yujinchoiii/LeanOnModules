@@ -18,8 +18,9 @@ object OoRestManager {
 
     private const val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
     private const val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
+    internal val bearerToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJa05VVWtGUFpFWmlabWRSYjFCNldqWnRSamxNSWl3aVpXMWhhV3dpT2lKa1pYWkFkR2hsYjNCMWMyOXVaUzVqYjIwaUxDSnVZVzFsSWpvaWIzQjFjMjl1WlNJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpWlhod2FYSmxJam9pTUNJc0ltbGhkQ0k2TVRVMk9USTVOakV3TjMwLmdtR1BlcTJFV3Y1UTJDMVRSQm5IbDRnVFhReEJGMDZ4blRFWHVTS1JONE0iLCJwYXJ0bmVySWQiOiJDVFJBT2RGYmZnUW9Qelo2bUY5TCIsImlhdCI6MTU2OTI5NjEwN30.VswXXj49no5YgCErUbmEawR7HuOwrMoSWAi2jmqCG6g"
+
     private var BASE_URL = PRODCUT_BASE_URL
-    internal var bearerToken: String? = null
 
     private lateinit var ooRestService : OoRestService
     private lateinit var ooRestServiceWeather: OoRestServiceWeather
@@ -65,11 +66,6 @@ object OoRestManager {
                 Log.d(TAG, message)
             }
         }
-    }
-
-    fun setBearerToken(token: String?) {
-        bearerToken = "Bearer ${token ?: ""}"
-        printLog(bearerToken)
     }
 
     fun init(isProduct: Boolean) {
@@ -271,7 +267,6 @@ object OoRestManager {
         ApiMedication.deleteMedication(ooRestServiceMedication, seniorId,  medicationId, completion)
     }
 
-
     fun uploadAlbumPicture(param: OoParamAlbumPictureUpload, completion: (OoErrorResponse?, OoResponseAlbumUpload?) -> Unit) {
         ApiAlbum.uploadAlbumPicture(ooRestServiceAlbum, param, completion)
     }
@@ -285,3 +280,6 @@ object OoRestManager {
     }
 }
 
+interface OoReachable {
+    fun isReachable(): Boolean
+}
