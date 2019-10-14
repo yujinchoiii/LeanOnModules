@@ -2,9 +2,7 @@ package com.opusone.leanon.oorealmmanager
 
 import android.content.Context
 import android.util.Log
-import com.opusone.leanon.oorealmmanager.model.OoRealmModule
-import com.opusone.leanon.oorealmmanager.model.OoRmAlbumPicture
-import com.opusone.leanon.oorealmmanager.model.OoRmMessage
+import com.opusone.leanon.oorealmmanager.model.*
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
 
@@ -71,7 +69,9 @@ object OoRealmManager {
         realm?.let {
             try {
                 it.executeTransaction {
-                    obj.deleteFromRealm()
+                    if(obj.isManaged) {
+                        obj.deleteFromRealm()
+                    }
                 }
                 result = true
             } catch (e: Throwable) {
@@ -145,7 +145,6 @@ object OoRealmManager {
             realm.close()
         }
     }
-
 
     fun <T : RealmObject> findOneById(id: String, type: Class<T>, completion: (T?) -> Unit) {
         val realm = Realm.getDefaultInstance()
@@ -285,6 +284,106 @@ object OoRealmManager {
             val result = it.where(OoRmMessage::class.java)
                 .findAll()
                 .sort("timestamp", Sort.ASCENDING)
+            return Pair(it, result)
+        }
+        return null
+    }
+
+    fun updateMedicineById(id : String, f: (OoRmMedicine) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(OoRmMedicine::class.java).equalTo("medicineId", id).findFirst()
+            result?.let {message ->
+                realm.executeTransaction {
+                    f(message)
+                }
+            }
+            realm.close()
+        }
+    }
+
+    fun updateMedicationState(f: (MedicationAlarmState) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(MedicationAlarmState::class.java).findFirst()
+            result?.let {state ->
+                realm.executeTransaction {
+                    f(state)
+                }
+            }
+            realm.close()
+        }
+    }
+
+    fun findMedicineById(id : String, completion: (OoRmMedicine?) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val medicine = realm.where(OoRmMedicine::class.java).equalTo("medicineId", id).findFirst()
+            medicine?.let {
+                completion(realm.copyFromRealm(it))
+            }
+        }
+        realm.close()
+    }
+
+    fun findSimultaneousAlarmsList(alarmId: Int, completion: (List<OoRmMedicine>?) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val medicine = realm.where(OoRmMedicine::class.java).equalTo("alarmId", alarmId).findAll()
+            medicine?.let {
+                completion(realm.copyFromRealm(it))
+            }
+        }
+        realm.close()
+    }
+
+    fun getSimultaneousAlarmsCount(alarmId: Int) : Int {
+        val realm = Realm.getDefaultInstance()
+        var count : Int = 0
+        realm?.let {
+            count = it.where(OoRmMedicine::class.java).equalTo("alarmId", alarmId).count().toInt()
+        }
+        realm.close()
+        return count
+    }
+
+    fun getMedicationAlarmState(completion: (Boolean) -> Unit) {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val state = realm.where(MedicationAlarmState::class.java).findFirst()?.isOn
+            state?.let {
+                completion(it)
+            }
+        }
+        realm.close()
+    }
+
+    fun getMedicationStateCount() : Int {
+        val realm = Realm.getDefaultInstance()
+        var count : Int = 0
+        realm?.let {
+            count = it.where(MedicationAlarmState::class.java).count().toInt()
+        }
+        realm.close()
+        return count
+    }
+
+    fun getMedicineCount() : Int {
+        val realm = Realm.getDefaultInstance()
+        var count : Int = 0
+        realm?.let {
+            count = it.where(OoRmMedicine::class.java).count().toInt()
+        }
+        realm.close()
+        return count
+    }
+
+    fun getMedicineList(): Pair<Realm, RealmResults<OoRmMedicine>>? {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val result = it.where(OoRmMedicine::class.java)
+                .findAll()
+                .sort("alarmId", Sort.ASCENDING)
             return Pair(it, result)
         }
         return null

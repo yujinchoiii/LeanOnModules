@@ -5,13 +5,24 @@ import io.realm.RealmList
 import io.realm.RealmObject
 
 open class OoRmMedicine : RealmObject() {
-     var alarmID: Int = 0
-     var hour: String? = null
-     var min: String? = null
-     var medicineName : String? = null
-     var weekdaysInfo = RealmList<Boolean?>(true, false, false, false, false, false, false, false)
+     var medicineId : String? = null
+     var alarmId: Int = 0
+     var hour: Int = -1
+     var min: Int = -1
+     var medicineName : String = ""
+     var weekdaysInfo = RealmList<Boolean>(true, false, false, false, false, false, false, false)
      var isTaken = false
      var photoUri: String? = null
+     var timestamp: Long? = null
 
+     override fun toString(): String {
+          return "OoRmMedicine(medicineId=$medicineId, alarmId=$alarmId, hour=$hour, min=$min, medicineName=$medicineName, weekdaysInfo=$weekdaysInfo, isTaken=$isTaken, photoUri=$photoUri, timestamp=$timestamp)"
+     }
+}
 
+open class MedicationAlarmState : RealmObject() {
+     var isOn : Boolean = false
+     override fun toString(): String {
+          return "MedicationAlarmState(isOn=$isOn)"
+     }
 }
