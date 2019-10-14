@@ -12,7 +12,8 @@ import io.realm.annotations.RealmModule
         OoRmSenior::class,
         OoRmMedicine::class,
         OoRmUser::class,
-        OoRmAlbumPicture::class
+        OoRmAlbumPicture::class,
+        OoRmAppUpdate::class
     )
 )
 class OoRealmModule
