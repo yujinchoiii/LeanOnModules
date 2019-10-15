@@ -5,6 +5,7 @@ import android.util.Log
 import com.opusone.leanon.oorealmmanager.model.*
 import io.realm.*
 import io.realm.exceptions.RealmMigrationNeededException
+import io.realm.kotlin.isManaged
 
 object OoRealmManager {
     private val TAG = "OoRealmManager"
@@ -69,7 +70,7 @@ object OoRealmManager {
         realm?.let {
             try {
                 it.executeTransaction {
-                    if(obj.isManaged) {
+                    if(obj.isValid) {
                         obj.deleteFromRealm()
                     }
                 }
