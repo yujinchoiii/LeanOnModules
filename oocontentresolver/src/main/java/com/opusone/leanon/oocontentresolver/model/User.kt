@@ -6,11 +6,16 @@ class User : Any() {
     var name: String = ""
     var userToken: String = ""
     var deviceToken: String = ""
+    var birthdate: String= ""
+    var gender: String= ""
+    var weight: String= ""
+    var height: String= ""
     var seniors : ArrayList<OoSenior> = java.util.ArrayList<OoSenior>()
     var guardians : ArrayList<OoGuardian> = java.util.ArrayList<OoGuardian>()
 
     override fun toString(): String {
         return "User(id='$id', email='$email', name='$name', " +
+                ", birthdate='$birthdate', gender='$gender', weight='$weight', height='$height'" +
                 "userToken='$userToken', deviceToken='$deviceToken')"
     }
 }
