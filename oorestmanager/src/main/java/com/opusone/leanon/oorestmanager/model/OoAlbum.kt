@@ -17,13 +17,19 @@ class OoAlbumPicture (var authorId: String? = null,
     }
 }
 
-class OoPushAlbum (var user: OoCompactUser? = null,
+class OoAlbum (var user: OoCompactUser? = null,
                    var url:String? = null,
                    var albumId:String? = null,
                    var thumbnail: String?= null,
                    var comment: String?=null): Serializable {
 
     override fun toString(): String {
-        return "OoPushAlbum(user=$user, url=$url)"
+        return "OoAlbum(user=$user, url=$url, albumId=$albumId, thumbnail=$thumbnail, comment=$comment)"
+    }
+}
+
+class OoPushAlbum (var album: OoAlbum? = null): Serializable {
+    override fun toString(): String {
+        return "OoPushAlbum(album=$album)"
     }
 }
