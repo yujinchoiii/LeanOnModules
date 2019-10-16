@@ -18,7 +18,10 @@ class OoAlbumPicture (var authorId: String? = null,
 }
 
 class OoPushAlbum (var user: OoCompactUser? = null,
-                   var url:String? = null): Serializable {
+                   var url:String? = null,
+                   var albumId:String? = null,
+                   var thumb: String?= null,
+                   var comment: String?=null): Serializable {
     override fun toString(): String {
         return "OoPushAlbum(user=$user, url=$url)"
     }
