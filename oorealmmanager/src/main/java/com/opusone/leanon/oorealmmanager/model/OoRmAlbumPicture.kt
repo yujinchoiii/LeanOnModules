@@ -9,5 +9,6 @@ open class OoRmAlbumPicture: RealmObject() {
     var authorPicture: String? = null
     var url: String? = null
     var thumbnail: String? = null
+    var filePath: String? = null
     var timestamp: Long = 0
 }
