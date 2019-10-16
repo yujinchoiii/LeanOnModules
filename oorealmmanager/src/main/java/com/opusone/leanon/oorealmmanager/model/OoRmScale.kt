@@ -19,4 +19,6 @@ open class OoRmScale : RealmObject() {
     var protein: String? = null             //단백질
     var mucsleMass: String? = null          //골근격량?
     var lbm: String? = null                 //무지방 체중
+
+    var timestamp: Long = 0
 }
