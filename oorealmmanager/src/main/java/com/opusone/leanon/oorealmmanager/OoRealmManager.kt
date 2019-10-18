@@ -303,19 +303,6 @@ object OoRealmManager {
         }
     }
 
-    fun updateMedicationState(f: (MedicationAlarmState) -> Unit) {
-        val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
-            val result = realm.where(MedicationAlarmState::class.java).findFirst()
-            result?.let {state ->
-                realm.executeTransaction {
-                    f(state)
-                }
-            }
-            realm.close()
-        }
-    }
-
     fun findMedicineById(id : String, completion: (OoRmMedicine?) -> Unit) {
         val realm = Realm.getDefaultInstance()
         realm?.let {realm ->
@@ -348,27 +335,6 @@ object OoRealmManager {
         return count
     }
 
-    fun getMedicationAlarmState(completion: (Boolean) -> Unit) {
-        val realm = Realm.getDefaultInstance()
-        realm?.let {realm ->
-            val state = realm.where(MedicationAlarmState::class.java).findFirst()?.isOn
-            state?.let {
-                completion(it)
-            }
-        }
-        realm.close()
-    }
-
-    fun getMedicationStateCount() : Int {
-        val realm = Realm.getDefaultInstance()
-        var count : Int = 0
-        realm?.let {
-            count = it.where(MedicationAlarmState::class.java).count().toInt()
-        }
-        realm.close()
-        return count
-    }
-
     fun getMedicineCount() : Int {
         val realm = Realm.getDefaultInstance()
         var count : Int = 0
@@ -389,4 +355,45 @@ object OoRealmManager {
         }
         return null
     }
+
+    fun updateState(id: String, key : String, status: Boolean) {
+        fun createRmStatus() {
+            val state = OoRmStatus()
+            state.userId = id
+            state.key = key
+            state.status = status
+            create(state)
+        }
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val result = realm.where(OoRmStatus::class.java).equalTo("key", key).findFirst()
+                result?.let {state ->
+                    realm.executeTransaction {
+                        state.status = status
+                    }
+                } ?: createRmStatus()
+            realm.close()
+        }
+    }
+
+    fun getState(key : String) : Boolean? {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {realm ->
+            val state = realm.where(OoRmStatus::class.java).equalTo("key", key).findFirst()?.status
+            state?.let {
+                realm.close()
+                return it
+            }
+        }
+        realm.close()
+        return null
+    }
+}
+
+object OoStateKey {
+    val medicationState = "OoMedicationState"
+    val autoInstallState = "OoAutoInstallState"
+    val morningAlarmState = "OoMorningAlarmState"
+    val suggestionAlarmState = "OoSuggestionAlarmState"
+    val messageAppState = "OoMessageAppState"
 }

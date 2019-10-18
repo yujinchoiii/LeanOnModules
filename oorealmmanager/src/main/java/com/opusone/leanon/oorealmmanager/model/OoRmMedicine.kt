@@ -19,10 +19,3 @@ open class OoRmMedicine : RealmObject() {
           return "OoRmMedicine(medicineId=$medicineId, alarmId=$alarmId, hour=$hour, min=$min, medicineName=$medicineName, weekdaysInfo=$weekdaysInfo, isTaken=$isTaken, photoUri=$photoUri, timestamp=$timestamp)"
      }
 }
-
-open class MedicationAlarmState : RealmObject() {
-     var isOn : Boolean = false
-     override fun toString(): String {
-          return "MedicationAlarmState(isOn=$isOn)"
-     }
-}
