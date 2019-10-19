@@ -16,6 +16,13 @@ class OoPushChat (var user: OoCompactUser? = null,
     }
 }
 
+class OoPushMessage(var message: OoPushChat? = null): Serializable {
+
+    override fun toString(): String {
+        return "OoPushMessage(message=$message)"
+    }
+}
+
 class OoChat (var id: String? = null,
               var deviceType: String? = null,
               var name: String? = null,
