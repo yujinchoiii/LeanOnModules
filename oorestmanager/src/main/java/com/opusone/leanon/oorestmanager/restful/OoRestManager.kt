@@ -16,9 +16,6 @@ import java.io.IOException
 object OoRestManager {
     internal val TAG = "OoRestManager"
 
-//    private const val PRODCUT_BASE_URL = "https://us-central1-leanontab.cloudfunctions.net"
-//    private const val DEV_BASE_URL = "http://192.168.0.88:5000/leanontab/us-central1/"
-//    internal val bearerToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJa05VVWtGUFpFWmlabWRSYjFCNldqWnRSamxNSWl3aVpXMWhhV3dpT2lKa1pYWkFkR2hsYjNCMWMyOXVaUzVqYjIwaUxDSnVZVzFsSWpvaWIzQjFjMjl1WlNJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpWlhod2FYSmxJam9pTUNJc0ltbGhkQ0k2TVRVMk9USTVOakV3TjMwLmdtR1BlcTJFV3Y1UTJDMVRSQm5IbDRnVFhReEJGMDZ4blRFWHVTS1JONE0iLCJwYXJ0bmVySWQiOiJDVFJBT2RGYmZnUW9Qelo2bUY5TCIsImlhdCI6MTU2OTI5NjEwN30.VswXXj49no5YgCErUbmEawR7HuOwrMoSWAi2jmqCG6g"
     private const val PRODCUT_BASE_URL = "https://us-central1-leanon.cloudfunctions.net"
     private const val DEV_BASE_URL = "http://192.168.0.88:5000/leanon/us-central1/"
     internal val bearerToken: String = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJbGQ0WlZKVU16QXlObGgxVTFkUmJVNHdWMnQzSWl3aVpXMWhhV3dpT2lKa1pYWkFkR2hsYjNCMWMyOXVaUzVqYjIwaUxDSnVZVzFsSWpvaWIzQjFjMjl1WlNJc0luTm9ZV1J2ZHlJNkltUm1OV00yWTJVd1pEVXpZelkwT1daallURmtNVEJqT1RFMU16UmtNRGRtTnprMFlUYzVZVEJqTlRWaE1qWTBNbVpoTm1Zd05HVTBZVEpqTkRJeE4yRXlPV1l4TkRJNVpqQTFOMkkwWmpFMU5qazJORGxpWTJRME56TXlNamRrTVdZd1l6SXdOV0ZsTUdGbU9EVmxPVEF4TURVeU16QmhZMlkyTlRnM1pXTTBJaXdpWlhod2FYSmxJam9pTUNJc0ltbGhkQ0k2TVRVM01EZzJNVFU1TkgwLlhxa3JVbEJHTlJjNjNYZlFBQ1FpSU9Qek5Tck05bnY0ckhNa0t0aGFXV1UiLCJwYXJ0bmVySWQiOiJXeGVSVDMwMjZYdVNXUW1OMFdrdyIsImlhdCI6MTU3MDg2MTU5NH0.4yemahwRIndqO42fPw0sVDsDldO1Ry9-vkinNsj6vcw"
@@ -88,7 +85,34 @@ object OoRestManager {
         isInit = true
     }
 
+
+    private var reachable: OoReachable? = null
+    private var noReachableListenr: OnNoReachableListener? = null
+    fun setReachable(reachable: OoReachable, listener: OnNoReachableListener) {
+        this.reachable = reachable
+        this.noReachableListenr = listener
+    }
+
+    private fun isRechable(): Boolean {
+        if (reachable == null) {
+            return true
+        }
+        reachable?.let {
+             if (!it.isReachable()) {
+                 noReachableListenr?.apply {
+                     this()
+                 }
+                 return false
+             }
+        }
+        return true
+    }
+
     fun hello(completion: (OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
+
         ooRestService.hello().enqueue(object : Callback<OoResponse> {
             override fun onResponse(call: Call<OoResponse>, response: Response<OoResponse>) {
                 printLog(response.body().toString())
@@ -115,6 +139,9 @@ object OoRestManager {
     }
 
     fun auth(param : OoParamPartnerAuth, completion: (OoErrorResponse?, OoResponseAuth?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAuth.auth(ooRestServiceAuth, param, completion)
     }
 
@@ -127,106 +154,184 @@ object OoRestManager {
     }
 
     fun signupUser(param : OoParamUserSignup, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.signup(ooRestServiceAccount, param, completion)
     }
 
     fun signinUser(param : OoParamUserSignin, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.signin(ooRestServiceAccount, param, completion)
     }
 
     fun signoutUser(userToken : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.signout(ooRestServiceAccount, userToken, completion)
     }
 
     fun device(userToken : String, completion:(OoErrorResponse?, OoResponseUserDevice?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.device(ooRestServiceAccount, userToken, completion)
     }
 
     fun readUser(id : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.read(ooRestServiceAccount, id, completion)
     }
 
     fun findUser(email : String, completion: (OoErrorResponse?, OoResponseUser?) -> Unit){
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.find(ooRestServiceAccount, email, completion)
     }
 
     fun updateUser(param: OoUser, completion:(OoErrorResponse?, OoResponseUserSign?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.update(ooRestServiceAccount, param, completion)
     }
 
     fun deleteUser(id : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAccount.delete(ooRestServiceAccount, id, completion)
     }
 
     fun getRequestSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestSeniorList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.getRequestSeniorList(ooRestServiceRelation, userToken, completion)
     }
 
     fun getSeniorList(userToken: String, completion:(OoErrorResponse?, OoResponseSeniorList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.getSeniorList(ooRestServiceRelation, userToken, completion)
     }
 
     fun getRequestGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseRequestGuardianList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.getRequestGuardianList(ooRestServiceRelation, userToken, completion)
     }
 
     fun getGuardianList(userToken: String, completion:(OoErrorResponse?, OoResponseGuardianList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.getGuardianList(ooRestServiceRelation, userToken, completion)
     }
 
     fun sendGroupChat(param: OoParamChat, completion: (OoErrorResponse?, OoResponseChat?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiChat.sendGroupChat(ooRestServiceChat, param, completion)
     }
 
     fun getRecentGroupChatList(roomId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentChatList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiChat.getRecentGroupChatList(ooRestServiceChat, roomId, timestamp, completion)
     }
 
     fun requestGuardian(param : OoParamRequestGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.requestGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun acceptGuardian(param : OoParamAcceptGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.acceptGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun rejectGuardian(param: OoParamRejectGuardian, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiRelation.rejectGuardian(ooRestServiceRelation, param, completion)
     }
 
     fun createChannel(param: OoParamCreateChannel, completion: (OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.create(ooRestServiceVOIP, param, completion)
     }
 
     fun readChannel(channelId : String, completion:(OoErrorResponse?, OoResponseCreateChannel?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.read(ooRestServiceVOIP, channelId, completion)
     }
 
     fun deleteChannel(channelId : String, caller: String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.delete(ooRestServiceVOIP, channelId, caller, completion)
     }
 
     fun voipBusy(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.busy(ooRestServiceVOIP, channelId, completion)
     }
 
     fun voipReject(channelId : String, completion:(OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.reject(ooRestServiceVOIP, channelId, completion)
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiVoip.turnUrl(ooRestServiceVOIP, roomId, completion)
     }
 
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.appUse(ooRestServiceReport, param, completion)
     }
 
     fun scaleReport(param: OoParamScale, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.scale(ooRestServiceReport, param, completion)
     }
 
     fun getScaleReport(userId: String, completion: (OoErrorResponse?, OoResponseScale?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.getScale(ooRestServiceReport, userId, completion)
     }
 
@@ -235,50 +340,86 @@ object OoRestManager {
     }
 
     fun getLocationReport(userId: String, completion: (OoErrorResponse?, OoResponseLocation?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.getLocation(ooRestServiceReport, userId, completion)
     }
 
     fun getDailyReport(seniorId: String,  completion: (OoErrorResponse?, OoResponseDailyReport?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.getDaily(ooRestServiceReport, seniorId, completion)
     }
 
     fun registerGreeting(param: OoParamRegisterGreeting, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.registerGreeting(ooRestServiceReport, param, completion)
     }
 
     fun resultGreeting(userToken: String, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.resultGreeting(ooRestServiceReport, userToken, completion)
     }
 
     fun registerMedication(param: OoParamRegisterMedication, completion: (OoErrorResponse?, OoResponseRegisterMedication?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiMedication.registerMedication(ooRestServiceMedication, param, completion)
     }
 
     fun updateMedication(param: OoParamUpdateMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiMedication.updateMedication(ooRestServiceMedication, param, completion)
     }
 
     fun resultMedication(param: OoParamResultMedication, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiMedication.resultMedication(ooRestServiceMedication, param, completion)
     }
 
     fun getMedications(seniorId: String, completion: (OoErrorResponse?, OoResponseMedications?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiMedication.getMedicationList(ooRestServiceMedication, seniorId, completion)
     }
 
     fun deleteMedications(seniorId: String, medicationId: String,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiMedication.deleteMedication(ooRestServiceMedication, seniorId,  medicationId, completion)
     }
 
     fun uploadAlbumPicture(param: OoParamAlbumPictureUpload, completion: (OoErrorResponse?, OoResponseAlbumUpload?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAlbum.uploadAlbumPicture(ooRestServiceAlbum, param, completion)
     }
 
     fun getRecentAlbumlList(albumId: String, timestamp: Long, completion: (OoErrorResponse?, OoResponseRecentAlbumList?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAlbum.getRecentAlbumList(ooRestServiceAlbum, albumId, timestamp, completion)
     }
 
     fun deleteAlbumPicture(albumId: String, timestamp: Long,  completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiAlbum.deleteAlbumPicture(ooRestServiceAlbum, albumId,  timestamp, completion)
     }
 }
@@ -286,3 +427,5 @@ object OoRestManager {
 interface OoReachable {
     fun isReachable(): Boolean
 }
+
+typealias OnNoReachableListener = () -> Unit
