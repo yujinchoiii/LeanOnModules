@@ -378,14 +378,59 @@ object OoRealmManager {
 
     fun getState(key : String) : Boolean? {
         val realm = Realm.getDefaultInstance()
+        var status : Boolean? = null
         realm?.let {realm ->
             val state = realm.where(OoRmStatus::class.java).equalTo("key", key).findFirst()?.status
             state?.let {
-                realm.close()
-                return it
+                status = it
             }
         }
         realm.close()
+        return status
+    }
+
+    fun updateNoti(notiTo : String, key: String, isNew: Boolean, count: Int?) {
+        fun createNotiField() {
+            val noti = OoRmNoti()
+            noti.notiTo = notiTo
+            noti.key = key
+            noti.isNew = isNew
+            noti.count = count
+            OoRealmManager.create(noti)
+        }
+        val realm = Realm.getDefaultInstance()
+        realm?.let { realm ->
+            val result = realm.where(OoRmNoti::class.java).equalTo("notiTo", notiTo).equalTo("key", key).findFirst()
+            result?.let {noti ->
+                realm.executeTransaction {
+                    noti.isNew = isNew
+                    if (!isNew) {
+                        noti.count = 0
+                    } else {
+                        noti.count = count
+                    }
+                }
+            } ?: createNotiField()
+            realm.close()
+        }
+    }
+
+    fun isNewNoti(notiTo : String, key: String) : Boolean {
+        val realm = Realm.getDefaultInstance()
+        var results = false
+        realm?.where(OoRmNoti::class.java)?.equalTo("notiTo", notiTo)?.equalTo("key", key)?.findFirst()?.isNew?.let {
+            results = it
+        }
+        realm.close()
+        return results
+    }
+
+    fun getNotiData() : Pair<Realm, RealmResults<OoRmNoti>?>? {
+        val realm = Realm.getDefaultInstance()
+        realm?.let {
+            val results = realm.where(OoRmNoti::class.java).findAll()
+            return Pair(it, results)
+        }
         return null
     }
 }
@@ -396,4 +441,9 @@ object OoStateKey {
     val morningAlarmState = "OoMorningAlarmState"
     val suggestionAlarmState = "OoSuggestionAlarmState"
     val messageAppState = "OoMessageAppState"
+}
+
+object OoNotiKey {
+    val message = "opusone.leanon.message"
+    val album = "opusone.leanon.album"
 }

@@ -15,7 +15,8 @@ import io.realm.annotations.RealmModule
         OoRmAlbumPicture::class,
         OoRmAppUpdate::class,
         OoRmScale::class,
-        OoRmStatus::class
+        OoRmStatus::class,
+        OoRmNoti::class
     )
 )
 class OoRealmModule
