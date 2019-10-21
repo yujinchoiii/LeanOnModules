@@ -13,5 +13,6 @@ open class OoRmAppUpdate: RealmObject() {
     var name: String? = null
     var category: String? = null
     var downloadUrl: String? = null
+    var state: Int = 0
     var timestamp: Long = 0
 }
