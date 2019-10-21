@@ -3,6 +3,7 @@ package com.opusone.leanon.oorestmanager.model
 import java.io.Serializable
 
 class OoUser(var id: String?= null,
+             var password: String?=null,
              var email: String?= null,
              var name: String?= null,
              var birthdate: String?= null,
@@ -21,7 +22,7 @@ class OoUser(var id: String?= null,
              var regiTimestamp: Long = 0) : Serializable {
 
     override fun toString(): String {
-        return "OoUser(id='$id', email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
+        return "OoUser(id='$id', password='$password, email='$email', name='$name', birthdate='$birthdate', gender='$gender', " +
                 "weigh='$weight', height='$height', picture='$picture', isLauncher='$isLauncher', " +
                 "address1='$address1', address2='$address2', tel='$tel', " +
                 "mobile='$mobile', partner='$partner', nationalCode='$nationalCode, deviceType='$deviceType, regiTimestamp='$regiTimestamp')"
