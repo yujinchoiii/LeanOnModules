@@ -1,12 +1,15 @@
 package com.opusone.leanon.oorealmmanager.model
 
 import io.realm.RealmObject
+import io.realm.annotations.Index
 
 open class OoRmAppUpdate: RealmObject() {
+    @Index
+    var packageName: String? = null
+
     var default: String? = null
     var image: String? = null
-    var packageName: String? = null
-    var vision: String? = null
+    var version: String? = null
     var link: String? = null
     var linkImage: String? = null
     var displayName: String? = null
