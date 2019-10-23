@@ -16,4 +16,13 @@ class OoParamAlbumPictureUpload (var userToken: String? = null,
     }
 }
 
+class OoParamProfilePictureUpload (var userId: String? = null,
+                                   var url: String? = null,
+                                   var filename: String? = null,
+                                   var bucketName: String? = null): Serializable {
 
+    override fun toString(): String {
+        return "OoParamAlbumPictureUpload(userId=$userId, " +
+                "url=$url, filename=$filename, bucketName=$bucketName)"
+    }
+}

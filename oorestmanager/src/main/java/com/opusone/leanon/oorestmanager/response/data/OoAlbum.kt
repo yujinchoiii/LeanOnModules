@@ -8,8 +8,15 @@ class OoResponseAlbumUpload(val picture: OoAlbumPicture? = null) : Serializable 
         return "OoResponseAlbumUpload(picture=$picture)"
     }
 }
+
 class OoResponseRecentAlbumList(val albumList: List<OoAlbumPicture>? = null) : Serializable {
     override fun toString(): String {
         return "OoResponseRecentAlbumList(albumList=$albumList)"
+    }
+}
+
+class OoResponseProfileImageUpload(val profileImageUrl: String? = null) : Serializable {
+    override fun toString(): String {
+        return "OoResponseProfileImageUpload(profileImageUrl=$profileImageUrl)"
     }
 }

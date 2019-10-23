@@ -422,6 +422,13 @@ object OoRestManager {
         }
         ApiAlbum.deleteAlbumPicture(ooRestServiceAlbum, albumId,  timestamp, completion)
     }
+
+    fun uploadProfilePicture(param: OoParamProfilePictureUpload, completion: (OoErrorResponse?, OoResponseProfileImageUpload?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
+        ApiAlbum.uploadProfilePicture(ooRestServiceAlbum, param, completion)
+    }
 }
 
 interface OoReachable {
