@@ -87,10 +87,10 @@ object OoRestManager {
 
 
     private var reachable: OoReachable? = null
-    private var noReachableListenr: OnNoReachableListener? = null
-    fun setReachable(reachable: OoReachable, listener: OnNoReachableListener) {
+    private var unreachableListenr: OnUnreachableListener? = null
+    fun setReachable(reachable: OoReachable, listener: OnUnreachableListener) {
         this.reachable = reachable
-        this.noReachableListenr = listener
+        this.unreachableListenr = listener
     }
 
     private fun isRechable(): Boolean {
@@ -99,7 +99,7 @@ object OoRestManager {
         }
         reachable?.let {
              if (!it.isReachable()) {
-                 noReachableListenr?.apply {
+                 unreachableListenr?.apply {
                      this()
                  }
                  return false
@@ -308,16 +308,10 @@ object OoRestManager {
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
-        if (!isRechable()) {
-            return
-        }
         ApiVoip.turnUrl(ooRestServiceVOIP, roomId, completion)
     }
 
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        if (!isRechable()) {
-            return
-        }
         ApiReport.appUse(ooRestServiceReport, param, completion)
     }
 
@@ -435,4 +429,4 @@ interface OoReachable {
     fun isReachable(): Boolean
 }
 
-typealias OnNoReachableListener = () -> Unit
+typealias OnUnreachableListener = () -> Unit
