@@ -7,7 +7,7 @@ open class OoRmAppUpdate: RealmObject() {
     @Index
     var packageName: String? = null
 
-    var default: String? = null
+    var default: Boolean = false
     var image: String? = null
     var version: String? = null
     var link: String? = null
@@ -16,6 +16,7 @@ open class OoRmAppUpdate: RealmObject() {
     var name: String? = null
     var category: String? = null
     var downloadUrl: String? = null
+    var downloadedPath: String? = null
     var state: Int = 0
     var timestamp: Long = 0
 }

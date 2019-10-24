@@ -308,16 +308,10 @@ object OoRestManager {
     }
 
     fun turnUrl(roomId: String,  completion:(OoErrorResponse?, OoResponseTurnUrl?) -> Unit) {
-        if (!isRechable()) {
-            return
-        }
         ApiVoip.turnUrl(ooRestServiceVOIP, roomId, completion)
     }
 
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
-        if (!isRechable()) {
-            return
-        }
         ApiReport.appUse(ooRestServiceReport, param, completion)
     }
 
