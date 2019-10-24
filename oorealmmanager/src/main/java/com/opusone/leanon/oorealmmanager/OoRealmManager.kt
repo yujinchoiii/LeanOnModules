@@ -356,6 +356,25 @@ object OoRealmManager {
         return null
     }
 
+    fun deleteMedicineWithId(medicineId : String) : Boolean {
+        val realm = Realm.getDefaultInstance()
+        var result = false
+
+        realm?.let {
+            try {
+                it.executeTransaction {
+                    it.where(OoRmMedicine::class.java).equalTo("medicineId", medicineId).findFirst()?.deleteFromRealm()
+                }
+                result = true
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            } finally {
+                it.close()
+            }
+        }
+        return result
+    }
+
     fun updateState(id: String, key : String, status: Boolean) {
         fun createRmStatus() {
             val state = OoRmStatus()
