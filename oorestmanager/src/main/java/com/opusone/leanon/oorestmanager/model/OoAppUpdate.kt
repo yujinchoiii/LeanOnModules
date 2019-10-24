@@ -10,10 +10,11 @@ class OoAppUpdate(val default: String? = null,
                   val name: String? = null,
                   val category: String? = null,
                   val downloadUrl: String? = null,
+                  val filename: String? = null,
                   val timestamp: Long = 0) {
 
     override fun toString(): String {
         return "OoAppUpdate(default=$default, image=$image, packageName=$packageName, version=$version, " +
-                "link=$link, linkImage=$linkImage, displayName=$displayName, name=$name, category=$category, downloadUrl=$downloadUrl, timestamp=$timestamp)"
+                "link=$link, linkImage=$linkImage, displayName=$displayName, name=$name, category=$category, filename=$filename, downloadUrl=$downloadUrl, timestamp=$timestamp)"
     }
 }

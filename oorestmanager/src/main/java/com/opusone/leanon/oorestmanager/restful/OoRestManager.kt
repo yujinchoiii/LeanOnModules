@@ -88,7 +88,7 @@ object OoRestManager {
 
     private var reachable: OoReachable? = null
     private var unreachableListenr: OnUnreachableListener? = null
-    fun setReachable(reachable: OoReachable, listener: OnUnreachableListener) {
+    fun setReachable(reachable: OoReachable?, listener: OnUnreachableListener?) {
         this.reachable = reachable
         this.unreachableListenr = listener
     }
@@ -146,10 +146,16 @@ object OoRestManager {
     }
 
     fun fineDust(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseFineDust?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiWeahter.fineDust(ooRestServiceWeather, admin, locality, completion)
     }
 
     fun weather(admin : String, locality: String,  completion:(OoErrorResponse?, OoResponseWeather?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiWeahter.weather(ooRestServiceWeather, admin, locality, completion)
     }
 
@@ -312,6 +318,9 @@ object OoRestManager {
     }
 
     fun createAppUseReport(param: OoParamAppUseReport, completion: (OoErrorResponse?, OoResponse?) -> Unit) {
+        if (!isRechable()) {
+            return
+        }
         ApiReport.appUse(ooRestServiceReport, param, completion)
     }
 
