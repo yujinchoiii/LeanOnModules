@@ -14,6 +14,7 @@ open class OoRmAppUpdate: RealmObject() {
     var linkImage: String? = null
     var displayName: String? = null
     var name: String? = null
+    var filename: String? = null
     var category: String? = null
     var downloadUrl: String? = null
     var downloadedPath: String? = null
