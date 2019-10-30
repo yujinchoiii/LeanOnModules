@@ -188,6 +188,28 @@ object OoRealmManager {
         realm.close()
     }
 
+    fun deleteMessageByIndex(index : Long) : Boolean {
+        val realm = Realm.getDefaultInstance()
+        var result = false
+
+        realm?.let {
+            try {
+                it.executeTransaction {
+                    it.where(OoRmMessage::class.java).equalTo(
+                        "index",
+                        index
+                    ).findFirst()?.deleteFromRealm()
+                }
+                result = true
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            } finally {
+                it.close()
+            }
+        }
+        return result
+    }
+
     fun getMessageCount(): Long {
         val realm = Realm.getDefaultInstance()
         var count: Long = 0
